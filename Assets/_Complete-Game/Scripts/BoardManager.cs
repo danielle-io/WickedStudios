@@ -6,7 +6,6 @@ using Random = UnityEngine.Random; 		//Tells Random to use the Unity Engine rand
 namespace Completed
 	
 {
-	
 	public class BoardManager : MonoBehaviour
 	{
 		// Using Serializable allows us to embed a class with sub properties in the inspector.
@@ -29,13 +28,20 @@ namespace Completed
 		public int columns = 8; 										//Number of columns in our game board.
 		public int rows = 8;											//Number of rows in our game board.
 		public Count wallCount = new Count (2, 4);						//Lower and upper limit for our random number of walls per level.
-		public Count foodCount = new Count (1, 5);						//Lower and upper limit for our random number of food items per level.
-		public GameObject exit;											//Prefab to spawn for exit.
-		public GameObject[] floorTiles;									//Array of floor prefabs.
+		public Count foodCount = new Count (1, 5);
+
+        // Add this back when we want random coworker placements
+        //public Count coworkerCount = new Count (3, 3);	
+        			
+		//public GameObject exit;
+        public GameObject boss;
+        public GameObject[] coworkers;
+        public GameObject[] floorTiles;									//Array of floor prefabs.
 		public GameObject[] wallTiles;									//Array of wall prefabs.
 		public GameObject[] foodTiles;									//Array of food prefabs.
 		public GameObject[] enemyTiles;									//Array of enemy prefabs.
-		public GameObject[] outerWallTiles;								//Array of outer tile prefabs.
+		public GameObject[] outerWallTiles;
+        					//Array of outer tile prefabs.
 		
 		private Transform boardHolder;									//A variable to store a reference to the transform of our Board object.
 		private List <Vector3> gridPositions = new List <Vector3> ();	//A list of possible locations to place tiles.
@@ -139,6 +145,9 @@ namespace Completed
 			
 			//Instantiate a random number of wall tiles based on minimum and maximum, at randomized positions.
 			LayoutObjectAtRandom (wallTiles, wallCount.minimum, wallCount.maximum);
+
+            // Add this back when we want random coworker placements
+            //LayoutObjectAtRandom(coworkers, coworkerCount.minimum, coworkerCount.maximum);
 			
 			//Instantiate a random number of food tiles based on minimum and maximum, at randomized positions.
 			LayoutObjectAtRandom (foodTiles, foodCount.minimum, foodCount.maximum);
@@ -150,7 +159,7 @@ namespace Completed
 			LayoutObjectAtRandom (enemyTiles, enemyCount, enemyCount);
 			
 			//Instantiate the exit tile in the upper right hand corner of our game board
-			Instantiate (exit, new Vector3 (columns - 1, rows - 1, 0f), Quaternion.identity);
+			//Instantiate (exit, new Vector3 (columns - 1, rows - 1, 0f), Quaternion.identity);
 		}
 	}
 }
