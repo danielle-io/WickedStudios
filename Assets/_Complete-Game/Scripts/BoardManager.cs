@@ -15,7 +15,6 @@ namespace Completed
 			public int minimum; 			//Minimum value for our Count class.
 			public int maximum; 			//Maximum value for our Count class.
 			
-			
 			//Assignment constructor.
 			public Count (int min, int max)
 			{
@@ -23,28 +22,30 @@ namespace Completed
 				maximum = max;
 			}
 		}
-		
-		
-		public int columns = 8; 										//Number of columns in our game board.
-		public int rows = 8;											//Number of rows in our game board.
-		public Count wallCount = new Count (2, 4);						//Lower and upper limit for our random number of walls per level.
-		public Count foodCount = new Count (1, 5);
 
+        public int columns = 10;
+        public int rows = 10;											
+		
+        public Count deskCount = new Count (2, 4);
+
+        // I have it stuck at 8 - 10 for now~
+        public Count paperCount = new Count(6, 12);		
+        	
         // Add this back when we want random coworker placements
         //public Count coworkerCount = new Count (3, 3);	
         			
-		//public GameObject exit;
         public GameObject boss;
         public GameObject[] coworkers;
-        public GameObject[] floorTiles;									//Array of floor prefabs.
-		public GameObject[] wallTiles;									//Array of wall prefabs.
-		public GameObject[] foodTiles;									//Array of food prefabs.
-		public GameObject[] enemyTiles;									//Array of enemy prefabs.
+        public GameObject[] floorTiles;									
+		public GameObject[] desks;									
 		public GameObject[] outerWallTiles;
-        					//Array of outer tile prefabs.
-		
-		private Transform boardHolder;									//A variable to store a reference to the transform of our Board object.
-		private List <Vector3> gridPositions = new List <Vector3> ();	//A list of possible locations to place tiles.
+        public GameObject[] papers;
+
+        //A variable to store a reference to the transform of our Board object.
+        private Transform boardHolder;
+
+        //A list of possible locations to place tiles.			
+        private List <Vector3> gridPositions = new List <Vector3> ();	
 		
 		
 		//Clears our list gridPositions and prepares it to generate a new board.
@@ -99,40 +100,59 @@ namespace Completed
 		//RandomPosition returns a random position from our list gridPositions.
 		Vector3 RandomPosition ()
 		{
-			//Declare an integer randomIndex, set it's value to a random number between 0 and the count of items in our List gridPositions.
-			int randomIndex = Random.Range (0, gridPositions.Count);
+            //Declare an integer randomIndex, set it's value to a random number between 0 and the count of items in our List gridPositions.
+
+           
+            int randomIndex = Random.Range (0, gridPositions.Count);
 			
-			//Declare a variable of type Vector3 called randomPosition, set it's value to the entry at randomIndex from our List gridPositions.
+			//Declare a variable of type Vector3 called 
+            // randomPosition, set it's value to the entry at 
+            // randomIndex from our List gridPositions.
 			Vector3 randomPosition = gridPositions[randomIndex];
 			
 			//Remove the entry at randomIndex from the list so that it can't be re-used.
 			gridPositions.RemoveAt (randomIndex);
-			
-			//Return the randomly selected Vector3 position.
-			return randomPosition;
+
+            // I added the + 1 so the items aren't too close to each other
+            try
+            {
+                gridPositions.RemoveAt(randomIndex + 1);
+                gridPositions.RemoveAt(randomIndex - 1);
+            }
+
+            catch(Exception e)
+            {
+                // temporarily
+                int temp = 0;
+                temp += 1;
+            }
+
+            //Return the randomly selected Vector3 position.
+            return randomPosition;
 		}
 		
 		
 		//LayoutObjectAtRandom accepts an array of game objects to choose from along with a minimum and maximum range for the number of objects to create.
 		void LayoutObjectAtRandom (GameObject[] tileArray, int minimum, int maximum)
 		{
-			//Choose a random number of objects to instantiate within the minimum and maximum limits
-			int objectCount = Random.Range (minimum, maximum+1);
-			
-			//Instantiate objects until the randomly chosen limit objectCount is reached
-			for(int i = 0; i < objectCount; i++)
+
+            //Choose a random number of objects to instantiate within the minimum and maximum limits
+            int objectCount = Random.Range (minimum, maximum+1);
+
+            Debug.Log(objectCount);
+            //Instantiate objects until the randomly chosen limit objectCount is reached
+            for (int i = 0; i < objectCount; i++)
 			{
 				//Choose a position for randomPosition by getting a random position from our list of available Vector3s stored in gridPosition
 				Vector3 randomPosition = RandomPosition();
 				
 				//Choose a random tile from tileArray and assign it to tileChoice
-				GameObject tileChoice = tileArray[Random.Range (0, tileArray.Length)];
+				//GameObject tileChoice = tileArray[Random.Range (0, tileArray.Length)];
 				
 				//Instantiate tileChoice at the position returned by RandomPosition with no change in rotation
-				Instantiate(tileChoice, randomPosition, Quaternion.identity);
+				Instantiate(tileArray[0], randomPosition, Quaternion.identity);
 			}
 		}
-		
 		
 		//SetupScene initializes our level and calls the previous functions to lay out the game board
 		public void SetupScene (int level)
@@ -142,24 +162,25 @@ namespace Completed
 			
 			//Reset our list of gridpositions.
 			InitialiseList ();
-			
-			//Instantiate a random number of wall tiles based on minimum and maximum, at randomized positions.
-			LayoutObjectAtRandom (wallTiles, wallCount.minimum, wallCount.maximum);
+
+
+            Debug.Log("desks " + deskCount.minimum + " " + deskCount.maximum);
+            //Instantiate a random number of wall tiles based on minimum and maximum, at randomized positions.
+            LayoutObjectAtRandom(desks, deskCount.minimum, deskCount.maximum);
 
             // Add this back when we want random coworker placements
             //LayoutObjectAtRandom(coworkers, coworkerCount.minimum, coworkerCount.maximum);
-			
-			//Instantiate a random number of food tiles based on minimum and maximum, at randomized positions.
-			LayoutObjectAtRandom (foodTiles, foodCount.minimum, foodCount.maximum);
-			
-			//Determine number of enemies based on current level number, based on a logarithmic progression
-			int enemyCount = (int)Mathf.Log(level, 2f);
-			
-			//Instantiate a random number of enemies based on minimum and maximum, at randomized positions.
-			LayoutObjectAtRandom (enemyTiles, enemyCount, enemyCount);
-			
-			//Instantiate the exit tile in the upper right hand corner of our game board
-			//Instantiate (exit, new Vector3 (columns - 1, rows - 1, 0f), Quaternion.identity);
-		}
-	}
+
+            //Determine number of enemies based on current level number, based on a logarithmic progression
+            //int enemyCount = (int)Mathf.Log(level, 2f);
+
+            LayoutObjectAtRandom(papers, 8, 10);
+
+            //Debug.Log("papers " + paperCount.minimum + " " + paperCount.maximum);
+            //LayoutObjectAtRandom(papers, paperCount.minimum, paperCount.maximum);
+
+            //Instantiate a random number of enemies based on minimum and maximum, at randomized positions.
+            //LayoutObjectAtRandom (enemyTiles, enemyCount, enemyCount);
+        }
+    }
 }
