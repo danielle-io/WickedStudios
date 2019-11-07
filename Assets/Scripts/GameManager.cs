@@ -4,8 +4,8 @@ using System.Collections;
 
 namespace WickedStudios
 {
-    using System.Collections.Generic;       //Allows us to use Lists. 
-    using UnityEngine.UI;                   //Allows us to use UI.
+    using System.Collections.Generic;       
+    using UnityEngine.UI;                   
 
     public class GameManager : MonoBehaviour
     {
@@ -28,13 +28,13 @@ namespace WickedStudios
         private GameObject levelImage;                          
         private BoardManager bm;
        
-       private int level = 1;
+        private int level = 1;
 
         //List of all Enemy units, used to issue them move commands.                                
         private List<Enemy> enemies;
-        //Boolean to check if enemies are moving.                   
         private bool enemiesMoving;
-        //Boolean to check if we're setting up board, prevent Player from moving during setup.                          
+        //Boolean to check if we're setting up board, 
+        // prevent Player from moving during setup.                          
         private bool doingSetup = true;                         
 
         //Awake is always called before any Start functions
@@ -110,7 +110,6 @@ namespace WickedStudios
 
             //Call the SetupScene function of the BoardManager script, pass it current level number.
             bm.SetupScene(level);
-
         }
 
 

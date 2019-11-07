@@ -34,7 +34,7 @@ namespace WickedStudios
             }
         }
 
-        public void setPaperObjectsLeft()
+        public void LowerPaperObjectsLeft()
         {
             paperObjectsLeft -= 1;
             Debug.Log("paper removed from paperObjectsLeft:: " + paperObjectsLeft);
@@ -53,7 +53,6 @@ namespace WickedStudios
         // Start is called before the first frame update
         void Start()
         {
-
         }
 
 
@@ -61,10 +60,7 @@ namespace WickedStudios
         // Update is called once per frame
         void Update()
         {
-
         }
-
-
     }
 }
 

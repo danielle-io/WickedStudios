@@ -166,7 +166,6 @@ namespace WickedStudios
                 default:
                     return 1;
             }
-
         }
 
         public void GetLevelSetupScript(int level)

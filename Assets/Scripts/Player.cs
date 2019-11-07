@@ -8,7 +8,6 @@ namespace WickedStudios
     //Player inherits from MovingObject, our base class for objects that can move, Enemy also inherits from this.
     public class Player : MovingObject
     {
-
         public float restartLevelDelay = 1f;
         public Text itemsText;
         public AudioClip moveSound1;
@@ -150,7 +149,7 @@ namespace WickedStudios
             }
 
             //Since the player has moved and lost food points, check if the game has ended.
-            CheckIfGameOver();
+            //CheckIfGameOver();
 
             //Set the playersTurn boolean of GameManager to false now that players turn is over.
             GameManager.instance.playersTurn = false;
@@ -188,7 +187,7 @@ namespace WickedStudios
         // (2D physics only)
         private void OnTriggerEnter2D(Collider2D collisionItem)
         {
-            //Debug.Log("hi");
+            Debug.Log("hi");
 
             //Check if the tag of the trigger collided with is Food.
             if (collisionItem.tag == "Items")
@@ -202,7 +201,7 @@ namespace WickedStudios
                 //SoundManager.instance.RandomizeSfx(eatSound1, eatSound2);
 
                 //Disable the food object the player collided with.
-                collisionItem.gameObject.SetActive(false);
+                //collisionItem.gameObject.SetActive(false);
             }
 
         }
@@ -236,11 +235,10 @@ namespace WickedStudios
 
 
         ////CheckIfGameOver checks if the player is out of food points and if so, ends the game.
-        private void CheckIfGameOver()
-        {
+        //private void CheckIfGameOver()
+        //{
             // Just putting a random thing in here for now
-            int temp = 0;
-            temp += 1;
+         
 
             ////Check if food point total is less than or equal to zero.
             //if (items <= 0) 
@@ -256,4 +254,4 @@ namespace WickedStudios
             //}
         }
     }
-}
+
