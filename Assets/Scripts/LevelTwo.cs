@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
 
 namespace WickedStudios
 {
@@ -8,6 +10,7 @@ namespace WickedStudios
     {
 
         BoardManager BM = new BoardManager();
+        private GameObject[] fallers;
 
         public void LevelTwoSetup()
         {
@@ -28,6 +31,7 @@ namespace WickedStudios
         // Update is called once per frame
         void Update()
         {
+
 
         }
     }

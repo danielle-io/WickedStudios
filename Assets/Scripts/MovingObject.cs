@@ -15,7 +15,7 @@ namespace WickedStudios
 		private float inverseMoveTime;			//Used to make movement more efficient.
 		
 		
-		//Protected, virtual functions can be overridden by inheriting classes.
+		// Protected, virtual functions can be overridden by inheriting classes.
 		protected virtual void Start ()
 		{
 			//Get a component reference to this object's BoxCollider2D
@@ -88,13 +88,18 @@ namespace WickedStudios
 		}
 		
 		
-		//The virtual keyword means AttemptMove can be overridden by inheriting classes using the override keyword.
-		//AttemptMove takes a generic parameter T to specify the type of component we expect our unit to interact with if blocked (Player for Enemies, Wall for Player).
+		// The virtual keyword means AttemptMove can be overridden 
+        // by inheriting classes using the override keyword.
+		// AttemptMove takes a generic parameter T to specify 
+        // the type of component we expect our unit to interact 
+        // with if blocked (Player for Enemies, Wall for Player).
 		protected virtual void AttemptMove <T> (int xDir, int yDir)
 			where T : Component
 		{
 			//Hit will store whatever our linecast hits when Move is called.
 			RaycastHit2D hit;
+
+            Debug.Log("in attempt move");
 			
 			//Set canMove to true if Move was successful, false if failed.
 			bool canMove = Move (xDir, yDir, out hit);

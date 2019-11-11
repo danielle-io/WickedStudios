@@ -26,16 +26,16 @@ namespace WickedStudios
         
         private Text levelText;                                
         private GameObject levelImage;                          
-        private BoardManager bm;
-       
-        private int level = 1;
+        private BoardManager bm;       
+        public int level = 1;
 
         //List of all Enemy units, used to issue them move commands.                                
-        private List<Enemy> enemies;
-        private bool enemiesMoving;
-        //Boolean to check if we're setting up board, 
+        private List<Coworker> coworkers;
+        private bool coworkersMoving;
+
+        // Boolean to check if we're setting up board, 
         // prevent Player from moving during setup.                          
-        private bool doingSetup = true;                         
+        //private bool doingSetup = true;                         
 
         //Awake is always called before any Start functions
         void Awake()
@@ -55,8 +55,8 @@ namespace WickedStudios
             //Sets this to not be destroyed when reloading scene
             DontDestroyOnLoad(gameObject);
 
-            //Assign enemies to a new List of Enemy objects.
-            enemies = new List<Enemy>();
+            //Assign coworkers to a new List of Enemy objects.
+            coworkers = new List<Coworker>();
 
             //Get a component reference to the attached BoardManager script
             bm = GetComponent<BoardManager>();
@@ -88,25 +88,19 @@ namespace WickedStudios
         void InitGame()
         {
             //While doingSetup is true the player can't move, prevent player from moving while title card is up.
-            doingSetup = true;
+            //doingSetup = true;
 
             //Get a reference to our image LevelImage by finding it by name.
-            levelImage = GameObject.Find("LevelImage");
-
-            //Get a reference to our text LevelText's text component by finding it by name and calling GetComponent.
-            //levelText = GameObject.Find("LevelText").GetComponent<Text>();
-
-            //Set the text of levelText to the string "Day" and append the current level number.
-            //levelText.text = "Level: " + level;
+            //levelImage = GameObject.Find("LevelImage");
 
             //Set levelImage to active blocking player's view of the game board during setup.
-            levelImage.SetActive(true);
+            //levelImage.SetActive(true);
 
             //Call the HideLevelImage function with a delay in seconds of levelStartDelay.
-            Invoke("HideLevelImage", levelStartDelay);
+            //Invoke("HideLevelImage", levelStartDelay);
 
             //Clear any Enemy objects in our List to prepare for next level.
-            enemies.Clear();
+            //coworkers.Clear();
 
             //Call the SetupScene function of the BoardManager script, pass it current level number.
             bm.SetupScene(level);
@@ -114,14 +108,14 @@ namespace WickedStudios
 
 
         //Hides black image used between levels
-        void HideLevelImage()
-        {
-            //Disable the levelImage gameObject.
-            levelImage.SetActive(false);
+        //void HideLevelImage()
+        //{
+        //    //Disable the levelImage gameObject.
+        //    levelImage.SetActive(false);
 
-            //Set doingSetup to false allowing player to move again.
-            doingSetup = false;
-        }
+        //    //Set doingSetup to false allowing player to move again.
+        //    doingSetup = false;
+        //}
 
         //Update is called every frame.
         void Update()
@@ -132,15 +126,33 @@ namespace WickedStudios
             }
 
             //Check that playersTurn or enemiesMoving or doingSetup are not currently true.
-            if (playersTurn || enemiesMoving || doingSetup)
+            if (playersTurn)
 
-                //If any of these are true, return and do not start MoveEnemies.
+                //If any of these are true, return and do not start moveCoworkers.
                 return;
 
             // Don't delete this yet, it breaks the code
-            StartCoroutine(MoveEnemies());
+            //StartCoroutine(MoveCoworkers());
+            Debug.Log("on update yall");
+
+            switch (level)
+            {
+                case 1:
+                    Coworker coworker = new Coworker();
+                    coworker.MoveCoworkers();
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                default:
+                    Debug.Log("default switch statement");
+                    break;
+            }
         }
 
+        // Depending on the level, we will call the correct
+        // check level over condition to find out if game has ended
         public bool GetEndConditionByLevel(int level)
         {
             LevelOne LvlOne = new LevelOne();
@@ -162,11 +174,11 @@ namespace WickedStudios
         }
 
         //Call this to add the passed in Enemy to the List of Enemy objects.
-        public void AddEnemyToList(Enemy script)
-        {
-            //Add Enemy to List enemies.
-            enemies.Add(script);
-        }
+        //public void AddEnemyToList(Coworker script)
+        //{
+        //    //Add Enemy to List coworkers.
+        //    coworkers.Add(script);
+        //}
 
 
         //GameOver is called when the player reaches 0 food points
@@ -182,36 +194,42 @@ namespace WickedStudios
             enabled = false;
         }
 
-        //Coroutine to move enemies in sequence.
-        IEnumerator MoveEnemies()
+        public int GetLevel()
         {
-            //While enemiesMoving is true player is unable to move.
-            enemiesMoving = true;
-
-            //Wait for turnDelay seconds, defaults to .1 (100 ms).
-            yield return new WaitForSeconds(turnDelay);
-
-            //If there are no enemies spawned (IE in first level):
-            if (enemies.Count == 0)
-            {
-                //Wait for turnDelay seconds between moves, replaces delay caused by enemies moving when there are none.
-                yield return new WaitForSeconds(turnDelay);
-            }
-
-            //Loop through List of Enemy objects.
-            for (int i = 0; i < enemies.Count; i++)
-            {
-                //Call the MoveEnemy function of Enemy at index i in the enemies List.
-                enemies[i].MoveEnemy();
-
-                //Wait for Enemy's moveTime before moving next Enemy, 
-                yield return new WaitForSeconds(enemies[i].moveTime);
-            }
-            //Once Enemies are done moving, set playersTurn to true so player can move.
-            playersTurn = true;
-
-            //Enemies are done moving, set enemiesMoving to false.
-            enemiesMoving = false;
+            return level;
         }
+
+        //Coroutine to move coworkers in sequence.
+        //IEnumerator MoveCoworkers()
+        //{
+        //    //While enemiesMoving is true player is unable to move.
+        //    coworkersMoving = true;
+
+        //    //Wait for turnDelay seconds, defaults to .1 (100 ms).
+        //    yield return new WaitForSeconds(turnDelay);
+
+        //    ////If there are no coworkers spawned (IE in first level):
+        //    //if (coworkers.Count == 0)
+        //    //{
+        //    //    //Wait for turnDelay seconds between moves, replaces delay caused by enemies moving when there are none.
+        //    //    yield return new WaitForSeconds(turnDelay);
+        //    //}
+
+        //    //Loop through List of Enemy objects.
+        //    for (int i = 0; i < coworkers.Count; i++)
+        //    {
+        //        //Call the MoveCoworker function of coworker at index i in the enemies List.
+        //        //coworkers[i].MoveCoworkers();
+
+        //        //Wait for Enemy's moveTime before moving next Enemy, 
+        //        yield return new WaitForSeconds(coworkers[i].moveTime);
+        //    }
+        //    //Once coworkers are done moving, set playersTurn to true so player can move.
+        //    playersTurn = true;
+
+        //    //Enemies are done moving, set enemiesMoving to false.
+        //    coworkersMoving = false;
+        //}
+
     }
 }

@@ -5,47 +5,56 @@ using UnityEngine.SceneManagement;
 
 namespace WickedStudios
 {
-    //Player inherits from MovingObject, our base class for objects that can move, Enemy also inherits from this.
+    // Player inherits from MovingObject, 
+    // our base class for objects that can move, 
+    // Enemy also inherits from this.
     public class Player : MovingObject
     {
         public float restartLevelDelay = 1f;
-        public Text itemsText;
+
         public AudioClip moveSound1;
         public AudioClip moveSound2;
+
         public AudioClip gameOverSound;
         public int pointsPerItems = 1;
 
-        public Text foodText;                       //UI Text to display current player food total.
+        public Text playerScoreText;
 
-        private Animator animator;                  //Used to store a reference to the Player's animator component.
-        private int items;                           //Used to store player food points total during level.
+        //Used to store a reference to the Player's animator component.
+        private Animator animator;                  
+        private int points;                        
         #if UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
-        private Vector2 touchOrigin = -Vector2.one; //Used to store location of screen touch origin for mobile controls.
-        #endif
 
+        private Vector2 touchOrigin = -Vector2.one; 
+
+        //Used to store location of screen touch origin for mobile controls.
+        #endif
 
         //Start overrides the Start function of MovingObject
         protected override void Start()
         {
             //Get a component reference to the Player's animator component
-            animator = GetComponent<Animator>();
+            //animator = GetComponent<Animator>();
 
             //Get the current food point total stored in GameManager.instance between levels.
-            items = GameManager.instance.playerItemPoints;
+            //points = GameManager.instance.playerItemPoints;
 
-            //Set the foodText to reflect the current player food total.
-            foodText.text = "Collected: " + items;
+            //Set the playerScoreText to reflect the current player food total.
+            //playerScoreText.text = "Collected: " + points;
+
+
+            //BoardManager.PlaceGameObjectAtRandom();
+
 
             //Call the Start function of the MovingObject base class.
             base.Start();
         }
 
-
         //This function is called when the behaviour becomes disabled or inactive.
         private void OnDisable()
         {
             //When Player object is disabled, store the current local food total in the GameManager so it can be re-loaded in next level.
-            GameManager.instance.playerItemPoints = items;
+            GameManager.instance.playerItemPoints = points;
         }
 
 
@@ -125,15 +134,16 @@ namespace WickedStudios
             }
         }
 
-        //AttemptMove overrides the AttemptMove function in the base class MovingObject
-        //AttemptMove takes a generic parameter T which for Player will be of the type Wall, it also takes integers for x and y direction to move in.
+        // AttemptMove overrides the AttemptMove function in the base class MovingObject
+        // AttemptMove takes a generic parameter T which for Player 
+        // will be of the type Wall, it also takes integers for 
+        // x and y direction to move in.
         protected override void AttemptMove<T>(int xDir, int yDir)
         {
             //Every time player moves, subtract from food points total.
             //items--;
 
-            //Update food text display to reflect current score.
-            foodText.text = "Collected: " + items;
+            //playerScoreText.text = "Collected: " + points;
 
             //Call the AttemptMove method of the base class, passing in the component T (in this case Wall) and x and y direction to move.
             base.AttemptMove<T>(xDir, yDir);
@@ -147,23 +157,18 @@ namespace WickedStudios
                 //Call RandomizeSfx of SoundManager to play the move sound, passing in two audio clips to choose from.
                 SoundManager.instance.RandomizeSfx(moveSound1, moveSound2);
             }
-
-            //Since the player has moved and lost food points, check if the game has ended.
-            //CheckIfGameOver();
-
-            //Set the playersTurn boolean of GameManager to false now that players turn is over.
+            
+            // Set the playersTurn boolean of GameManager to false 
+            // now that players turn is over.
             GameManager.instance.playersTurn = false;
         }
 
 
-        //OnCantMove overrides the abstract function OnCantMove in MovingObject.
-        //It takes a generic parameter T which in the case of Player is a Wall which the player can attack and destroy.
+        // OnCantMove overrides the abstract function OnCantMove in MovingObject.
+        // It takes a generic parameter T which in the case of Player 
+        // is a Wall which the player can attack and destroy.
         protected override void OnCantMove<T>(T component)
         {
-
-            // Temp for now
-            int temp = 0;
-            temp += 1;
 
             ////Set hitWall to equal the component passed in as a parameter.
             //Wall hitWall = component as Wall;
@@ -173,13 +178,12 @@ namespace WickedStudios
             //animator.SetTrigger("playerChop");
         }
 
-        public void addItem(int num)
+        public void SetPoints(int num)
         {
-            this.items += 1;
-            foodText.text = " Collected: " + items;
+            this.points += 1;
+            //playerScoreText.text = " Collected: " + points;
 
         }
-
 
         // OnTriggerEnter2D is sent 
         // when another object enters a 
@@ -187,22 +191,7 @@ namespace WickedStudios
         // (2D physics only)
         private void OnTriggerEnter2D(Collider2D collisionItem)
         {
-            Debug.Log("hi");
-
-            //Check if the tag of the trigger collided with is Food.
-            if (collisionItem.tag == "Items")
-            {
-                //Add pointsPerFood to the players current food total.
-                //items += pointsPerItems;
-
-                //Update foodText to represent current total and notify player that they gained points
-
-                //Call the RandomizeSfx function of SoundManager and pass in two eating sounds to choose between to play the eating sound effect.
-                //SoundManager.instance.RandomizeSfx(eatSound1, eatSound2);
-
-                //Disable the food object the player collided with.
-                //collisionItem.gameObject.SetActive(false);
-            }
+            Debug.Log("Triggered Collision in Player");
 
         }
 
@@ -214,44 +203,6 @@ namespace WickedStudios
             //and not load all the scene object in the current scene.
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
         }
-
-
-        //LoseFood is called when an enemy attacks the player.
-        //It takes a parameter loss which specifies how many points to lose.
-        //public void LoseFood(int loss)
-        //{
-        //    //Set the trigger for the player animator to transition to the playerHit animation.
-        //    animator.SetTrigger("playerHit");
-
-        //    //Subtract lost food points from the players total.
-        //    items -= loss;
-
-        //    //Update the food display with the new total.
-        //    foodText.text = "-" + loss + " Tasks: " + items;
-
-        //    //Check to see if game has ended.
-        //    CheckIfGameOver();
-        //}
-
-
-        ////CheckIfGameOver checks if the player is out of food points and if so, ends the game.
-        //private void CheckIfGameOver()
-        //{
-            // Just putting a random thing in here for now
-         
-
-            ////Check if food point total is less than or equal to zero.
-            //if (items <= 0) 
-            //{
-            //  //Call the PlaySingle function of SoundManager and pass it the gameOverSound as the audio clip to play.
-            //  SoundManager.instance.PlaySingle (gameOverSound);
-
-            //  //Stop the background music.
-            //  SoundManager.instance.musicSource.Stop();
-
-            //  //Call the GameOver function of GameManager.
-            //  GameManager.instance.GameOver ();
-            //}
-        }
     }
+}
 

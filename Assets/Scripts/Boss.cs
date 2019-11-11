@@ -19,28 +19,40 @@ namespace WickedStudios
 
             Player player = collision.GetComponent<Player>();
 
-            if (player != null)
+            if (collision.gameObject.tag == "Player")
             {
-                Debug.Log("playuh" + count);
                 // runs if the player currently has a paper
                 if (paper.GetPlayerHasPaper())
                 {
-                    Debug.Log("papuhhhh ");
                     LevelOne LvlOne = new LevelOne();
 
                     SoundManager.instance.RandomizeSfx(paperPassedToBoss);
 
+                    LvlOne.LowerPaperObjectsLeft();
+
+                    Debug.Log("PAPER PASSED TO BOSS BY PLAYER ");
+
+                    player.SetPoints(1);
+
+                    paper.SetPlayerHasPaper(false);
+                }
+            }
+            if (collision.gameObject.tag == "Coworker")
+            {
+                if (paper.GetCoworkerHasPaper())
+                {
+                    LevelOne LvlOne = new LevelOne();
+
+                    SoundManager.instance.RandomizeSfx(paperPassedToBoss);
 
                     LvlOne.LowerPaperObjectsLeft();
 
-                    // FOR DEBUGGING ONLY
-                    count += 1;
-                    Debug.Log("PAPER PASSED TO BOSS BY PLAYER " + count);
+                    Debug.Log("PAPER PASSED TO BOSS BY coworker");
 
-                    player.addItem(1);
-                    paper.SetPlayerHasPaper(false);
+                    //coworker.SetPoints(1);
+
+                    paper.SetCoworkerHasPaper(false);
                 }
-           
             }
 
         }

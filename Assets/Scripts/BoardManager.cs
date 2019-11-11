@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System;
+using System.Collections;
 using System.Collections.Generic; 		
 using Random = UnityEngine.Random; 		
 
@@ -25,15 +26,19 @@ namespace WickedStudios
 			}
 		}
 
-        public int columns = 10;
-        public int rows = 10;
-        	
+        public int columns = 8;
+        public int rows = 8;
+
         public GameObject boss;
+        public GameObject player;
+        public GameObject outerWallTiles;
+        public GameObject floorTiles;
+        public GameObject plant;
         public GameObject[] coworkers;
-        public GameObject[] floorTiles;									
 		public GameObject[] desks;									
-		public GameObject[] outerWallTiles;
         public GameObject[] papers;
+        public static ArrayList allItemPositions = new ArrayList();
+
 
         //A variable to store a reference to the transform of our Board object.
         private Transform boardHolder;
@@ -45,9 +50,7 @@ namespace WickedStudios
 		{
 			//Clear our list gridPositions.
 			gridPositions.Clear ();
-
-            Debug.Log("columns:: " + columns + " rows:: " + rows);
-
+            
             //Loop through x axis (columns).
             for (int x = 1; x < columns-1; x++)
 			{
@@ -64,26 +67,31 @@ namespace WickedStudios
 		void BoardSetup ()
 		{
 			//Instantiate Board and set boardHolder to its transform.
-			boardHolder = new GameObject ("Board").transform;
+			boardHolder = new GameObject("Board").transform;
 			
-			//Loop along x axis, starting from -1 (to fill corner) with floor or outerwall edge tiles.
+			// Loop along x axis, starting from -1 (to fill corner) with floor or 
+            // outerwall edge tiles.
 			for(int x = -1; x < columns + 1; x++)
 			{
 				//Loop along y axis, starting from -1 to place floor or outerwall tiles.
 				for(int y = -1; y < rows + 1; y++)
 				{
-					//Choose a random tile from our array of floor tile prefabs and prepare to instantiate it.
-					GameObject toInstantiate = floorTiles[Random.Range (0,floorTiles.Length)];
+					// Choose a random tile from our array of 
+                    // floor tile prefabs and prepare to instantiate it.
+					GameObject toInstantiate = floorTiles;
 					
-					//Check if we current position is at board edge, if so choose a random outer wall prefab from our array of outer wall tiles.
+					// Check if we current position is at board edge, 
+                    // if so choose a random outer wall prefab from 
+                    // our array of outer wall tiles.
 					if(x == -1 || x == columns || y == -1 || y == rows)
-						toInstantiate = outerWallTiles [Random.Range (0, outerWallTiles.Length)];
+						toInstantiate = outerWallTiles;
+
+					GameObject instance = Instantiate 
+                        (toInstantiate, new Vector3 (x, y, 0f), Quaternion.identity) as GameObject;
 					
-					//Instantiate the GameObject instance using the prefab chosen for toInstantiate at the Vector3 corresponding to current grid position in loop, cast it to GameObject.
-					GameObject instance =
-						Instantiate (toInstantiate, new Vector3 (x, y, 0f), Quaternion.identity) as GameObject;
-					
-					//Set the parent of our newly instantiated object instance to boardHolder, this is just organizational to avoid cluttering hierarchy.
+					// Set the parent of our newly instantiated 
+                    // object instance to boardHolder, this is just 
+                    // organizational to avoid cluttering hierarchy.
 					instance.transform.SetParent (boardHolder);
 				}
 			}
@@ -96,10 +104,16 @@ namespace WickedStudios
 
             // set the vector's value to the entry at 
             // randomIndex from our List gridPositions.
+            
             Vector3 randomPosition = gridPositions[randomIndex];
-			
-			//Remove the entry at randomIndex from the list so that it can't be re-used.
-			gridPositions.RemoveAt (randomIndex);
+
+            // To prevent overlap of random items
+            while (allItemPositions.Contains(randomPosition)){
+                randomPosition = gridPositions[randomIndex];
+            }
+
+            //Remove the entry at randomIndex from the list so that it can't be re-used.
+            gridPositions.RemoveAt (randomIndex);
 
             // I added the + 1 so the items aren't too close to each other
             // until I figure out a better way - D
@@ -118,11 +132,9 @@ namespace WickedStudios
             return randomPosition;
 		}
 		
-	    public int  ChooseGameObjectsFromArrAtRandom (GameObject[] itemArr, int minimum, int maximum)
+	    public int ChooseGameObjectsFromArrAtRandom (int minimum, int maximum)
 		{
-
-
-            //Choose a random number of objects to instantiate within the minimum and maximum limits
+            // Choose a random number of objects to instantiate within the minimum and maximum limits
             return Random.Range(minimum, maximum + 1);
         }
 
@@ -135,36 +147,45 @@ namespace WickedStudios
             }
         }
 
-        public void PlaceGameObjectAtRandom(GameObject item)
+        public Vector3 PlaceGameObjectAtRandom(GameObject item)
         {
-
             int extraSpacePerItem = GetRandomSpacePerItem(item);
 
-            //Choose a position for randomPosition by getting a random position from our list of available Vector3s stored in gridPosition
+            // Choose a position for randomPosition by 
+            // getting a random position from our list of available 
+            // Vector3s stored in gridPosition
             Vector3 randomPosition = RandomPosition(extraSpacePerItem);
 
-            //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation
             Instantiate(item, randomPosition, Quaternion.identity);
+            return randomPosition;
+        }
+
+        public ArrayList GetOccupiedPositions()
+        {
+            return allItemPositions;
+        }
+
+        public void SetOccupiedPositions(Vector3 currentItem)
+        {
+            allItemPositions.Add(currentItem);
         }
 
         public int GetRandomSpacePerItem(GameObject item)
         {
-            Debug.Log("item is " + item + item.transform.name);
-
-            String itemName = item.transform.name.Substring(0, item.transform.name.Length - 1);
+            Debug.Log("item is " + item.transform.tag);
+            String itemName = item.transform.name;
             switch (itemName)
             {
-
                 case "Paper":
-                    Debug.Log("made it in papers");
                     return 2;
-                //case "coworkers":
-                //    return 1;
-                //    break;
+                case "Coworker":
+                    return 1;
                 case "Desk":
                     return 2;
+                case "Player":
+                    return 3;
                 default:
-                    return 1;
+                    return 2;
             }
         }
 
@@ -177,7 +198,8 @@ namespace WickedStudios
             switch (level)
             {
                 case 1:
-                    LvlOne.LevelOneSetup(papers, desks, coworkers);
+                    LvlOne.LevelOneSetup(player, 
+                        papers, desks, coworkers, boss, plant);
                     break;
                 case 2:
                     LvlTwo.LevelTwoSetup();

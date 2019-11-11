@@ -8,40 +8,40 @@ namespace WickedStudios
     {
         public AudioClip clip;
         public int paperValue = 1;
-        public GameManager gameManager;
-
         public static bool playerHasPaper = false;
-
-        //public static int check = 0;
-
-        // temp var
-        static int count = 0;
-
-        // Also edit this so that coworkers picking up
-        // papers effects everything
-        public void OnTriggerEnter2D(Collider2D collision)
+        public static bool coworkerHasPaper = false;
+       
+       public void OnTriggerEnter2D(Collider2D collision)
         {
-            //playerHasPaper = GetPlayerHasPaper();
-
+            LevelOne lvlOne = new LevelOne();
             Player player = collision.GetComponent<Player>();
-            Debug.Log("playerHasPaper " + GetPlayerHasPaper());
-
-            if (player != null)
+            Coworker coworker = collision.GetComponent<Coworker>();
+            if (collision.gameObject.tag == "Player")
             {
-
                 if (!GetPlayerHasPaper())
                 {
-
-                    //check += 1;
                     Debug.Log("PAPER GRABBED BY PLAYER ");
-
                     Destroy(gameObject);
-
-                    SetPlayerHasPaper(true);
-
-                    player.addItem(1);
+                    if (gameObject != null)
+                    {
+                        Destroy(gameObject);
+                        SetPlayerHasPaper(true);
+                    }
                 }
-               
+            }
+
+            if (collision.gameObject.tag == "Coworker")
+            {
+                if (!GetCoworkerHasPaper())
+                {
+                    Debug.Log("PAPER GRABBED BY COWORKER ");
+                    if (gameObject != null)
+                    {
+                        Destroy(gameObject);
+                        SetCoworkerHasPaper(true);
+                    }
+
+                }
             }
         }
 
@@ -50,10 +50,19 @@ namespace WickedStudios
             return playerHasPaper;
         }
 
+        public bool GetCoworkerHasPaper()
+        {
+            return coworkerHasPaper;
+        }
 
         public void SetPlayerHasPaper(bool hasPaper)
         {
             playerHasPaper = hasPaper;
+        }
+
+        public void SetCoworkerHasPaper(bool hasPaper)
+        {
+            coworkerHasPaper = hasPaper;
         }
 
         // Start is called before the first frame update
