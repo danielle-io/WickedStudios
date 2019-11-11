@@ -9,10 +9,8 @@ namespace WickedStudios
     public class Boss : MonoBehaviour
     {
         public AudioClip paperPassedToBoss;
+        Coworker coworker = new Coworker();
 
-        // FOR DEBUGGING
-
-        static int count = 0;
         public void OnTriggerEnter2D(Collider2D collision)
         {
             PaperPickup paper = new PaperPickup();
@@ -28,8 +26,6 @@ namespace WickedStudios
 
                     SoundManager.instance.RandomizeSfx(paperPassedToBoss);
 
-                    LvlOne.LowerPaperObjectsLeft();
-
                     Debug.Log("PAPER PASSED TO BOSS BY PLAYER ");
 
                     player.SetPoints(1);
@@ -44,12 +40,10 @@ namespace WickedStudios
                     LevelOne LvlOne = new LevelOne();
 
                     SoundManager.instance.RandomizeSfx(paperPassedToBoss);
-
-                    LvlOne.LowerPaperObjectsLeft();
-
+                    
                     Debug.Log("PAPER PASSED TO BOSS BY coworker");
 
-                    //coworker.SetPoints(1);
+                    coworker.SetPoints();
 
                     paper.SetCoworkerHasPaper(false);
                 }

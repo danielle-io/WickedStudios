@@ -9,42 +9,27 @@ namespace WickedStudios
 {
 	public class BoardManager : MonoBehaviour
 	{
-		// Using Serializable allows us to embed a class 
-        // with sub properties in the inspector
-		[Serializable]
-		public class Count
-		{
-			public int minimum; 			
-			public int maximum; 			
-			
-			//Assignment constructor.
-			public Count (int min, int max)
-			{
-				minimum = min;
-				maximum = max;
-			}
-		}
 
         public int columns = 9;
         public int rows = 9;
-
+        GameManager gm = new GameManager();
+        private Transform boardHolder;
         public GameObject boss;
         public GameObject player;
-        public GameObject outerWallTiles;
-        public GameObject floorTiles;
         public GameObject plant;
         public GameObject coworker;
-		public GameObject[] desks;									
-        public GameObject papers;
-        public static ArrayList allItemPositions = new ArrayList();
+        public GameObject paper;
+        public GameObject[] desks;
+        public GameObject outerWallTiles;
+        public GameObject floorTiles;
+
+
 
         //A variable to store a reference to the transform of our Board object.
-        private Transform boardHolder;
+        private static List<Vector3> gridPositions = new List<Vector3>();
 
-        //A list of possible locations to place tiles.			
-        private static List <Vector3> gridPositions = new List <Vector3> ();	
-		
-		void InitialiseList ()
+        //Reset our list of gridpositions.
+        void InitialiseList ()
 		{
 			//Clear our list gridPositions.
 			gridPositions.Clear ();
@@ -61,113 +46,54 @@ namespace WickedStudios
 			}
 		}
 		
-		void BoardSetup ()
+		public Vector3 GetRandomPosition(GameObject item)
 		{
-			//Instantiate Board and set boardHolder to its transform.
-			boardHolder = new GameObject("Board").transform;
-			
-			// Loop along x axis, starting from -1 (to fill corner) with floor or 
-            // outerwall edge tiles.
-			for(int x = -1; x < columns + 1; x++)
-			{
-				//Loop along y axis, starting from -1 to place floor or outerwall tiles.
-				for(int y = -1; y < rows + 1; y++)
-				{
-					GameObject toInstantiate = floorTiles;
-					
-			
-					if(x == -1 || x == columns || y == -1 || y == rows)
-						toInstantiate = outerWallTiles;
-
-					GameObject instance = Instantiate 
-                        (toInstantiate, new Vector3 (x, y, 0f), Quaternion.identity) as GameObject;
-					
-					// Set the parent of our newly instantiated 
-                    // object instance to boardHolder, this is just 
-                    // organizational to avoid cluttering hierarchy.
-					instance.transform.SetParent (boardHolder);
-				}
-			}
-		}
-		
-		//RandomPosition returns a random position from our list gridPositions.
-		Vector3 RandomPosition(int extraSpacePerItem)
-		{
+            Debug.Log("In get random position");
             int randomIndex = Random.Range (0, gridPositions.Count);
-
-            // set the vector's value to the entry at 
-            // randomIndex from our List gridPositions.
-            
             Vector3 randomPosition = gridPositions[randomIndex];
 
-            int count = 0;
-            // To prevent overlap of random items
-            while (allItemPositions.Contains(randomPosition) && count != 3){
-                randomPosition = gridPositions[randomIndex];
-                count += 1;
-            }
+            gridPositions.RemoveAt(randomIndex);
 
-            //Remove the entry at randomIndex from the list so that it can't be re-used.
-            gridPositions.RemoveAt (randomIndex);
+            // Removing some space around the object so they
+            // aren't too close together
+            int extraSpacePerItem = GetRandomSpacePerItem(item);
+            RemoveNearbyGrids(randomIndex, extraSpacePerItem);
 
-            // I added the + 1 so the items aren't too close to each other
-            // until I figure out a better way - D
+            return randomPosition;
+		}
+
+        public void AddObjectToBoardAtPosition(GameObject item, Vector3 position)
+        {
+
+            Instantiate(item, position, Quaternion.identity);
+        }
+
+
+        public void RemoveNearbyGrids(int position, int extraSpacePerItem)
+        {
             try
             {
-                gridPositions.RemoveAt(randomIndex + extraSpacePerItem);
-                gridPositions.RemoveAt(randomIndex - extraSpacePerItem);
+                gridPositions.RemoveAt(position + extraSpacePerItem);
+                gridPositions.RemoveAt(position - extraSpacePerItem);
             }
 
-            catch(Exception)
+            catch (Exception)
             {
                 Debug.Log("in the catch for gridPosition setting");
             }
+        }
 
-            //Return the randomly selected Vector3 position.
-            return randomPosition;
-		}
-		
-	    public int ChooseGameObjectsFromArrAtRandom (int minimum, int maximum)
+
+        public int ChooseRandomNumInRange(int minimum, int maximum)
 		{
             return Random.Range(minimum, maximum + 1);
         }
 
-        public void PlaceArrOfGameObjectsAtRandom(GameObject[] itemArr, int objectCount)
-        {
-            //Instantiate objects until the randomly chosen limit objectCount is reached
-            for (int i = 0; i < objectCount; i++)
-            {
-                PlaceGameObjectAtRandom(itemArr[0]);
-            }
-        }
-
-        public Vector3 PlaceGameObjectAtRandom(GameObject item)
-        {
-            int extraSpacePerItem = GetRandomSpacePerItem(item);
-
-            // Choose a position for randomPosition by 
-            // getting a random position from our list of available 
-            // Vector3s stored in gridPosition
-            Vector3 randomPosition = RandomPosition(extraSpacePerItem);
-
-            Instantiate(item, randomPosition, Quaternion.identity);
-            return randomPosition;
-        }
-
-        public ArrayList GetOccupiedPositions()
-        {
-            return allItemPositions;
-        }
-
-        public void SetOccupiedPositions(Vector3 currentItem)
-        {
-            allItemPositions.Add(currentItem);
-        }
 
         public int GetRandomSpacePerItem(GameObject item)
         {
             Debug.Log("item is " + item.transform.tag);
-            String itemName = item.transform.name;
+            String itemName = item.transform.tag;
             switch (itemName)
             {
                 case "Paper":
@@ -183,27 +109,34 @@ namespace WickedStudios
             }
         }
 
-        public void GetLevelSetupScript(int level)
+        // Creates the outer walls and floor.
+        void BoardSetup()
         {
-            LevelOne LvlOne = new LevelOne();
-            LevelTwo LvlTwo = new LevelTwo();
-            LevelThree LvlThree = new LevelThree();
 
-            switch (level)
+            //Instantiate Board and set boardHolder to its transform.
+            boardHolder = new GameObject("Board").transform;
+
+            // Loop along x axis, starting from -1 (to fill corner) with floor or 
+            // outerwall edge tiles.
+            for (int x = -1; x < columns + 1; x++)
             {
-                case 1:
-                    LvlOne.LevelOneSetup(player, 
-                        papers, desks, coworker, boss, plant);
-                    break;
-                case 2:
-                    LvlTwo.LevelTwoSetup();
-                    break;
-                case 3:
-                    LvlThree.LevelThreeSetup();
-                    break;
-                default:
-                    Debug.Log("default switch statement");
-                    break;
+                //Loop along y axis, starting from -1 to place floor or outerwall tiles.
+                for (int y = -1; y < rows + 1; y++)
+                {
+                    GameObject toInstantiate = floorTiles;
+
+
+                    if (x == -1 || x == columns || y == -1 || y == rows)
+                        toInstantiate = outerWallTiles;
+
+                    GameObject instance = Instantiate
+                        (toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
+
+                    // Set the parent of our newly instantiated 
+                    // object instance to boardHolder, this is just 
+                    // organizational to avoid cluttering hierarchy.
+                    instance.transform.SetParent(boardHolder);
+                }
             }
         }
 
@@ -211,13 +144,34 @@ namespace WickedStudios
         // calls the previous functions to lay out the game board
         public void SetupScene (int level)
 		{
-			//Creates the outer walls and floor.
-			BoardSetup();
-			
-			//Reset our list of gridpositions.
-			InitialiseList();
+            LevelOne lvlOne = new LevelOne();
+            LevelTwo lvlTwo = new LevelTwo();
+            LevelThree lvlThree = new LevelThree();
 
-            GetLevelSetupScript(level);
+            switch (level)
+            {
+                case 1:
+                    Debug.Log("In case one of setup scene in bm");
+                    BoardSetup();
+                    //lvlOne.BoardSetup(rows, columns);
+                    InitialiseList();
+                    lvlOne.LevelOneSetup(player,
+                        paper, desks, coworker, boss, plant);
+                    break;
+                case 2:
+                    lvlTwo.BoardSetup(rows, columns);
+                    InitialiseList();
+                    lvlTwo.LevelTwoSetup();
+                    break;
+                case 3:
+                    lvlThree.BoardSetup(rows, columns);
+                    InitialiseList();
+                    lvlThree.LevelThreeSetup();
+                    break;
+                default:
+                    Debug.Log("default switch statement");
+                    break;
+            }
         }
     }
 }

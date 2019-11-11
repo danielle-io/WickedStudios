@@ -3,12 +3,10 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 
 namespace WickedStudios
-{
-    using System.Collections.Generic;       
-    using UnityEngine.UI;                   
-
+{                  
     public class GameManager : MonoBehaviour
     {
+
         //Time to wait before starting level, in seconds.
         public float levelStartDelay = 2f;
 
@@ -18,11 +16,6 @@ namespace WickedStudios
         public int playerItemPoints = 0;         
         public static GameManager instance = null;
 
-        ////Boolean to check if it's players turn, hidden in inspector but public.        
-        //[HideInInspector] public bool playersTurn = true;
-        
-        private Text levelText;                                
-        private GameObject levelImage;                          
         private BoardManager bm;       
         public int level = 1;
         
@@ -68,25 +61,16 @@ namespace WickedStudios
         //Initializes the game for each level.
         void InitGame()
         {
+            Debug.Log("level is :: " + level);
             bm.SetupScene(level);
         }
 
         //Update is called every frame.
         void Update()
         {
-
             if (GetEndConditionByLevel(level)){
                 Debug.Log("LEVEL IS OVER");
             }
-
-            ////Check that playersTurn or enemiesMoving or doingSetup are not currently true.
-            //if (playersTurn)
-
-                ////If any of these are true, return and do not start moveCoworkers.
-                //return;
-
-            // Don't delete this yet, it breaks the code
-            //StartCoroutine(MoveCoworkers());
         }
 
         public bool GetEndConditionByLevel(int level)

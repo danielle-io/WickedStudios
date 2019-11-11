@@ -6,13 +6,13 @@ namespace WickedStudios
 	//The abstract keyword enables you to create classes and class members that are incomplete and must be implemented in a derived class.
 	public abstract class MovingObject : MonoBehaviour
 	{
-		public float moveTime = 0.1f;			//Time it will take object to move, in seconds.
-		public LayerMask blockingLayer;			//Layer on which collision will be checked.
-		
-		
-		private BoxCollider2D boxCollider; 		//The BoxCollider2D component attached to this object.
-		private Rigidbody2D rb2D;				//The Rigidbody2D component attached to this object.
-		private float inverseMoveTime;			//Used to make movement more efficient.
+		public float moveTime = 0.1f;			
+		public LayerMask blockingLayer;     
+
+        //The BoxCollider2D component attached to this object.
+        private BoxCollider2D boxCollider; 		
+		private Rigidbody2D rb2D;				
+		private float inverseMoveTime;			
 		
 		
 		// Protected, virtual functions can be overridden by inheriting classes.
@@ -118,7 +118,6 @@ namespace WickedStudios
 				//Call the OnCantMove function and pass it hitComponent as a parameter.
 				OnCantMove (hitComponent);
 		}
-		
 		
 		//The abstract modifier indicates that the thing being modified has a missing or incomplete implementation.
 		//OnCantMove will be overriden by functions in the inheriting classes.

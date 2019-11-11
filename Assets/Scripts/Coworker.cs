@@ -6,22 +6,17 @@ namespace WickedStudios
 	//Enemy inherits from MovingObject, our base class for objects that can move, Player also inherits from this.
 	public class Coworker : MovingObject
 	{
-		public AudioClip attackSound1;
-        //public AudioClip attackSound2;
-
         //Variable of type Animator to store a 
         // reference to the coworker's Animator component.
         //private Animator animator;	
 
-        //Transform to attempt to move toward each turn.						
-        //private Transform target;
-        //private Transform coworker;
         private bool paperTargetFound = false;
         public float coworkerSpeed = .00001f;
         private GameObject[] paper;
         private Transform targetPaper;
         private GameObject boss;
         private Transform targetBoss;
+        private static int points = 0;
         		
 		//Start overrides the virtual Start function of the base class.
 		protected override void Start ()
@@ -33,7 +28,6 @@ namespace WickedStudios
             base.Start ();
 		}
 		
-		
 		//Override the AttemptMove function of MovingObject to include functionality needed for Enemy to skip turns.
 		//See comments in MovingObject for more on how base AttemptMove function works.
 		protected override void AttemptMove <T> (int xDir, int yDir)
@@ -42,13 +36,7 @@ namespace WickedStudios
 			base.AttemptMove <T> (xDir, yDir);
 		}
 
-
         public void OnTriggerEnter2D(Collider2D collision)
-        {
-        }
-
-
-        void Awake()
         {
         }
 
@@ -59,7 +47,7 @@ namespace WickedStudios
 
             Debug.Log("in coworker paperObjectsLeft are " + lvlOne.GetPaperObjectsLeft());
 
-            // If theres paper
+            // If there's paper
             if (lvlOne.GetPaperObjectsLeft() > 0)
             {
                 // If coworker does not have paper, find & get it
@@ -68,7 +56,7 @@ namespace WickedStudios
                     Debug.Log("Coworker does not have paper");
                     if (!paperTargetFound || targetPaper == null)
                     {
-                        getPaperTarget();
+                        GetPaperTarget();
                     }
 
                     if (paperTargetFound)
@@ -90,7 +78,7 @@ namespace WickedStudios
             }
         }
 
-        public void getPaperTarget()
+        public void GetPaperTarget()
         {
             LevelOne lvlOne = new LevelOne();
             if (lvlOne.GetPaperObjectsLeft() > 0)
@@ -106,7 +94,6 @@ namespace WickedStudios
                 }
                 paperTargetFound = true;
             }
-        
         }
 
 		//OnCantMove is called if Enemy attempts to move into a space occupied by a Player, it overrides the OnCantMove function of MovingObject 
@@ -114,5 +101,10 @@ namespace WickedStudios
 		protected override void OnCantMove <T> (T component)
 		{
 		}
-	}
+
+        public void SetPoints()
+        {
+            points += 1;
+        }
+    }
 }

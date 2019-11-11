@@ -40,7 +40,6 @@ namespace WickedStudios
                         Destroy(gameObject);
                         SetCoworkerHasPaper(true);
                     }
-
                 }
             }
         }
