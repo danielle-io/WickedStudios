@@ -92,76 +92,27 @@ namespace WickedStudios
 
         public void getPaperTarget()
         {
-            PaperPickup paperPickup = new PaperPickup();
-            // If coworker does not have paper, find & move
-            // towards it
-            if (!paperPickup.GetCoworkerHasPaper())
+            LevelOne lvlOne = new LevelOne();
+            if (lvlOne.GetPaperObjectsLeft() > 0)
             {
-                paper = GameObject.FindGameObjectsWithTag("Paper");
-                targetPaper = paper[Random.Range(0, paper.Length)].transform;
-                Debug.Log("in getPaperTarget, target paper is " + targetPaper);
+                PaperPickup paperPickup = new PaperPickup();
+                // If coworker does not have paper, find & move
+                // towards it
+                if (!paperPickup.GetCoworkerHasPaper())
+                {
+                    paper = GameObject.FindGameObjectsWithTag("Paper");
+                    targetPaper = paper[Random.Range(0, paper.Length)].transform;
+                    Debug.Log("in getPaperTarget, target paper is " + targetPaper);
+                }
+                paperTargetFound = true;
             }
-            paperTargetFound = true;
+        
         }
-        // MoveEnemy is called by the GameManger 
-        // each turn to tell each Enemy to try to move towards the player.
-        public void MoveCoworkers()
-		{
 
-   //         Debug.Log("in move coworker");
-
-   //         //Declare variables for X and Y axis move directions, these range from -1 to 1.
-   //         //These values allow us to choose between the car\\\\\dinal directions: up, down, left and right.
-   //         int xDir = 0;
-			//int yDir = 0;
-
-            //target = GameObject.FindGameObjectWithTag("Paper").transform;
-            //coworker = GameObject.FindGameObjectWithTag("Coworker").transform;
-
-            //Debug.Log("target is :: " + target.position.x);
-            //Debug.Log("coworker is :: " + coworker.position.x);
-
-
-            //float step = 5f * Time.deltaTime;
-            //transform.position = Vector3.MoveTowards(transform.position, target.position, step);
-
-            //If the difference in positions is approximately zero (Epsilon) do the following:
-   //         if (Mathf.Abs (target.position.x - coworker.position.x) < float.Epsilon)
-				
-			//	////If the y coordinate of the target's (player) position is greater than the y coordinate of this enemy's position set y direction 1 (to move up). If not, set it to -1 (to move down).
-			//	yDir = target.position.y > coworker.position.y ? 1 : -1;
-			
-			////If the difference in positions is not approximately zero (Epsilon) do the following:
-			//else
-				////Check if target x position is greater than enemy's x position, if so set x direction to 1 (move right), if not set to -1 (move left).
-				//xDir = target.position.x > coworker.position.x ? 1 : -1;
-
-            //Call the AttemptMove function and pass 
-            //in the generic parameter Player, because Enemy 
-            //is moving and expecting to potentially encounter a Player
-            //transform.Translate(Vector3.right * Time.deltaTime, Camera.main.transform);
-
-            //AttemptMove<Coworker> (xDir, yDir);
-		}
-		
-		
 		//OnCantMove is called if Enemy attempts to move into a space occupied by a Player, it overrides the OnCantMove function of MovingObject 
 		//and takes a generic parameter T which we use to pass in the component we expect to encounter, in this case Player
 		protected override void OnCantMove <T> (T component)
 		{
-			//Declare hitPlayer and set it to equal the encountered component.
-			//Player hitPlayer = component as Player;
-			
-			//Call the LoseFood function of hitPlayer passing it playerDamage, the amount of foodpoints to be subtracted.
-			//hitPlayer.LoseFood (playerDamage);
-			
-			//Set the attack trigger of animator to trigger Enemy attack animation.
-			//animator.SetTrigger ("enemyAttack");
-			
-			//Call the RandomizeSfx function of SoundManager passing in the two audio clips to choose randomly between.
-			//SoundManager.instance.RandomizeSfx (attackSound1, attackSound2);
 		}
-
-
 	}
 }

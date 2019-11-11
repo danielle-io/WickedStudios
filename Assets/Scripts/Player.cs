@@ -61,7 +61,7 @@ namespace WickedStudios
         private void Update()
         {
             //If it's not the player's turn, exit the function.
-            if (!GameManager.instance.playersTurn) return;
+            //if (!GameManager.instance.playersTurn) return;
 
 
             //Used to store the horizontal move direction
@@ -160,7 +160,7 @@ namespace WickedStudios
             
             // Set the playersTurn boolean of GameManager to false 
             // now that players turn is over.
-            GameManager.instance.playersTurn = false;
+            //GameManager.instance.playersTurn = false;
         }
 
 

@@ -10,8 +10,8 @@ namespace WickedStudios
         public static int paperObjectsLeft;
         public static ArrayList paperLocationList = new ArrayList();
 
-        public void LevelOneSetup(GameObject player, GameObject[] papers, 
-            GameObject[] desks, GameObject[] coworkers, 
+        public void LevelOneSetup(GameObject player, GameObject papers, 
+            GameObject[] desks, GameObject coworker, 
             GameObject boss, GameObject plant)
         {
             BoardManager BM = new BoardManager();
@@ -39,26 +39,20 @@ namespace WickedStudios
             Instantiate(plant, position, Quaternion.identity);
             BM.SetOccupiedPositions(position);
 
-            paperObjectTotal = BM.ChooseGameObjectsFromArrAtRandom(4, 8);
+            paperObjectTotal = BM.ChooseGameObjectsFromArrAtRandom(8, 10);
             paperObjectsLeft = paperObjectTotal;
 
             //BM.PlaceArrOfGameObjectsAtRandom(desks, deskCount);
             //BM.PlaceArrOfGameObjectsAtRandom(papers, paperObjectTotal);
 
             BM.PlaceGameObjectAtRandom(player);
-
+            
             for (int i = 0; i < paperObjectTotal; i++)
             {
-                BM.PlaceGameObjectAtRandom(papers[0]);
+                BM.PlaceGameObjectAtRandom(papers);
             }
 
-            // Since we want one of each coworker in this level
-            // and want them in random places
-            for (int i = 0; i < coworkers.Length; i++)
-            {
-                Debug.Log("Coworker added:: " + i);
-                BM.PlaceGameObjectAtRandom(coworkers[i]);
-            }
+            BM.PlaceGameObjectAtRandom(coworker);
         }
 
         public void LowerPaperObjectsLeft()
@@ -75,12 +69,6 @@ namespace WickedStudios
         public bool CheckLevelOver()
         {
             return (paperObjectsLeft == 0);
-        }
-
-        // Start is called before the first frame update
-        void Start()
-        {
-
         }
     }
 }

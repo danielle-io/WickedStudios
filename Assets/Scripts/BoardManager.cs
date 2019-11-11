@@ -12,7 +12,6 @@ namespace WickedStudios
 		// Using Serializable allows us to embed a class 
         // with sub properties in the inspector
 		[Serializable]
-
 		public class Count
 		{
 			public int minimum; 			
@@ -26,19 +25,18 @@ namespace WickedStudios
 			}
 		}
 
-        public int columns = 8;
-        public int rows = 8;
+        public int columns = 9;
+        public int rows = 9;
 
         public GameObject boss;
         public GameObject player;
         public GameObject outerWallTiles;
         public GameObject floorTiles;
         public GameObject plant;
-        public GameObject[] coworkers;
+        public GameObject coworker;
 		public GameObject[] desks;									
-        public GameObject[] papers;
+        public GameObject papers;
         public static ArrayList allItemPositions = new ArrayList();
-
 
         //A variable to store a reference to the transform of our Board object.
         private Transform boardHolder;
@@ -63,7 +61,6 @@ namespace WickedStudios
 			}
 		}
 		
-		//Sets up the outer walls and floor (background) of the game board.
 		void BoardSetup ()
 		{
 			//Instantiate Board and set boardHolder to its transform.
@@ -76,13 +73,9 @@ namespace WickedStudios
 				//Loop along y axis, starting from -1 to place floor or outerwall tiles.
 				for(int y = -1; y < rows + 1; y++)
 				{
-					// Choose a random tile from our array of 
-                    // floor tile prefabs and prepare to instantiate it.
 					GameObject toInstantiate = floorTiles;
 					
-					// Check if we current position is at board edge, 
-                    // if so choose a random outer wall prefab from 
-                    // our array of outer wall tiles.
+			
 					if(x == -1 || x == columns || y == -1 || y == rows)
 						toInstantiate = outerWallTiles;
 
@@ -107,9 +100,11 @@ namespace WickedStudios
             
             Vector3 randomPosition = gridPositions[randomIndex];
 
+            int count = 0;
             // To prevent overlap of random items
-            while (allItemPositions.Contains(randomPosition)){
+            while (allItemPositions.Contains(randomPosition) && count != 3){
                 randomPosition = gridPositions[randomIndex];
+                count += 1;
             }
 
             //Remove the entry at randomIndex from the list so that it can't be re-used.
@@ -134,7 +129,6 @@ namespace WickedStudios
 		
 	    public int ChooseGameObjectsFromArrAtRandom (int minimum, int maximum)
 		{
-            // Choose a random number of objects to instantiate within the minimum and maximum limits
             return Random.Range(minimum, maximum + 1);
         }
 
@@ -199,7 +193,7 @@ namespace WickedStudios
             {
                 case 1:
                     LvlOne.LevelOneSetup(player, 
-                        papers, desks, coworkers, boss, plant);
+                        papers, desks, coworker, boss, plant);
                     break;
                 case 2:
                     LvlTwo.LevelTwoSetup();
