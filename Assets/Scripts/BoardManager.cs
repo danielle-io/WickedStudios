@@ -12,7 +12,6 @@ namespace WickedStudios
 
         public int columns = 9;
         public int rows = 9;
-        GameManager gm = new GameManager();
         private Transform boardHolder;
         public GameObject boss;
         public GameObject player;
@@ -142,12 +141,8 @@ namespace WickedStudios
 
         // SetupScene initializes our level and 
         // calls the previous functions to lay out the game board
-        public void SetupScene (int level)
+        public void SetupScene (int level, Level levelScript)
 		{
-            LevelOne lvlOne = new LevelOne();
-            LevelTwo lvlTwo = new LevelTwo();
-            LevelThree lvlThree = new LevelThree();
-
             switch (level)
             {
                 case 1:
@@ -155,19 +150,19 @@ namespace WickedStudios
                     BoardSetup();
                     //lvlOne.BoardSetup(rows, columns);
                     InitialiseList();
-                    lvlOne.LevelOneSetup(player,
-                        paper, desks, coworker, boss, plant);
+                    levelScript.CheckLevelOver();
+                    levelScript.SetupLevel(this);
                     break;
-                case 2:
-                    lvlTwo.BoardSetup(rows, columns);
-                    InitialiseList();
-                    lvlTwo.LevelTwoSetup();
-                    break;
-                case 3:
-                    lvlThree.BoardSetup(rows, columns);
-                    InitialiseList();
-                    lvlThree.LevelThreeSetup();
-                    break;
+                // case 2:
+                //     lvlTwo.BoardSetup(rows, columns);
+                //     InitialiseList();
+                //     lvlTwo.LevelTwoSetup();
+                //     break;
+                // case 3:
+                //     lvlThree.BoardSetup(rows, columns);
+                //     InitialiseList();
+                //     lvlThree.LevelThreeSetup();
+                //     break;
                 default:
                     Debug.Log("default switch statement");
                     break;

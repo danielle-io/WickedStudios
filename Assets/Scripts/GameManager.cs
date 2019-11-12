@@ -16,7 +16,11 @@ namespace WickedStudios
         public int playerItemPoints = 0;         
         public static GameManager instance = null;
 
-        private BoardManager bm;       
+        public BoardManager bm;
+
+        // This will hold the current Level Script.
+        public Level levelScript;       
+        // private List<Coworker> coworkers;
         public int level = 1;
         
         //Awake is always called before any Start functions
@@ -62,13 +66,23 @@ namespace WickedStudios
         void InitGame()
         {
             Debug.Log("level is :: " + level);
-            bm.SetupScene(level);
+            // Initializes the appropriate LevelScript
+            switch (level)
+            {
+                case 1:
+                    levelScript = GetComponent<LevelOne>();
+                    break;
+                default:
+                    Debug.Log("default switch statement");
+                    break;
+            }
+            bm.SetupScene(level, levelScript);
         }
 
         //Update is called every frame.
         void Update()
         {
-            if (GetEndConditionByLevel(level)){
+            if (levelScript.CheckLevelOver()){
                 Debug.Log("LEVEL IS OVER");
             }
         }
