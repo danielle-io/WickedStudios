@@ -141,32 +141,13 @@ namespace WickedStudios
 
         // SetupScene initializes our level and 
         // calls the previous functions to lay out the game board
-        public void SetupScene (int level, Level levelScript)
+        public void SetupScene (Level levelScript)
 		{
-            switch (level)
-            {
-                case 1:
-                    Debug.Log("In case one of setup scene in bm");
-                    BoardSetup();
-                    //lvlOne.BoardSetup(rows, columns);
-                    InitialiseList();
-                    levelScript.CheckLevelOver();
-                    levelScript.SetupLevel(this);
-                    break;
-                // case 2:
-                //     lvlTwo.BoardSetup(rows, columns);
-                //     InitialiseList();
-                //     lvlTwo.LevelTwoSetup();
-                //     break;
-                // case 3:
-                //     lvlThree.BoardSetup(rows, columns);
-                //     InitialiseList();
-                //     lvlThree.LevelThreeSetup();
-                //     break;
-                default:
-                    Debug.Log("default switch statement");
-                    break;
-            }
+            Debug.Log("Setting up board for level.");
+            BoardSetup();
+            //lvlOne.BoardSetup(rows, columns);
+            InitialiseList();
+            levelScript.SetupLevel(this);
         }
     }
 }

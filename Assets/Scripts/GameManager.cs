@@ -72,11 +72,19 @@ namespace WickedStudios
                 case 1:
                     levelScript = GetComponent<LevelOne>();
                     break;
+                case 2:
+                    levelScript = GetComponent<LevelTwo>();
+                    break;
+                case 3:
+                    levelScript = GetComponent<LevelThree>();
+                    break;
                 default:
                     Debug.Log("default switch statement");
                     break;
             }
-            bm.SetupScene(level, levelScript);
+            // May want to have a check here to make sure
+            // levelScript is properly initialized.
+            bm.SetupScene(levelScript);
         }
 
         //Update is called every frame.
@@ -84,26 +92,6 @@ namespace WickedStudios
         {
             if (levelScript.CheckLevelOver()){
                 Debug.Log("LEVEL IS OVER");
-            }
-        }
-
-        public bool GetEndConditionByLevel(int level)
-        {
-            LevelOne LvlOne = new LevelOne();
-            LevelTwo LvlTwo = new LevelTwo();
-            LevelThree LvlThree = new LevelThree();
-
-            switch (level)
-            {
-                case 1:
-                    return LvlOne.CheckLevelOver();
-                case 2:
-                    return LvlTwo.CheckLevelOver();
-                case 3:
-                    return LvlThree.CheckLevelOver();
-                default:
-                    Debug.Log("default switch statement");
-                    return true;
             }
         }
 

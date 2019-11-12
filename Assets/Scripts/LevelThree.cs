@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace WickedStudios
 {
-    public class LevelThree : MonoBehaviour
+    public class LevelThree : Level
     {
 
         BoardManager BM = new BoardManager();
@@ -45,8 +45,11 @@ namespace WickedStudios
                 }
             }
         }
+        public override void SetupLevel(BoardManager bm)
+        {
+        }
 
-        public bool CheckLevelOver()
+        public override bool CheckLevelOver()
         {
             return false;
         }

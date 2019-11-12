@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 namespace WickedStudios
 {
-    public class LevelTwo : MonoBehaviour
+    public class LevelTwo : Level
     {
 
         BoardManager BM = new BoardManager();
@@ -44,12 +44,12 @@ namespace WickedStudios
             }
         }
 
-        public void LevelTwoSetup()
+        public override void SetupLevel(BoardManager bm)
         {
 
         }
 
-        public bool CheckLevelOver()
+        public override bool CheckLevelOver()
         {
             return false;
         }
