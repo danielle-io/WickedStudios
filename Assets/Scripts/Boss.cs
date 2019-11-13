@@ -24,7 +24,7 @@ namespace WickedStudios
                 {
                     LevelOne LvlOne = new LevelOne();
 
-                    SoundManager.instance.RandomizeSfx(paperPassedToBoss);
+                    //SoundManager.instance.PlaySingle(paperPassedToBoss);
 
                     Debug.Log("PAPER PASSED TO BOSS BY PLAYER ");
 
@@ -39,7 +39,7 @@ namespace WickedStudios
                 {
                     LevelOne LvlOne = new LevelOne();
 
-                    SoundManager.instance.RandomizeSfx(paperPassedToBoss);
+                    //SoundManager.instance.PlaySingle(paperPassedToBoss);
                     
                     Debug.Log("PAPER PASSED TO BOSS BY coworker");
 

@@ -97,7 +97,7 @@ namespace WickedStudios
             {
                 // Call RandomizeSfx of SoundManager to 
                 // play the move sound, passing in two audio clips to choose from.
-                SoundManager.instance.RandomizeSfx(moveSound1, moveSound2);
+                //SoundManager.instance.RandomizeSfx(moveSound1, moveSound2);
             }
         }
 

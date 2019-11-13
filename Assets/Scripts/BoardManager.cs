@@ -10,25 +10,11 @@ namespace WickedStudios
 	public class BoardManager : MonoBehaviour 
 	{
 
-        public int columns = 9;
-        public int rows = 9;
-        private Transform boardHolder;
-        public GameObject boss;
-        public GameObject player;
-        public GameObject plant;
-        public GameObject coworker;
-        public GameObject paper;
-        public GameObject[] desks;
-        public GameObject outerWallTiles;
-        public GameObject floorTiles;
-
-
-
         //A variable to store a reference to the transform of our Board object.
         private static List<Vector3> gridPositions = new List<Vector3>();
 
         //Reset our list of gridpositions.
-        void InitialiseList ()
+        public void InitialiseList (int rows, int columns)
 		{
 			//Clear our list gridPositions.
 			gridPositions.Clear ();
@@ -109,10 +95,12 @@ namespace WickedStudios
         }
 
         // Creates the outer walls and floor.
-        void BoardSetup()
+        public void BoardSetup(int rows, int columns, GameObject border, GameObject floor)
         {
-            //Instantiate Board and set boardHolder to its transform.
-            boardHolder = new GameObject("Board").transform;
+         Transform boardHolder;
+
+        //Instantiate Board and set boardHolder to its transform.
+        boardHolder = new GameObject("Board").transform;
 
             // Loop along x axis, starting from -1 (to fill corner) with floor or 
             // outerwall edge tiles.
@@ -121,11 +109,11 @@ namespace WickedStudios
                 //Loop along y axis, starting from -1 to place floor or outerwall tiles.
                 for (int y = -1; y < rows + 1; y++)
                 {
-                    GameObject toInstantiate = floorTiles;
+                    GameObject toInstantiate = floor;
 
 
                     if (x == -1 || x == columns || y == -1 || y == rows)
-                        toInstantiate = outerWallTiles;
+                        toInstantiate = border;
 
                     GameObject instance = Instantiate
                         (toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
@@ -142,10 +130,6 @@ namespace WickedStudios
         // calls the previous functions to lay out the game board
         public void SetupScene (Level levelScript)
 		{
-            Debug.Log("Setting up board for level.");
-            BoardSetup();
-            //lvlOne.BoardSetup(rows, columns);
-            InitialiseList();
             levelScript.SetupLevel(this);
         }
     }
