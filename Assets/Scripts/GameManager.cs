@@ -16,7 +16,11 @@ namespace WickedStudios
         public int playerItemPoints = 0;         
         public static GameManager instance = null;
 
-        private BoardManager bm;       
+        public BoardManager bm;
+
+        // This will hold the current Level Script.
+        public Level levelScript;       
+        // private List<Coworker> coworkers;
         public int level = 1;
         
         //Awake is always called before any Start functions
@@ -62,43 +66,32 @@ namespace WickedStudios
         void InitGame()
         {
             Debug.Log("level is :: " + level);
-            if (level == 2)
+            // Initializes the appropriate LevelScript
+            switch (level)
             {
-                BracketBoard bb = new BracketBoard();
-                bb.SetupScene(level);
+                case 1:
+                    levelScript = GetComponent<LevelOne>();
+                    break;
+                case 2:
+                    levelScript = GetComponent<LevelTwo>();
+                    break;
+                case 3:
+                    levelScript = GetComponent<LevelThree>();
+                    break;
+                default:
+                    Debug.Log("default switch statement");
+                    break;
             }
-            else
-            {
-                bm.SetupScene(level);
-            }
-
+            // May want to have a check here to make sure
+            // levelScript is properly initialized.
+            bm.SetupScene(levelScript);
         }
 
         //Update is called every frame.
         void Update()
         {
-            if (GetEndConditionByLevel(level)){
+            if (levelScript.CheckLevelOver()){
                 Debug.Log("LEVEL IS OVER");
-            }
-        }
-
-        public bool GetEndConditionByLevel(int level)
-        {
-            LevelOne LvlOne = new LevelOne();
-            LevelTwo LvlTwo = new LevelTwo();
-            LevelThree LvlThree = new LevelThree();
-
-            switch (level)
-            {
-                case 1:
-                    return LvlOne.CheckLevelOver();
-                case 2:
-                    return LvlTwo.CheckLevelOver();
-                case 3:
-                    return LvlThree.CheckLevelOver();
-                default:
-                    Debug.Log("default switch statement");
-                    return true;
             }
         }
 

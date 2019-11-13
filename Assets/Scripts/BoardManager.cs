@@ -9,9 +9,9 @@ namespace WickedStudios
 {
 	public class BoardManager : MonoBehaviour 
 	{
+
         public int columns = 9;
         public int rows = 9;
-        GameManager gm = new GameManager();
         private Transform boardHolder;
         public GameObject boss;
         public GameObject player;
@@ -21,6 +21,8 @@ namespace WickedStudios
         public GameObject[] desks;
         public GameObject outerWallTiles;
         public GameObject floorTiles;
+
+
 
         //A variable to store a reference to the transform of our Board object.
         private static List<Vector3> gridPositions = new List<Vector3>();
@@ -42,11 +44,11 @@ namespace WickedStudios
                 }
 			}
 		}
-
-        public Vector3 GetRandomPosition(GameObject item)
-        {
+		
+		public Vector3 GetRandomPosition(GameObject item)
+		{
             Debug.Log("In get random position");
-            int randomIndex = Random.Range(0, gridPositions.Count);
+            int randomIndex = Random.Range (0, gridPositions.Count);
             Vector3 randomPosition = gridPositions[randomIndex];
 
             gridPositions.RemoveAt(randomIndex);
@@ -57,7 +59,7 @@ namespace WickedStudios
             RemoveNearbyGrids(randomIndex, extraSpacePerItem);
 
             return randomPosition;
-        }
+		}
 
         public void AddObjectToBoardAtPosition(GameObject item, Vector3 position)
         {
@@ -107,7 +109,7 @@ namespace WickedStudios
         }
 
         // Creates the outer walls and floor.
-        void LevelOneBoardSetup()
+        void BoardSetup()
         {
             //Instantiate Board and set boardHolder to its transform.
             boardHolder = new GameObject("Board").transform;
@@ -138,30 +140,13 @@ namespace WickedStudios
 
         // SetupScene initializes our level and 
         // calls the previous functions to lay out the game board
-        public void SetupScene (int level)
+        public void SetupScene (Level levelScript)
 		{
-            LevelOne lvlOne = new LevelOne();
-            LevelTwo lvlTwo = new LevelTwo();
-            LevelThree lvlThree = new LevelThree();
-
-            switch (level)
-            {
-                case 1:
-                    Debug.Log("In case one of setup scene in bm");
-                    LevelOneBoardSetup();
-                    InitialiseList();
-                    lvlOne.LevelOneSetup(player,
-                        paper, desks, coworker, boss, plant);
-                    break;
-                case 3:
-                    LevelOneBoardSetup();
-                    InitialiseList();
-                    lvlThree.LevelThreeSetup();
-                    break;
-                default:
-                    Debug.Log("default switch statement");
-                    break;
-            }
+            Debug.Log("Setting up board for level.");
+            BoardSetup();
+            //lvlOne.BoardSetup(rows, columns);
+            InitialiseList();
+            levelScript.SetupLevel(this);
         }
     }
 }

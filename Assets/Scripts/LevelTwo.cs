@@ -6,20 +6,20 @@ using Random = UnityEngine.Random;
 
 namespace WickedStudios
 {
-    public class LevelTwo : MonoBehaviour
+    public class LevelTwo : Level
     {
 
         BoardManager BM = new BoardManager();
 
 
-        public void LevelTwoSetup(GameObject faller)
+        public override void SetupLevel(BoardManager bm)
         {
             Debug.Log("in setup for level 2");
             Instantiate(faller, new Vector3(Random.Range(-6, 6), 10, 0), Quaternion.identity);
 
         }
 
-        public bool CheckLevelOver()
+        public override bool CheckLevelOver()
         {
             return false;
         }
