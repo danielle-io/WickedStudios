@@ -7,9 +7,8 @@ using Random = UnityEngine.Random;
 namespace WickedStudios
 	
 {
-	public class BoardManager : MonoBehaviour
+	public class BoardManager : MonoBehaviour 
 	{
-
         public int columns = 9;
         public int rows = 9;
         GameManager gm = new GameManager();
@@ -22,8 +21,6 @@ namespace WickedStudios
         public GameObject[] desks;
         public GameObject outerWallTiles;
         public GameObject floorTiles;
-
-
 
         //A variable to store a reference to the transform of our Board object.
         private static List<Vector3> gridPositions = new List<Vector3>();
@@ -45,11 +42,11 @@ namespace WickedStudios
                 }
 			}
 		}
-		
-		public Vector3 GetRandomPosition(GameObject item)
-		{
+
+        public Vector3 GetRandomPosition(GameObject item)
+        {
             Debug.Log("In get random position");
-            int randomIndex = Random.Range (0, gridPositions.Count);
+            int randomIndex = Random.Range(0, gridPositions.Count);
             Vector3 randomPosition = gridPositions[randomIndex];
 
             gridPositions.RemoveAt(randomIndex);
@@ -60,7 +57,7 @@ namespace WickedStudios
             RemoveNearbyGrids(randomIndex, extraSpacePerItem);
 
             return randomPosition;
-		}
+        }
 
         public void AddObjectToBoardAtPosition(GameObject item, Vector3 position)
         {
@@ -110,9 +107,8 @@ namespace WickedStudios
         }
 
         // Creates the outer walls and floor.
-        void BoardSetup()
+        void LevelOneBoardSetup()
         {
-
             //Instantiate Board and set boardHolder to its transform.
             boardHolder = new GameObject("Board").transform;
 
@@ -152,19 +148,13 @@ namespace WickedStudios
             {
                 case 1:
                     Debug.Log("In case one of setup scene in bm");
-                    BoardSetup();
-                    //lvlOne.BoardSetup(rows, columns);
+                    LevelOneBoardSetup();
                     InitialiseList();
                     lvlOne.LevelOneSetup(player,
                         paper, desks, coworker, boss, plant);
                     break;
-                case 2:
-                    lvlTwo.BoardSetup(rows, columns);
-                    InitialiseList();
-                    lvlTwo.LevelTwoSetup();
-                    break;
                 case 3:
-                    lvlThree.BoardSetup(rows, columns);
+                    LevelOneBoardSetup();
                     InitialiseList();
                     lvlThree.LevelThreeSetup();
                     break;

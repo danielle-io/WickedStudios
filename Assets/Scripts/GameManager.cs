@@ -62,7 +62,16 @@ namespace WickedStudios
         void InitGame()
         {
             Debug.Log("level is :: " + level);
-            bm.SetupScene(level);
+            if (level == 2)
+            {
+                BracketBoard bb = new BracketBoard();
+                bb.SetupScene(level);
+            }
+            else
+            {
+                bm.SetupScene(level);
+            }
+
         }
 
         //Update is called every frame.

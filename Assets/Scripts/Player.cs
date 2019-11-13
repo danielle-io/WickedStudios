@@ -36,17 +36,7 @@ namespace WickedStudios
         {
             //Get a component reference to the Player's animator component
             //animator = GetComponent<Animator>();
-
-            //Get the current food point total stored in GameManager.instance between levels.
-            //points = GameManager.instance.playerItemPoints;
-
-            //Set the playerScoreText to reflect the current player food total.
-            //playerScoreText.text = "Collected: " + points;
-
-
-            //BoardManager.PlaceGameObjectAtRandom();
-
-
+            
             //Call the Start function of the MovingObject base class.
             base.Start();
         }
