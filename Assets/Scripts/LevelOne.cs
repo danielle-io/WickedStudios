@@ -60,13 +60,8 @@ namespace WickedStudios
                 bm.AddObjectToBoardAtPosition(bm.paper, paperPosition);
             }
          }
-
-        //public void LowerPaperObjectsLeft()
-        //{
-        //    paperObjectsLeft -= 1;
-        //    Debug.Log("paper removed from paperObjectsLeft:: " + paperObjectsLeft);
-        //}
-            public int GetPaperObjectsLeft()
+         
+         public int GetPaperObjectsLeft()
         {
             GameObject[] paper = GameObject.FindGameObjectsWithTag("Paper");
             return paper.Length;

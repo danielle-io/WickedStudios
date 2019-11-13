@@ -20,7 +20,6 @@ namespace WickedStudios
 
         // This will hold the current Level Script.
         public Level levelScript;       
-        // private List<Coworker> coworkers;
         public int level = 1;
         
         //Awake is always called before any Start functions
@@ -87,7 +86,6 @@ namespace WickedStudios
             bm.SetupScene(levelScript);
         }
 
-        //Update is called every frame.
         void Update()
         {
             if (levelScript.CheckLevelOver()){
