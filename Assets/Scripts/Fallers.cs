@@ -17,7 +17,7 @@ namespace WickedStudios
 
         {
             //InvokeRepeating("Spawn", delay, delay);
-            Debug.Log("in start of fallers");
+            //Debug.Log("in start of fallers");
             //Debug.Log(fallers.Length);
              
         }

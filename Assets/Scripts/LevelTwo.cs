@@ -19,8 +19,8 @@ namespace WickedStudios
         public override void SetupLevel(BoardManager bm)
         {
             //GameObject faller = Get<Fallers>();
-            Debug.Log("in setup for level 2");
-            bm.AddObjectToBoardAtPosition(fallerCatcher, new Vector3(0, 0, 0));
+            //Debug.Log("in setup for level 2");
+            bm.AddObjectToBoardAtPosition(fallerCatcher, new Vector3(3, 0, 0));
 
             //Instantiate(fallerCatcher, new Vector3(10, -2, 0), Quaternion.identity);
             //Instantiate(fallers, new Vector3(Random.Range(-6, 6), 10, 0), Quaternion.identity);
