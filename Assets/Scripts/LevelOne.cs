@@ -2,8 +2,6 @@
 
 namespace WickedStudios
 {
-
-
     // LevelOne inherits from Level, our base class for levels.
     public class LevelOne : Level
     {
