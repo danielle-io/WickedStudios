@@ -14,8 +14,10 @@ namespace WickedStudios
        public void OnTriggerEnter2D(Collider2D collision)
         {
             LevelOne lvlOne = new LevelOne();
+
             Player player = collision.GetComponent<Player>();
             Coworker coworker = collision.GetComponent<Coworker>();
+
             if (collision.gameObject.tag == "Player")
             {
                 if (!GetPlayerHasPaper())
@@ -25,7 +27,7 @@ namespace WickedStudios
                     if (gameObject != null)
                     {
                         Destroy(gameObject);
-                        SetPlayerHasPaper(true);
+                        //SetPlayerHasPaper(true);
                     }
                 }
             }

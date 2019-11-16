@@ -21,7 +21,11 @@ namespace WickedStudios
         // This will hold the current Level Script.
         public Level levelScript;       
         public int level = 1;
-        
+        public static int playerPoints = 0;
+        public static int antiPlayerPoints = 0;
+
+        private static bool levelOver = false;
+
         //Awake is always called before any Start functions
         void Awake()
         {
@@ -59,6 +63,7 @@ namespace WickedStudios
         {
             instance.level++;
             instance.InitGame();
+            levelOver = false;
         }
 
         //Initializes the game for each level.
@@ -91,11 +96,43 @@ namespace WickedStudios
             if (levelScript.CheckLevelOver()){
                 Debug.Log("LEVEL IS OVER");
             }
+
+            levelScript.SetLevelText();
         }
 
         public int GetLevel()
         {
             return level;
         }
+
+        public void SetPlayerPoints(int points)
+        {
+            playerPoints += points;
+        }
+
+        public int GetPlayerPoints()
+        {
+            return playerPoints;
+        }
+
+        public void SetAntiPlayerPoints(int points)
+        {
+            antiPlayerPoints += points;
+        }
+
+        public int GetAntiPlayerPoints()
+        {
+            return antiPlayerPoints;
+        }
+
+        public bool GetLevelOver()
+        {
+            return levelScript.CheckLevelOver();
+        }
+
+        //public void SetLevelOver(bool state)
+        //{
+        //    levelOver = state;
+        //}
     }
 }

@@ -37,6 +37,11 @@ namespace WickedStudios
         {
 
         }
+
+        public override void SetLevelText()
+        {
+
+        }
     }
 }
 

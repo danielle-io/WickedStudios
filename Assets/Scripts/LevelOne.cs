@@ -20,12 +20,16 @@ namespace WickedStudios
         public static int paperObjectTotal;
         //public static int paperObjectsLeft;
 
+        private void Update()
+        {
+            CheckLevelOver();
+        }
+
         // Overrides the base class SetupLevel.
         public override void SetupLevel(BoardManager bm)
         {
             Debug.Log("Setting up board for level.");
             bm.BoardSetup(rows, columns, outerWallTiles, floorTiles);
-            //lvlOne.BoardSetup(rows, columns);
             bm. InitialiseList(rows, columns);
             AddCharacters(bm);
             AddSetPositionObjects(bm);
@@ -85,8 +89,27 @@ namespace WickedStudios
 
         public override bool CheckLevelOver()
         {
-            return (GetPaperObjectsLeft() == 0);
+            if (GetPaperObjectsLeft() == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
+
+        public override void SetLevelText()
+        {
+            GameManager Gm = new GameManager();
+            int playerPoints = Gm.GetPlayerPoints();
+            int coworkerPoints = Gm.GetAntiPlayerPoints();
+
+            Debug.Log("PLAYER POINTS :: " + playerPoints);
+            Debug.Log("COWORKER POINTS :: " + coworkerPoints);
+
+        }
+
     }
 }
 

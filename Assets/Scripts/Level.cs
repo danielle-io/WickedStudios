@@ -17,5 +17,9 @@ namespace WickedStudios
         {
             return true;
         }
+
+        public virtual void SetLevelText()
+        {
+        }
     }
 }

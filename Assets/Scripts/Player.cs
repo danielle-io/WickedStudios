@@ -48,7 +48,6 @@ namespace WickedStudios
             GameManager.instance.playerItemPoints = points;
         }
 
-
         private void Update()
         {
             int horizontal = 0;
@@ -116,12 +115,12 @@ namespace WickedStudios
             //animator.SetTrigger("playerChop");
         }
 
-        public void SetPoints(int num)
-        {
-            points += 1;
-            //playerScoreText.text = "Collected: " + points;
+        //public void SetPoints(int num)
+        //{
+        //    points += 1;
+        //    //playerScoreText.text = "Collected: " + points;
 
-        }
+        //}
 
         // OnTriggerEnter2D is sent 
         // when another object enters a 

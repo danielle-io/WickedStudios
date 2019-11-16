@@ -46,6 +46,12 @@ namespace WickedStudios
             //fallers.Update();
 
         }
+
+        public override void SetLevelText()
+        {
+
+        }
+
     }
 }
 

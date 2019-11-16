@@ -84,9 +84,9 @@ namespace WickedStudios
                 case "Paper":
                     return 2;
                 case "Coworker":
-                    return 1;
+                    return 3;
                 case "Desk":
-                    return 2;
+                    return 3;
                 case "Player":
                     return 3;
                 default:

@@ -23,31 +23,37 @@ namespace WickedStudios
                 if (paper.GetPlayerHasPaper())
                 {
                     LevelOne LvlOne = new LevelOne();
+                    GameManager Gm = new GameManager();
 
                     //SoundManager.instance.PlaySingle(paperPassedToBoss);
 
                     Debug.Log("PAPER PASSED TO BOSS BY PLAYER ");
 
-                    player.SetPoints(1);
+                    Gm.SetPlayerPoints(1);
 
                     paper.SetPlayerHasPaper(false);
                 }
             }
-            if (collision.gameObject.tag == "Coworker")
-            {
-                if (paper.GetCoworkerHasPaper())
-                {
-                    LevelOne LvlOne = new LevelOne();
 
-                    //SoundManager.instance.PlaySingle(paperPassedToBoss);
+            // I had to move the coworker collision code to the coworker
+            // script to get it to work for some reason :(
+
+
+            //if (collision.gameObject.tag == "Coworker")
+            //{
+            //    if (paper.GetCoworkerHasPaper())
+            //    {
+            //        LevelOne LvlOne = new LevelOne();
+
+            //        //SoundManager.instance.PlaySingle(paperPassedToBoss);
                     
-                    Debug.Log("PAPER PASSED TO BOSS BY coworker");
+            //        //Debug.Log("PAPER PASSED TO BOSS BY coworker");
 
-                    coworker.SetPoints();
+            //        //coworker.SetPoints(1);
 
-                    paper.SetCoworkerHasPaper(false);
-                }
-            }
+            //        //paper.SetCoworkerHasPaper(false);
+            //    }
+            //}
 
         }
         // Start is called before the first frame update
