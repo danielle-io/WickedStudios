@@ -66,6 +66,8 @@ namespace WickedStudios
 		//Co-routine for moving units from one space to next, takes a parameter end to specify where to move to.
 		protected IEnumerator SmoothMovement (Vector3 end)
 		{
+
+            Debug.Log("in smooth movement");
 			//Calculate the remaining distance to move based on the square magnitude of the difference between current position and end parameter. 
 			//Square magnitude is used instead of magnitude because it's computationally cheaper.
 			float sqrRemainingDistance = (transform.position - end).sqrMagnitude;

@@ -20,10 +20,8 @@ namespace WickedStudios
 
         public Text playerScoreText;
 
-        //Used to store a reference to the Player's animator component.
         private Animator animator;                  
-        private static int points;     
-                           
+                                   
         #if UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
 
         private Vector2 touchOrigin = -Vector2.one; 
@@ -34,19 +32,11 @@ namespace WickedStudios
         //Start overrides the Start function of MovingObject
         protected override void Start()
         {
-            //Get a component reference to the Player's animator component
             //animator = GetComponent<Animator>();
             
-            //Call the Start function of the MovingObject base class.
             base.Start();
         }
 
-        //This function is called when the behaviour becomes disabled or inactive.
-        private void OnDisable()
-        {
-            //When Player object is disabled, store the current local food total in the GameManager so it can be re-loaded in next level.
-            GameManager.instance.playerItemPoints = points;
-        }
 
         private void Update()
         {
@@ -58,11 +48,11 @@ namespace WickedStudios
             horizontal = (int) (Input.GetAxisRaw ("Horizontal"));
             vertical = (int) (Input.GetAxisRaw ("Vertical"));
 
-            //Check if moving horizontally, if so set vertical to zero.
-            if (horizontal != 0)
-            {
-                vertical = 0;
-            }
+            ////Check if moving horizontally, if so set vertical to zero.
+            //if (horizontal != 0)
+            //{
+            //    vertical = 0;
+            //}
 
             #endif //End of mobile platform dependendent compilation section started above with #elif
             //Check if we have a non-zero value for horizontal or vertical
@@ -115,31 +105,12 @@ namespace WickedStudios
             //animator.SetTrigger("playerChop");
         }
 
-        //public void SetPoints(int num)
-        //{
-        //    points += 1;
-        //    //playerScoreText.text = "Collected: " + points;
-
-        //}
-
-        // OnTriggerEnter2D is sent 
-        // when another object enters a 
-        // trigger collider attached to this object 
-        // (2D physics only)
         private void OnTriggerEnter2D(Collider2D collisionItem)
         {
             Debug.Log("Triggered Collision in Player");
 
         }
 
-
-        //Restart reloads the scene when called.
-        private void Restart()
-        {
-            //Load the last scene loaded, in this case Main, the only scene in the game. And we load it in "Single" mode so it replace the existing one
-            //and not load all the scene object in the current scene.
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex, LoadSceneMode.Single);
-        }
     }
 }
 

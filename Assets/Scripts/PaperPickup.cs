@@ -27,7 +27,7 @@ namespace WickedStudios
                     if (gameObject != null)
                     {
                         Destroy(gameObject);
-                        //SetPlayerHasPaper(true);
+                        SetPlayerHasPaper(true);
                     }
                 }
             }

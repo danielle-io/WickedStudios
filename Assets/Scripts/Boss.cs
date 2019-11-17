@@ -9,64 +9,38 @@ namespace WickedStudios
     public class Boss : MonoBehaviour
     {
         public AudioClip paperPassedToBoss;
-        Coworker coworker = new Coworker();
 
-        public void OnTriggerEnter2D(Collider2D collision)
-        {
-            PaperPickup paper = new PaperPickup();
-
-            Player player = collision.GetComponent<Player>();
-
-            if (collision.gameObject.tag == "Player")
-            {
-                // runs if the player currently has a paper
-                if (paper.GetPlayerHasPaper())
-                {
-                    LevelOne LvlOne = new LevelOne();
-                    GameManager Gm = new GameManager();
-
-                    //SoundManager.instance.PlaySingle(paperPassedToBoss);
-
-                    Debug.Log("PAPER PASSED TO BOSS BY PLAYER ");
-
-                    Gm.SetPlayerPoints(1);
-
-                    paper.SetPlayerHasPaper(false);
-                }
-            }
-
-            // I had to move the coworker collision code to the coworker
-            // script to get it to work for some reason :(
-
-
-            //if (collision.gameObject.tag == "Coworker")
-            //{
-            //    if (paper.GetCoworkerHasPaper())
-            //    {
-            //        LevelOne LvlOne = new LevelOne();
-
-            //        //SoundManager.instance.PlaySingle(paperPassedToBoss);
-                    
-            //        //Debug.Log("PAPER PASSED TO BOSS BY coworker");
-
-            //        //coworker.SetPoints(1);
-
-            //        //paper.SetCoworkerHasPaper(false);
-            //    }
-            //}
-
-        }
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
         void Update()
         {
+            PaperPickup paper = new PaperPickup();
+            GameManager Gm = new GameManager();
+
+            GameObject playerLocation = GameObject.FindGameObjectsWithTag("Player")[0];
+            float playerDistance = Vector3.Distance(transform.position, playerLocation.transform.position);
+            if (playerDistance <= 1.2 && paper.GetPlayerHasPaper())
+            {
+                Debug.Log("PAPER PASSED TO BOSS BY PLAYER ");
+
+                Gm.SetPlayerPoints(1);
+
+                paper.SetPlayerHasPaper(false);
+            }
+
+            GameObject coworkerLocation = GameObject.FindGameObjectsWithTag("Coworker")[0];
+            float coworkerDistance = Vector3.Distance(transform.position, coworkerLocation.transform.position);
+
+            // this part is in the coworker script already.... read note about why in coworker
+            //Debug.Log("coworker distance :: " + coworkerDistance);
+            if (coworkerDistance <= .9f && paper.GetCoworkerHasPaper())
+            {
+                //Gm.SetAntiPlayerPoints(1);
+                //Debug.Log("setting has paper to false ");
+
+                //paper.SetCoworkerHasPaper(false);
+
+                //coworker.SetShortestDistance();
+            }
 
         }
     }
-
 }
