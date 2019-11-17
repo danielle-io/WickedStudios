@@ -23,8 +23,6 @@ namespace WickedStudios
 
         void Update()
         {
-
-            Debug.Log("in update");
             GameManager Gm = new GameManager();
        
             // Player could move so avoid them

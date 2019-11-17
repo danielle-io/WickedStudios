@@ -25,7 +25,7 @@ namespace WickedStudios
         private void OnCollisionEnter()
         {
             //Debug.Log("ON COLLISION");
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
 
         public void OnTriggerEnter2D(Collider2D collision)
@@ -66,11 +66,8 @@ namespace WickedStudios
                         currentTarget = GetNextLeft();
                         break;
                 }
-
-                Destroy(gameObject);
-
             }
-
+            //Destroy(gameObject);
         }
         public string GetNextLeft()
         {

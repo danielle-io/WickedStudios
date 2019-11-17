@@ -35,9 +35,7 @@ namespace WickedStudios
             {
                 //Gm.SetAntiPlayerPoints(1);
                 //Debug.Log("setting has paper to false ");
-
                 //paper.SetCoworkerHasPaper(false);
-
                 //coworker.SetShortestDistance();
             }
 
