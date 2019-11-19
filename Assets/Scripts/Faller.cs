@@ -2,26 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Faller : MonoBehaviour
+namespace WickedStudios
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Faller : MonoBehaviour
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log("the player collided");
-        if (collision.gameObject.tag == "FallerCatcher")
+        // Start is called before the first frame update
+        void Start()
         {
-            Destroy(gameObject);
+
         }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
+
+        public void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.gameObject.tag == "FallerCatcher")
+            {
+                //Destroy(gameObject);
+            }
+        }
+
+        //public void AddFaller(GameObject faller)
+        //{
+        //    Instantiate(faller,
+        //        new Vector3(Random.Range(-6, 6), 10, 0), Quaternion.identity);
+        //}
+
     }
 }

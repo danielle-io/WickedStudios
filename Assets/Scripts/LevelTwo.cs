@@ -2,29 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine.UI;
 
 
 namespace WickedStudios
 {
     public class LevelTwo : Level
     {
+        BoardManager bm;
+        GameManager Gm;
+        FallerCatcher Fc = new FallerCatcher();
+        //Text textText;
 
-        BoardManager bm = new BoardManager();
-        Fallers fallers = new Fallers();
+        //TextMesh textMesh;
+
+        private string currentTarget;
+
         public GameObject fallerCatcher;
-        //public GameObject[] fallerItems;
 
-
+        //public GameObject targetText;
 
         public override void SetupLevel(BoardManager bm)
         {
-            //GameObject faller = Get<Fallers>();
-            //Debug.Log("in setup for level 2");
-            bm.AddObjectToBoardAtPosition(fallerCatcher, new Vector3(3, 0, 0));
+            bm.AddObjectToBoardAtPosition(fallerCatcher, new Vector3(3, -3.7f, 0));
 
-            //Instantiate(fallerCatcher, new Vector3(10, -2, 0), Quaternion.identity);
-            //Instantiate(fallers, new Vector3(Random.Range(-6, 6), 10, 0), Quaternion.identity);
+            //textMesh = targetText.GetComponent<TextMesh>();
 
+
+            //textText = targetText.GetComponent<Text>();
+
+            //Instantiate(targetText, new Vector3(8, 8, 0), Quaternion.identity);
 
         }
 
@@ -33,25 +40,41 @@ namespace WickedStudios
             return false;
         }
 
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
 
         // Update is called once per frame
         void Update()
         {
-
-            //fallers.Update();
+            //Debug.Log("text is " + testMesh.text);
 
         }
+
+        //void DisplayCurrentFallerText()
+        //{
+        //    //Debug.Log("target.GetCurrentTarget() " + target.GetCurrentTarget());
+        //    //currentTarget = target.GetCurrentTarget();
+
+        //    //currentTarget = GetCurrentFallerFromName(target.GetCurrentTarget());
+
+
+        //    //Debug.Log("target.GetCurrentTarget() " + currentTarget);
+
+        //    //textText.text = currentTarget;
+
+
+        //    //currentTarget = GetCurrentFallerFromName(currentTarget);
+
+        //    //textMesh.text = currentTarget;
+        //}
+
+
+        //}
+
+      
 
         public override void SetLevelText()
         {
 
         }
-
     }
 }
 
