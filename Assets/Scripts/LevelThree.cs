@@ -17,7 +17,7 @@ namespace WickedStudios
                 
         }
             
-        public override void SetupLevel()
+        public override void SetupLevel(BoardManager bm)
         {
         }
 

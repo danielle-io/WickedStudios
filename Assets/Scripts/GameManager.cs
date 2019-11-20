@@ -14,18 +14,17 @@ namespace WickedStudios
         public static GameManager instance = null;
 
         // This will hold the current Level Script.
-        public Level levelScript;       
+        public Level levelScript;
+        public BoardManager bm;
         public int level = 1;
 
         private static int playerPoints = 0;
         private static int antiPlayerPoints = 0;
-        private static bool levelOver = false;
 
         void Awake()
         {
-
-            BoardManager bm = gameObject.GetComponent<BoardManager>();
-
+            bm = GetComponent<BoardManager>();
+            
             if (instance == null)
             {
                 instance = this;
@@ -41,27 +40,25 @@ namespace WickedStudios
             DontDestroyOnLoad(gameObject);
             
             //Get a component reference to the attached BoardManager script
-            bm = GetComponent<BoardManager>();
+            //bm = GetComponent<BoardManager>();
             InitGame();
         }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static public void CallbackInitialization()
         {
-            SceneManager.sceneLoaded += OnSceneLoaded;
+            //SceneManager.sceneLoaded += OnSceneLoaded;
         }
 
         static private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
         {
-            instance.level++;
-            instance.InitGame();
-            levelOver = false;
+            //instance.level++;
+            //instance.InitGame();
         }
 
         // Initializes the game for each level.
         void InitGame()
         {
-            BoardManager bm = GetComponent<BoardManager>();
 
             switch (level)
             {

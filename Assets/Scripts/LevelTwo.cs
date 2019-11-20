@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Random = UnityEngine.Random;
-using UnityEngine.UI;
-
+﻿using UnityEngine;
 
 namespace WickedStudios
 {
@@ -11,19 +6,17 @@ namespace WickedStudios
     {
         public GameObject fallerCatcher;
 
-        public override void SetupLevel()
+        public override void SetupLevel(BoardManager bm)
         {
-            BoardManager bm = gameObject.GetComponent<BoardManager>();
 
-            bm.AddObjectToBoardAtPosition(fallerCatcher, new Vector3(3, -3.7f, 0));
+            BoardManager.inst.AddObjectToBoardAtPosition(fallerCatcher, new Vector3(3, -3.7f, 0));
         }
 
         public override bool CheckLevelOver()
         {
-            GameManager gm = gameObject.GetComponent<GameManager>();
 
             // Player has closed 5 brackets or hit 5 wrong brackets
-            if (gm.GetPlayerPoints() >= 10 || gm.GetPlayerPoints() <= -5)
+            if (GameManager.instance.GetPlayerPoints() >= 10 || GameManager.instance.GetPlayerPoints() <= -5)
             {
                 return true;
             }
