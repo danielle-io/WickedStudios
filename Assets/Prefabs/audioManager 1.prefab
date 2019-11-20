@@ -1,0 +1,147 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1000014288174538}
+  m_IsPrefabParent: 1
+--- !u!1 &1000012593971958
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000012574746926}
+  - 81: {fileID: 81000012210546428}
+  m_Layer: 0
+  m_Name: listener
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1000014288174538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000013010074184}
+  - 114: {fileID: 114000012900329528}
+  - 114: {fileID: 114000014002475736}
+  - 114: {fileID: 114000012846043856}
+  m_Layer: 0
+  m_Name: audioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4000012574746926
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012593971958}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000013010074184}
+  m_RootOrder: 0
+--- !u!4 &4000013010074184
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014288174538}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 4000012574746926}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!81 &81000012210546428
+AudioListener:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012593971958}
+  m_Enabled: 1
+--- !u!114 &114000012846043856
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014288174538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 682c10ca8afd01d4788e586a04ffb47b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundGroups:
+  - groupID: Impact
+    group:
+    - {fileID: 8300000, guid: befcdb000c4701642947e4ca55cec2b0, type: 3}
+    - {fileID: 8300000, guid: 7b4de9ca937143e4ea38d0d0482c8709, type: 3}
+    - {fileID: 8300000, guid: 7dd70ab76071b384db08886cd21f5669, type: 3}
+  - groupID: hoverAudio
+    group:
+    - {fileID: 8300000, guid: 44ed72fec6636ba4fb9f2b4552fb1f0f, type: 3}
+  - groupID: onClickAudio
+    group:
+    - {fileID: 8300000, guid: e1012067802bf734aab4606c95520c1e, type: 3}
+  - groupID: fire
+    group:
+    - {fileID: 8300000, guid: 134dfbf331619434d943de79a4327870, type: 3}
+  - groupID: bought
+    group:
+    - {fileID: 8300000, guid: 09450fed84a7ad841b3263f844719aa6, type: 3}
+  - groupID: error
+    group:
+    - {fileID: 8300000, guid: 1163a5047d6278444a20048c6dc81614, type: 3}
+  - groupID: portal
+    group:
+    - {fileID: 8300000, guid: e291bfd96f1b2a94694160c50d3f8c39, type: 3}
+  - groupID: spawnTimer
+    group:
+    - {fileID: 8300000, guid: da72651e98b938041b5b0eb4a17e8d59, type: 3}
+--- !u!114 &114000012900329528
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014288174538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e275ca7baeb53734cbb4e30556ade206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114000014002475736
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014288174538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 334857cf611d5ca4d97d679dd9924c65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainTheme: {fileID: 8300000, guid: 2ba8087d257912240aec861032587aeb, type: 3}
+  menuTheme: {fileID: 8300000, guid: 2aa9533d748a69f429c1096123bdd248, type: 3}
+  hallwayTheme: {fileID: 8300000, guid: 4e6b77cf15e5a3e4bad2d6eeb4878a96, type: 3}
+  darknessTheme: {fileID: 8300000, guid: 85009d4214734ff4989dff24594f5989, type: 3}
+  creditsTheme: {fileID: 8300000, guid: 131ac0f51b842b44285a465a484709a4, type: 3}
+  gameOverTheme: {fileID: 8300000, guid: 994a1110c7efab14a9a721321ad4a77e, type: 3}
