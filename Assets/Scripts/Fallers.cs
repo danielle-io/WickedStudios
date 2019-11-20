@@ -22,9 +22,11 @@ namespace WickedStudios
 
         public void Update()
         {
+            BoardManager bm = gameObject.GetComponent<BoardManager>();
+
             // Get random item from fallers array
             //BoardManager bm = new BoardManager();
-            randomNum = ChooseRandomNumInRange(0, fallerItems.Length - 1);
+            randomNum = bm.ChooseRandomNumInRange(0, fallerItems.Length - 1);
 
             fallTime -= 1 * Time.deltaTime;
             
@@ -51,12 +53,5 @@ namespace WickedStudios
             fallTime = 1;
 
         }
-
-
-        public int ChooseRandomNumInRange(int minimum, int maximum)
-        {
-            return Random.Range(minimum, maximum + 1);
-        }
-
     }
 }

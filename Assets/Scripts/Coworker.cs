@@ -9,7 +9,6 @@ namespace WickedStudios
         private List<GameObject> obstacles = new List<GameObject>();
         private GameObject boss;
         private GameObject closestTarget;
-        private Transform targetBoss;
         private float shortestDistance = Mathf.Infinity;
         private Animator animator;
         private bool levelOver = false;
@@ -22,20 +21,14 @@ namespace WickedStudios
         }
 
         void Update()
-        {
-            GameManager Gm = new GameManager();
-       
+        {       
             // Player could move so avoid them
             SetObstacles();
 
             if (!levelOver)
             {
-                PaperPickup paperPickup = new PaperPickup();
-
-                Debug.Log("get coworker has paper :: " + paperPickup.GetCoworkerHasPaper());
-
                 // If coworker does not have paper, find & move towards it
-                if (!paperPickup.GetCoworkerHasPaper())
+                if (!PaperPickup.instance.GetCoworkerHasPaper())
                 {
                     Debug.Log("Looking for paper!");
                     GameObject target = FindPaper();
@@ -46,9 +39,9 @@ namespace WickedStudios
                     }
                 }
 
-                if (paperPickup.GetCoworkerHasPaper())
+                if (PaperPickup.instance.GetCoworkerHasPaper())
                 {
-                    MoveTowardsBoss(Gm);
+                    MoveTowardsBoss();
                 }
             }
         }
@@ -67,12 +60,11 @@ namespace WickedStudios
 
             if (Vector3.Distance(transform.position, closestTarget.transform.position) <= 0.3f)
             {
-                PaperPickup paper = new PaperPickup();
-                paper.SetCoworkerHasPaper(true);
+                PaperPickup.instance.SetCoworkerHasPaper(true);
             }
         }
 
-        private void MoveTowardsBoss(GameManager Gm)
+        private void MoveTowardsBoss()
         {
             //Debug.Log("coworker has paper");
             boss = GameObject.FindGameObjectWithTag("Boss");
@@ -85,12 +77,12 @@ namespace WickedStudios
             // the paper and im not sure why
             if (Vector3.Distance(transform.position, boss.transform.position) <= 0.9f)
             {
-                Gm.SetAntiPlayerPoints(1);
 
-                PaperPickup paper = new PaperPickup();
+                GameManager.instance.SetAntiPlayerPoints(1);
+
                 Debug.Log("setting has paper to false ");
 
-                paper.SetCoworkerHasPaper(false);
+                PaperPickup.instance.SetCoworkerHasPaper(false);
                 shortestDistance = Mathf.Infinity;
             }
         }

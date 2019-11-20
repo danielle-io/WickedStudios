@@ -5,7 +5,6 @@ namespace WickedStudios
     // LevelOne inherits from Level, our base class for levels.
     public class LevelOne : Level
     {
-
         public int columns = 9;
         public int rows = 9;
         public GameObject boss;
@@ -18,6 +17,8 @@ namespace WickedStudios
         public GameObject floorTiles;
 
         public static int paperObjectTotal;
+
+
         //public static int paperObjectsLeft;
 
         private void Update()
@@ -26,18 +27,24 @@ namespace WickedStudios
         }
 
         // Overrides the base class SetupLevel.
-        public override void SetupLevel(BoardManager bm)
+        public override void SetupLevel()
         {
+            GameManager gm = gameObject.GetComponent<GameManager>();
+            BoardManager bm = gameObject.GetComponent<BoardManager>();
+
             Debug.Log("Setting up board for level.");
+
             bm.BoardSetup(rows, columns, outerWallTiles, floorTiles);
             bm. InitialiseList(rows, columns);
-            AddCharacters(bm);
-            AddSetPositionObjects(bm);
-            AddRandomPositionObjects(bm);
+            AddCharacters();
+            AddSetPositionObjects();
+            AddRandomPositionObjects();
         }
 
-        private void AddSetPositionObjects(BoardManager bm)
+        private void AddSetPositionObjects()
         {
+            BoardManager bm = gameObject.GetComponent<BoardManager>();
+
             // A set array of desk positions (for now at least)
             Vector3[] deskPositions = { new Vector3(1, 5, 0),
                 new Vector3(4, 5, 0), new Vector3(7, 5, 0)};
@@ -52,32 +59,29 @@ namespace WickedStudios
             bm.AddObjectToBoardAtPosition(plant, new Vector3(0, 7.6f, 0));
         }
 
-        private void AddCharacters(BoardManager bm)
+        private void AddCharacters()
         {
             // Add single coworker (for now at least)
-            Vector3 coworkerPosition = new Vector3();
-            coworkerPosition = bm.GetRandomPosition(coworker);
-            bm.AddObjectToBoardAtPosition(coworker, coworkerPosition);
+            Vector3 coworkerPosition = BoardManager.inst.GetRandomPosition(coworker);
+            BoardManager.inst.AddObjectToBoardAtPosition(coworker, coworkerPosition);
 
             // Add player
-            Vector3 playerPosition = new Vector3();
-            playerPosition = bm.GetRandomPosition(player);
-            bm.AddObjectToBoardAtPosition(player, playerPosition);
+            Vector3 playerPosition = BoardManager.inst.GetRandomPosition(player);
+            BoardManager.inst.AddObjectToBoardAtPosition(player, playerPosition);
 
             // Add boss to set position
-            bm.AddObjectToBoardAtPosition(boss, new Vector3(7, 7, 0));
+            BoardManager.inst.AddObjectToBoardAtPosition(boss, new Vector3(7, 7, 0));
         }
 
-        public void AddRandomPositionObjects(BoardManager bm)
+        public void AddRandomPositionObjects()
         {
             // Paper: get random count, set total paper, set each paper
-            paperObjectTotal = bm.ChooseRandomNumInRange(8, 10);
+            paperObjectTotal = BoardManager.inst.ChooseRandomNumInRange(8, 10);
             
             for (int i = 0; i < paperObjectTotal; i++)
             {
-                Vector3 paperPosition = new Vector3();
-                paperPosition = bm.GetRandomPosition(paper);
-                bm.AddObjectToBoardAtPosition(paper, paperPosition);
+                Vector3 paperPosition = BoardManager.inst.GetRandomPosition(paper);
+                BoardManager.inst.AddObjectToBoardAtPosition(paper, paperPosition);
             }
          }
          
@@ -89,27 +93,23 @@ namespace WickedStudios
 
         public override bool CheckLevelOver()
         {
-            if (GetPaperObjectsLeft() == 0)
+            // Player has closed 5 brackets or hit 5 wrong brackets
+            if (GameManager.instance.GetPlayerPoints() >= 10 || GameManager.instance.GetPlayerPoints() <= -5)
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         public override void SetLevelText()
         {
-            GameManager Gm = new GameManager();
-            int playerPoints = Gm.GetPlayerPoints();
-            int coworkerPoints = Gm.GetAntiPlayerPoints();
+            int playerPoints = GameManager.instance.GetPlayerPoints();
+            int coworkerPoints = GameManager.instance.GetAntiPlayerPoints();
 
             Debug.Log("PLAYER POINTS :: " + playerPoints);
             Debug.Log("COWORKER POINTS :: " + coworkerPoints);
 
         }
-
     }
 }
 

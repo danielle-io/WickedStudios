@@ -9,6 +9,8 @@ namespace WickedStudios
     {
         public float speed = 1000;
         private string currentHit;
+        private Target target;
+
 
         void Update()
         {
@@ -18,23 +20,31 @@ namespace WickedStudios
 
         public void OnTriggerEnter2D(Collider2D collision)
         {
+            //Target target = gameObject.GetComponent<Target>();
+
+            //scoreText = gameObject.GetComponent<ScoreText>();
+            target = gameObject.GetComponent<Target>();
+
             currentHit = collision.gameObject.tag;
-            Target target = new Target();
-            GameManager Gm = new GameManager();
+
             if (target.CheckIfHitWasTarget(currentHit))
             {
                 Debug.Log("GAINED a point");
+                //gm.SetPlayerPoints(1);
+                GameManager.instance.SetPlayerPoints(1);
 
-                Gm.SetPlayerPoints(1);
             }
 
             else
             {
                 Debug.Log("LOST a point");
 
-                Gm.SetAntiPlayerPoints(1);
+                //gm.SetPlayerPoints(-1);
+                GameManager.instance.SetPlayerPoints(-1);
+
             }
             Destroy(collision.gameObject);
+            ScoreText.instance.SetScoreText();
         }
     } 
 }

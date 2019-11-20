@@ -12,18 +12,15 @@ namespace WickedStudios
 
         void Update()
         {
-            PaperPickup paper = new PaperPickup();
-            GameManager Gm = new GameManager();
-
             GameObject playerLocation = GameObject.FindGameObjectsWithTag("Player")[0];
             float playerDistance = Vector3.Distance(transform.position, playerLocation.transform.position);
-            if (playerDistance <= 1.2 && paper.GetPlayerHasPaper())
+            if (playerDistance <= 1.2 && PaperPickup.instance.GetPlayerHasPaper())
             {
                 Debug.Log("PAPER PASSED TO BOSS BY PLAYER ");
 
-                Gm.SetPlayerPoints(1);
+                GameManager.instance.SetPlayerPoints(1);
 
-                paper.SetPlayerHasPaper(false);
+                PaperPickup.instance.SetPlayerHasPaper(false);
             }
 
             GameObject coworkerLocation = GameObject.FindGameObjectsWithTag("Coworker")[0];
@@ -31,7 +28,7 @@ namespace WickedStudios
 
             // this part is in the coworker script already.... read note about why in coworker
             //Debug.Log("coworker distance :: " + coworkerDistance);
-            if (coworkerDistance <= .9f && paper.GetCoworkerHasPaper())
+            if (coworkerDistance <= .9f && PaperPickup.instance.GetCoworkerHasPaper())
             {
                 //Gm.SetAntiPlayerPoints(1);
                 //Debug.Log("setting has paper to false ");

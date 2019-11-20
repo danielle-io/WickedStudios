@@ -8,7 +8,7 @@ namespace WickedStudios
     public abstract class Level : MonoBehaviour
     {
         // Given a BoardManager, sets up the game board for this level.
-        public virtual void SetupLevel(BoardManager bm)
+        public virtual void SetupLevel()
         {
         }
 

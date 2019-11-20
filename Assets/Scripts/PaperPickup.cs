@@ -7,14 +7,19 @@ namespace WickedStudios
     public class PaperPickup : MonoBehaviour
     {
         public AudioClip clip;
+        public static PaperPickup instance;
+
         public int paperValue = 1;
         public static bool playerHasPaper = false;
         public static bool coworkerHasPaper = false;
-       
-       public void OnTriggerEnter2D(Collider2D collision)
-        {
-            LevelOne lvlOne = new LevelOne();
 
+        void Awake()
+        {
+            instance = this;
+        }
+
+        public void OnTriggerEnter2D(Collider2D collision)
+        {
             Player player = collision.GetComponent<Player>();
             Coworker coworker = collision.GetComponent<Coworker>();
 

@@ -5,27 +5,25 @@ using System.Collections.Generic;
 using Random = UnityEngine.Random; 		
 
 namespace WickedStudios
-	
 {
 	public class BoardManager : MonoBehaviour 
 	{
-
-        //A variable to store a reference to the transform of our Board object.
         private static List<Vector3> gridPositions = new List<Vector3>();
+        public static BoardManager inst;
 
-        //Reset our list of gridpositions.
+        void Awake()
+        {
+            inst = this;
+        }
+
         public void InitialiseList (int rows, int columns)
 		{
-			//Clear our list gridPositions.
 			gridPositions.Clear ();
             
-            //Loop through x axis (columns).
             for (int x = 1; x < columns-1; x++)
 			{
-				//Within each column, loop through y axis (rows).
 				for(int y = 1; y < rows-1; y++)
 				{
-					//At each index add a new Vector3 to our list with the x and y coordinates of that position.
 					gridPositions.Add (new Vector3(x, y, 0f));
                 }
 			}
@@ -33,7 +31,6 @@ namespace WickedStudios
 		
 		public Vector3 GetRandomPosition(GameObject item)
 		{
-            Debug.Log("In get random position");
             int randomIndex = Random.Range (0, gridPositions.Count);
             Vector3 randomPosition = gridPositions[randomIndex];
 
@@ -97,10 +94,11 @@ namespace WickedStudios
         // Creates the outer walls and floor.
         public void BoardSetup(int rows, int columns, GameObject border, GameObject floor)
         {
-         Transform boardHolder;
 
-        //Instantiate Board and set boardHolder to its transform.
-        boardHolder = new GameObject("Board").transform;
+            Transform boardHolder;
+
+            // Instantiate Board and set boardHolder to its transform.
+            boardHolder = new GameObject("Board").transform;
 
             // Loop along x axis, starting from -1 (to fill corner) with floor or 
             // outerwall edge tiles.
@@ -130,7 +128,7 @@ namespace WickedStudios
         // calls the previous functions to lay out the game board
         public void SetupScene (Level levelScript)
 		{
-            levelScript.SetupLevel(this);
+            levelScript.SetupLevel();
         }
     }
 }

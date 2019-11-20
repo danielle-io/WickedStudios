@@ -6,9 +6,7 @@ namespace WickedStudios
 {
     public class LevelThree : Level
     {
-
-        BoardManager BM = new BoardManager();
-
+    
         public void LevelThreeSetup()
         {
 
@@ -19,7 +17,7 @@ namespace WickedStudios
                 
         }
             
-        public override void SetupLevel(BoardManager bm)
+        public override void SetupLevel()
         {
         }
 

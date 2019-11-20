@@ -7,17 +7,16 @@ namespace WickedStudios
 {
     public class FallerText : MonoBehaviour
     {
-        string currentTarget;
-        public static FallerText instance;
+        private string currentTarget = "";
         private static Text targetText;
-
+        public static FallerText instance;
+        private Target target;
         void Awake()
         {
             instance = this;
             targetText = GetComponent<Text>();
         }
 
- 
         public string GetTargetText()
         {
             return currentTarget;
@@ -36,22 +35,22 @@ namespace WickedStudios
             switch (fallerName)
             {
                 case "LeftP":
-                    Debug.Log("returning ( ");
+                    //Debug.Log("returning ( ");
                     return "(";
                 case "RightP":
-                    Debug.Log("returning ) ");
+                    //Debug.Log("returning ) ");
                     return ")";
                 case "LeftB":
-                    Debug.Log("returning [ ");
+                    //Debug.Log("returning [ ");
                     return "[";
                 case "RightB":
-                    Debug.Log("returning ] ");
+                    //Debug.Log("returning ] ");
                     return "]";
                 case "LeftC":
-                    Debug.Log("returning { ");
+                    //Debug.Log("returning { ");
                     return "{";
                 case "RightC":
-                    Debug.Log("returning } ");
+                    //Debug.Log("returning } ");
                     return "}";
                 default:
                     return "error";
@@ -60,7 +59,7 @@ namespace WickedStudios
 
         private void Start()
         {
-            Target target = new Target();
+            target = GetComponent<Target>();
 
             Debug.Log("setting a random target");
 
@@ -68,8 +67,6 @@ namespace WickedStudios
 
             target.SetCurrentTarget(currentTarget);
             SetTargetText(currentTarget);
-
         }
     }
-
 }

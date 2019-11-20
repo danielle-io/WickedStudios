@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
 
 namespace WickedStudios
 {
-    public class Target
+    public class Target: MonoBehaviour
     {
         private static string currentTarget;
 
@@ -28,7 +25,6 @@ namespace WickedStudios
                 fallerText.SetTargetText(currentTarget);
 
                 Debug.Log("current target is :: " + currentTarget);
-
                 return true;
             }
         }
@@ -56,9 +52,9 @@ namespace WickedStudios
 
         public string GetRandomLeftTarget()
         {
-            BoardManager Bm = new BoardManager();
+
             string[] leftArr = { "LeftC", "LeftP", "LeftB" };
-            string returningTarget = leftArr[Bm.ChooseRandomNumInRange(0, leftArr.Length - 1)];
+            string returningTarget = leftArr[BoardManager.inst.ChooseRandomNumInRange(0, leftArr.Length - 1)];
 
             Debug.Log(returningTarget);
             return returningTarget;

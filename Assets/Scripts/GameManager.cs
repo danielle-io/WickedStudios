@@ -11,39 +11,37 @@ namespace WickedStudios
         //Delay between each Player turn.
         public float turnDelay = 0.1f;
 
-        public int playerItemPoints = 0;         
         public static GameManager instance = null;
-        public BoardManager bm;
 
         // This will hold the current Level Script.
         public Level levelScript;       
         public int level = 1;
-        public static int playerPoints = 0;
-        public static int antiPlayerPoints = 0;
 
+        private static int playerPoints = 0;
+        private static int antiPlayerPoints = 0;
         private static bool levelOver = false;
 
-        //Awake is always called before any Start functions
         void Awake()
         {
-            //Check if instance already exists
+
+            BoardManager bm = gameObject.GetComponent<BoardManager>();
+
             if (instance == null)
             {
                 instance = this;
             }
 
-            //If instance already exists and it's not this:
+            // If instance already exists and it's not this:
             else if (instance != this)
             {
                 Destroy(gameObject);
             }
             
-            //Sets this to not be destroyed when reloading scene
+            // Sets this to not be destroyed when reloading scene
             DontDestroyOnLoad(gameObject);
             
             //Get a component reference to the attached BoardManager script
             bm = GetComponent<BoardManager>();
-
             InitGame();
         }
 
@@ -60,9 +58,11 @@ namespace WickedStudios
             levelOver = false;
         }
 
-        //Initializes the game for each level.
+        // Initializes the game for each level.
         void InitGame()
         {
+            BoardManager bm = GetComponent<BoardManager>();
+
             switch (level)
             {
                 case 1:
@@ -87,6 +87,7 @@ namespace WickedStudios
         {
             if (levelScript.CheckLevelOver()){
                 Debug.Log("LEVEL IS OVER");
+                SceneManager.LoadScene("GameOver");
             }
 
             levelScript.SetLevelText();

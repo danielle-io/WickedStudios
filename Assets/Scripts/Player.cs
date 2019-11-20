@@ -1,24 +1,18 @@
 ﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.UI;   //Allows us to use UI.
+using UnityEngine.UI;  
 using UnityEngine.SceneManagement;
 
 namespace WickedStudios
 {
-    // Player inherits from MovingObject, 
-    // our base class for objects that can move, 
-    // Enemy also inherits from this.
     public class Player : MovingObject
     {
-        public float restartLevelDelay = 1f;
+        //private float restartLevelDelay = 1f;
 
-        public AudioClip moveSound1;
-        public AudioClip moveSound2;
+        private AudioClip moveSound1;
 
-        public AudioClip gameOverSound;
-        public int pointsPerItems = 1;
+        private int pointsPerItems = 1;
 
-        public Text playerScoreText;
+        private Text playerScoreText;
 
         private Animator animator;                  
                                    
@@ -33,7 +27,6 @@ namespace WickedStudios
         protected override void Start()
         {
             //animator = GetComponent<Animator>();
-            
             base.Start();
         }
 
@@ -48,11 +41,10 @@ namespace WickedStudios
             horizontal = (int) (Input.GetAxisRaw ("Horizontal"));
             vertical = (int) (Input.GetAxisRaw ("Vertical"));
 
-            ////Check if moving horizontally, if so set vertical to zero.
-            //if (horizontal != 0)
-            //{
-            //    vertical = 0;
-            //}
+            if (horizontal != 0)
+            {
+                vertical = 0;
+            }
 
             #endif //End of mobile platform dependendent compilation section started above with #elif
             //Check if we have a non-zero value for horizontal or vertical
@@ -63,7 +55,7 @@ namespace WickedStudios
                 // they encounter one (by attacking it)
                 //Pass in horizontal and vertical as parameters 
                 // to specify the direction to move Player in.
-                AttemptMove<Wall>(horizontal, vertical);
+                AttemptMove<Coworker>(horizontal, vertical);
             }
         }
 
@@ -96,21 +88,8 @@ namespace WickedStudios
         // is a Wall which the player can attack and destroy.
         protected override void OnCantMove<T>(T component)
         {
-
-            ////Set hitWall to equal the component passed in as a parameter.
-            //Wall hitWall = component as Wall;
-
-
-            ////Set the attack trigger of the player's animation controller in order to play the player's attack animation.
             //animator.SetTrigger("playerChop");
         }
-
-        private void OnTriggerEnter2D(Collider2D collisionItem)
-        {
-            Debug.Log("Triggered Collision in Player");
-
-        }
-
     }
 }
 
