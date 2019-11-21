@@ -27,10 +27,8 @@ namespace WickedStudios
         }
 
         // Overrides the base class SetupLevel.
-        public override void SetupLevel()
+        public override void SetupLevel(BoardManager bm)
         {
-            GameManager gm = gameObject.GetComponent<GameManager>();
-            BoardManager bm = gameObject.GetComponent<BoardManager>();
 
             Debug.Log("Setting up board for level.");
 

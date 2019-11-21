@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System;
-using System.Collections;
 using System.Collections.Generic; 		
 using Random = UnityEngine.Random; 		
 
@@ -10,6 +9,7 @@ namespace WickedStudios
 	{
         private static List<Vector3> gridPositions = new List<Vector3>();
         public static BoardManager inst;
+        //public Level levelscript;
 
         void Awake()
         {
@@ -128,7 +128,8 @@ namespace WickedStudios
         // calls the previous functions to lay out the game board
         public void SetupScene (Level levelScript)
 		{
-            levelScript.SetupLevel();
+            levelScript.SetupLevel(this);
+
         }
     }
 }
