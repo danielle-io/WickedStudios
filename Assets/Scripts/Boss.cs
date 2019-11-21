@@ -28,12 +28,12 @@ namespace WickedStudios
 
             // this part is in the coworker script already.... read note about why in coworker
             //Debug.Log("coworker distance :: " + coworkerDistance);
-            if (coworkerDistance <= .9f && PaperPickup.instance.GetCoworkerHasPaper())
+            if (coworkerDistance <= 1.2f && PaperPickup.instance.GetCoworkerHasPaper())
             {
-                //Gm.SetAntiPlayerPoints(1);
-                //Debug.Log("setting has paper to false ");
-                //paper.SetCoworkerHasPaper(false);
-                //coworker.SetShortestDistance();
+                GameManager.instance.SetAntiPlayerPoints(1);
+                Debug.Log("setting has paper to false ");
+                PaperPickup.instance.SetCoworkerHasPaper(false);
+                Coworker.instance.SetShortestDistance();
             }
 
         }

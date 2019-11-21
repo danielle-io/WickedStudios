@@ -17,10 +17,7 @@ namespace WickedStudios
         public GameObject floorTiles;
 
         public static int paperObjectTotal;
-
-
-        //public static int paperObjectsLeft;
-
+        
         private void Update()
         {
             CheckLevelOver();
@@ -29,9 +26,6 @@ namespace WickedStudios
         // Overrides the base class SetupLevel.
         public override void SetupLevel(BoardManager bm)
         {
-
-            Debug.Log("Setting up board for level.");
-
             bm.BoardSetup(rows, columns, outerWallTiles, floorTiles);
             bm. InitialiseList(rows, columns);
             AddCharacters();
@@ -73,13 +67,15 @@ namespace WickedStudios
 
         public void AddRandomPositionObjects()
         {
+            BoardManager bm = gameObject.GetComponent<BoardManager>();
+
             // Paper: get random count, set total paper, set each paper
             paperObjectTotal = BoardManager.inst.ChooseRandomNumInRange(8, 10);
             
             for (int i = 0; i < paperObjectTotal; i++)
             {
-                Vector3 paperPosition = BoardManager.inst.GetRandomPosition(paper);
-                BoardManager.inst.AddObjectToBoardAtPosition(paper, paperPosition);
+                Vector3 paperPosition = bm.GetRandomPosition(paper);
+                bm.AddObjectToBoardAtPosition(paper, paperPosition);
             }
          }
          
@@ -103,10 +99,6 @@ namespace WickedStudios
         {
             int playerPoints = GameManager.instance.GetPlayerPoints();
             int coworkerPoints = GameManager.instance.GetAntiPlayerPoints();
-
-            Debug.Log("PLAYER POINTS :: " + playerPoints);
-            Debug.Log("COWORKER POINTS :: " + coworkerPoints);
-
         }
     }
 }

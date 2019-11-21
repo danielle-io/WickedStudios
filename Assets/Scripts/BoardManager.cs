@@ -71,12 +71,11 @@ namespace WickedStudios
             return Random.Range(minimum, maximum + 1);
         }
 
-
         public int GetRandomSpacePerItem(GameObject item)
         {
-            Debug.Log("item is " + item.transform.tag);
-            String itemName = item.transform.tag;
-            switch (itemName)
+            //Debug.Log("item is " + item.transform.tag);
+            //string itemName = item.transform.tag;
+            switch (item.transform.tag)
             {
                 case "Paper":
                     return 2;
@@ -94,7 +93,6 @@ namespace WickedStudios
         // Creates the outer walls and floor.
         public void BoardSetup(int rows, int columns, GameObject border, GameObject floor)
         {
-
             Transform boardHolder;
 
             // Instantiate Board and set boardHolder to its transform.
@@ -129,7 +127,6 @@ namespace WickedStudios
         public void SetupScene (Level levelScript)
 		{
             levelScript.SetupLevel(this);
-
         }
     }
 }

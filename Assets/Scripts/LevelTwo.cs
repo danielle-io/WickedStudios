@@ -6,6 +6,11 @@ namespace WickedStudios
     {
         public GameObject fallerCatcher;
 
+        private void Awake()
+        {
+            GameManager.instance.SetLevel(2);
+        }
+
         public override void SetupLevel(BoardManager bm)
         {
 
@@ -14,7 +19,6 @@ namespace WickedStudios
 
         public override bool CheckLevelOver()
         {
-
             // Player has closed 5 brackets or hit 5 wrong brackets
             if (GameManager.instance.GetPlayerPoints() >= 10 || GameManager.instance.GetPlayerPoints() <= -5)
             {

@@ -9,14 +9,13 @@ namespace WickedStudios
         public float levelStartDelay = 2f;
 
         //Delay between each Player turn.
-        public float turnDelay = 0.1f;
+        //public float turnDelay = 0.1f;
 
         public static GameManager instance = null;
 
-        // This will hold the current Level Script.
         public Level levelScript;
         public BoardManager bm;
-        public int level = 1;
+        private int level = 1;
 
         private static int playerPoints = 0;
         private static int antiPlayerPoints = 0;
@@ -44,17 +43,20 @@ namespace WickedStudios
             InitGame();
         }
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-        static public void CallbackInitialization()
-        {
-            //SceneManager.sceneLoaded += OnSceneLoaded;
-        }
+        // I commented this stuff out for now bc its not how we are using scenes,
+        // p sure we won't need it
+        //[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        //static public void CallbackInitialization()
+        //{
+        //    SceneManager.sceneLoaded += OnSceneLoaded;
+        //}
 
-        static private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
-        {
-            //instance.level++;
-            //instance.InitGame();
-        }
+      
+        //static private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+        //{
+        //    instance.level++;
+        //    instance.InitGame();
+        //}
 
         // Initializes the game for each level.
         void InitGame()
@@ -90,6 +92,11 @@ namespace WickedStudios
             levelScript.SetLevelText();
         }
 
+        public void SetLevel(int currentLevel)
+        {
+            level = currentLevel;
+        }
+
         public int GetLevel()
         {
             return level;
@@ -98,6 +105,7 @@ namespace WickedStudios
         public void SetPlayerPoints(int points)
         {
             playerPoints += points;
+            Debug.Log("PLAYER POINTS = " + playerPoints);
         }
 
         public int GetPlayerPoints()
@@ -108,6 +116,8 @@ namespace WickedStudios
         public void SetAntiPlayerPoints(int points)
         {
             antiPlayerPoints += points;
+            Debug.Log("COWORKER POINTS = " + antiPlayerPoints);
+
         }
 
         public int GetAntiPlayerPoints()

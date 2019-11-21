@@ -14,6 +14,13 @@ namespace WickedStudios
         private bool levelOver = false;
         public float coworkerSpeed = .00001f;
 
+        public static Coworker instance;
+
+        void Awake()
+        {
+            instance = this;
+        }
+
         void Start()
         {
             SetObstacles();
@@ -55,7 +62,7 @@ namespace WickedStudios
 
         private void MoveTowardsPaper()
         {
-            //Debug.Log("Moving towards paper");
+            Debug.Log("Moving towards paper");
             MoveTowardsObject(closestTarget);
 
             if (Vector3.Distance(transform.position, closestTarget.transform.position) <= 0.3f)
