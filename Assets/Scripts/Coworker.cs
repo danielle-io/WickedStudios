@@ -37,7 +37,7 @@ namespace WickedStudios
                 // If coworker does not have paper, find & move towards it
                 if (!PaperPickup.instance.GetCoworkerHasPaper())
                 {
-                    Debug.Log("Looking for paper!");
+                    //Debug.Log("Looking for paper!");
                     GameObject target = FindPaper();
 
                     if (target != null)
@@ -62,7 +62,7 @@ namespace WickedStudios
 
         private void MoveTowardsPaper()
         {
-            Debug.Log("Moving towards paper");
+            //Debug.Log("Moving towards paper");
             MoveTowardsObject(closestTarget);
 
             if (Vector3.Distance(transform.position, closestTarget.transform.position) <= 0.3f)
@@ -82,16 +82,22 @@ namespace WickedStudios
             // (the player's detection is there, but for some reason when
             // this is in the boss script the coworker stops after delivering
             // the paper and im not sure why
-            if (Vector3.Distance(transform.position, boss.transform.position) <= 0.9f)
+            if (PaperPickup.instance.GetCoworkerHasPaper())
             {
+                if (Vector3.Distance(transform.position, boss.transform.position) <= 1.2f)
+                {
 
-                GameManager.instance.SetAntiPlayerPoints(1);
+                    GameManager.instance.SetAntiPlayerPoints(1);
 
-                Debug.Log("setting has paper to false ");
+                    CoworkersPaperScoreText.instance.SetCoworkersScoreText();
 
-                PaperPickup.instance.SetCoworkerHasPaper(false);
-                shortestDistance = Mathf.Infinity;
+                    Debug.Log("setting has paper to false ");
+
+                    PaperPickup.instance.SetCoworkerHasPaper(false);
+                    shortestDistance = Mathf.Infinity;
+                }
             }
+
         }
 
         public void SetShortestDistance()

@@ -5,6 +5,12 @@ namespace WickedStudios
     public class Target: MonoBehaviour
     {
         private static string currentTarget;
+        public static Target instance;
+
+        void Awake()
+        {
+            instance = this;
+        }
 
         public bool CheckIfHitWasTarget(string currentHit)
         {
@@ -21,7 +27,7 @@ namespace WickedStudios
                 Debug.Log("current hit in target is equal -> " + currentHit);
                 currentTarget = GetNextTarget(currentHit);
 
-                FallerText fallerText = new FallerText();
+                FallerTargetText fallerText = new FallerTargetText();
                 fallerText.SetTargetText(currentTarget);
 
                 Debug.Log("current target is :: " + currentTarget);

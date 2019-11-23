@@ -5,16 +5,11 @@ namespace WickedStudios
     public class LevelTwo : Level
     {
         public GameObject fallerCatcher;
-
-        private void Awake()
-        {
-            GameManager.instance.SetLevel(2);
-        }
+        public static LevelTwo instance = null;
 
         public override void SetupLevel(BoardManager bm)
         {
-
-            BoardManager.inst.AddObjectToBoardAtPosition(fallerCatcher, new Vector3(3, -3.7f, 0));
+            bm.AddObjectToBoardAtPosition(fallerCatcher, new Vector3(0, -3.7f, 0));
         }
 
         public override bool CheckLevelOver()
@@ -29,11 +24,11 @@ namespace WickedStudios
 
         private void Update()
         {
-            if (ScoreText.instance.GetScoreTextPoints() != GameManager.instance.GetPlayerPoints())
-            {
-                Debug.Log("score text and points are different");
-                ScoreText.instance.SetScoreText();
-            }
+            //if (FallerScoreText.instance.GetScoreTextPoints() != GameManager.instance.GetPlayerPoints())
+            //{
+            //    Debug.Log("score text and points are different");
+            //    FallerScoreText.instance.SetScoreText();
+            //}
         }
     }
 }

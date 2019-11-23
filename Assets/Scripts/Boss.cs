@@ -19,6 +19,7 @@ namespace WickedStudios
                 Debug.Log("PAPER PASSED TO BOSS BY PLAYER ");
 
                 GameManager.instance.SetPlayerPoints(1);
+                PlayersPaperScoreText.instance.SetPlayerScoreText();
 
                 PaperPickup.instance.SetPlayerHasPaper(false);
             }
@@ -31,6 +32,8 @@ namespace WickedStudios
             if (coworkerDistance <= 1.2f && PaperPickup.instance.GetCoworkerHasPaper())
             {
                 GameManager.instance.SetAntiPlayerPoints(1);
+                CoworkersPaperScoreText.instance.SetCoworkersScoreText();
+
                 Debug.Log("setting has paper to false ");
                 PaperPickup.instance.SetCoworkerHasPaper(false);
                 Coworker.instance.SetShortestDistance();

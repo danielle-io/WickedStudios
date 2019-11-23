@@ -14,60 +14,69 @@ namespace WickedStudios
         public static GameManager instance = null;
 
         public Level levelScript;
-        public BoardManager bm;
-        private int level = 1;
+        private int level;
 
         private static int playerPoints = 0;
         private static int antiPlayerPoints = 0;
 
+        BoardManager bm;
+
         void Awake()
         {
-            bm = GetComponent<BoardManager>();
-            
-            if (instance == null)
-            {
-                instance = this;
-            }
+            instance = this;
 
-            // If instance already exists and it's not this:
-            else if (instance != this)
-            {
-                Destroy(gameObject);
-            }
-            
+            //if (instance == null)
+            //{
+            //    instance = this;
+            //}
+
+            //// If instance already exists and it's not this:
+            //else if (instance != this)
+            //{
+            //    Destroy(gameObject);
+            //}
+
             // Sets this to not be destroyed when reloading scene
             DontDestroyOnLoad(gameObject);
-            
+
             //Get a component reference to the attached BoardManager script
-            //bm = GetComponent<BoardManager>();
+            bm = GetComponent<BoardManager>();
+            GetActiveScene();
             InitGame();
         }
-
-        // I commented this stuff out for now bc its not how we are using scenes,
-        // p sure we won't need it
-        //[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-        //static public void CallbackInitialization()
-        //{
-        //    SceneManager.sceneLoaded += OnSceneLoaded;
-        //}
-
-      
-        //static private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
-        //{
-        //    instance.level++;
-        //    instance.InitGame();
-        //}
+   
+        private void GetActiveScene()
+        {
+            Scene activeScene = SceneManager.GetActiveScene();
+            string sceneName = activeScene.name;
+            switch (sceneName)
+            {
+                case "Level1":
+                    level = 1;
+                    break;
+                case "Level2":
+                    level = 2;
+                    break;
+                case "Level3":
+                    level = 3;
+                    break;
+                default:
+                    Debug.Log("default LEVEL statement");
+                    level = 1;
+                    break;
+            }
+        }
 
         // Initializes the game for each level.
-        void InitGame()
+        public void InitGame()
         {
-
             switch (level)
             {
                 case 1:
                     levelScript = GetComponent<LevelOne>();
                     break;
                 case 2:
+                    Debug.Log("LEVEL SCRIPT 2");
                     levelScript = GetComponent<LevelTwo>();
                     break;
                 case 3:
@@ -79,6 +88,7 @@ namespace WickedStudios
             }
             // May want to have a check here to make sure
             // levelScript is properly initialized.
+            bm = GetComponent<BoardManager>();
             bm.SetupScene(levelScript);
         }
 
@@ -88,13 +98,7 @@ namespace WickedStudios
                 Debug.Log("LEVEL IS OVER");
                 SceneManager.LoadScene("GameOver");
             }
-
             levelScript.SetLevelText();
-        }
-
-        public void SetLevel(int currentLevel)
-        {
-            level = currentLevel;
         }
 
         public int GetLevel()
@@ -117,7 +121,6 @@ namespace WickedStudios
         {
             antiPlayerPoints += points;
             Debug.Log("COWORKER POINTS = " + antiPlayerPoints);
-
         }
 
         public int GetAntiPlayerPoints()

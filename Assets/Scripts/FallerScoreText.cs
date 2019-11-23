@@ -5,17 +5,20 @@ using UnityEngine.UI;
 
 namespace WickedStudios
 {
-    public class ScoreText : MonoBehaviour
+    public class FallerScoreText : MonoBehaviour
     {
-        int points;
-        public static ScoreText instance;
+        public static FallerScoreText instance;
+
+        private int points;
         private static Text scoreText;
 
         void Awake()
         {
             instance = this;
             scoreText = GetComponent<Text>();
-            scoreText.text = "Score: " + GameManager.instance.GetPlayerPoints();
+            scoreText.text = "Score: ";
+            //scoreText.text = "Score: " + GameManager.instance.GetPlayerPoints();
+
         }
 
         public void SetScoreText()

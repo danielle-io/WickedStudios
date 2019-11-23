@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 namespace WickedStudios
 {
-    public class FallerText : MonoBehaviour
+    public class FallerTargetText : MonoBehaviour
     {
+        public static FallerTargetText instance;
+
         private string currentTarget = "";
         private static Text targetText;
-        public static FallerText instance;
-        private Target target;
+
         void Awake()
         {
             instance = this;
@@ -59,13 +60,13 @@ namespace WickedStudios
 
         private void Start()
         {
-            target = GetComponent<Target>();
+            //target = GetComponent<Target>();
 
             Debug.Log("setting a random target");
 
-            currentTarget = target.GetRandomLeftTarget();
+            currentTarget = Target.instance.GetRandomLeftTarget();
 
-            target.SetCurrentTarget(currentTarget);
+            Target.instance.SetCurrentTarget(currentTarget);
             SetTargetText(currentTarget);
         }
     }

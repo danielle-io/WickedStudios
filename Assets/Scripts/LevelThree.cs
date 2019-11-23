@@ -9,7 +9,6 @@ namespace WickedStudios
 
         private void Awake()
         {
-            GameManager.instance.SetLevel(3);
         }
 
         public void LevelThreeSetup()

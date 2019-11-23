@@ -2,11 +2,12 @@
 
 namespace WickedStudios
 {
-    // LevelOne inherits from Level, our base class for levels.
     public class LevelOne : Level
     {
         public int columns = 9;
         public int rows = 9;
+        public static int paperObjectTotal;
+
         public GameObject boss;
         public GameObject player;
         public GameObject plant;
@@ -16,8 +17,8 @@ namespace WickedStudios
         public GameObject outerWallTiles;
         public GameObject floorTiles;
 
-        public static int paperObjectTotal;
-        
+        public static LevelOne instance = null;
+
         private void Update()
         {
             CheckLevelOver();
@@ -28,15 +29,13 @@ namespace WickedStudios
         {
             bm.BoardSetup(rows, columns, outerWallTiles, floorTiles);
             bm. InitialiseList(rows, columns);
-            AddCharacters();
-            AddSetPositionObjects();
-            AddRandomPositionObjects();
+            AddCharacters(bm);
+            AddSetPositionObjects(bm);
+            AddRandomPositionObjects(bm);
         }
 
-        private void AddSetPositionObjects()
+        private void AddSetPositionObjects(BoardManager bm)
         {
-            BoardManager bm = gameObject.GetComponent<BoardManager>();
-
             // A set array of desk positions (for now at least)
             Vector3[] deskPositions = { new Vector3(1, 5, 0),
                 new Vector3(4, 5, 0), new Vector3(7, 5, 0)};
@@ -51,26 +50,25 @@ namespace WickedStudios
             bm.AddObjectToBoardAtPosition(plant, new Vector3(0, 7.6f, 0));
         }
 
-        private void AddCharacters()
+        private void AddCharacters(BoardManager bm)
         {
             // Add single coworker (for now at least)
-            Vector3 coworkerPosition = BoardManager.inst.GetRandomPosition(coworker);
-            BoardManager.inst.AddObjectToBoardAtPosition(coworker, coworkerPosition);
+            Vector3 coworkerPosition = bm.GetRandomPosition(coworker);
+            bm.AddObjectToBoardAtPosition(coworker, coworkerPosition);
 
             // Add player
-            Vector3 playerPosition = BoardManager.inst.GetRandomPosition(player);
-            BoardManager.inst.AddObjectToBoardAtPosition(player, playerPosition);
+            Vector3 playerPosition = bm.GetRandomPosition(player);
+            bm.AddObjectToBoardAtPosition(player, playerPosition);
 
             // Add boss to set position
-            BoardManager.inst.AddObjectToBoardAtPosition(boss, new Vector3(7, 7, 0));
+            bm.AddObjectToBoardAtPosition(boss, new Vector3(7, 7, 0));
         }
 
-        public void AddRandomPositionObjects()
+        public void AddRandomPositionObjects(BoardManager bm)
         {
-            BoardManager bm = gameObject.GetComponent<BoardManager>();
 
             // Paper: get random count, set total paper, set each paper
-            paperObjectTotal = BoardManager.inst.ChooseRandomNumInRange(8, 10);
+            paperObjectTotal = bm.ChooseRandomNumInRange(8, 10);
             
             for (int i = 0; i < paperObjectTotal; i++)
             {
