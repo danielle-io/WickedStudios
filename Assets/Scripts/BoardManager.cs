@@ -19,26 +19,26 @@ namespace WickedStudios
 
         public void InitialiseList (int rows, int columns)
 		{
-			gridPositions.Clear ();
+			gridPositions.Clear();
 
-            for (int x = 1; x < columns-1; x++)
+            for (int x = 1; x < columns -1; x++)
 			{
-				for(int y = 1; y < rows-1; y++)
+				for(int y = 1; y < rows -1; y++)
 				{
-					gridPositions.Add (new Vector3(x, y, 0f));
+					gridPositions.Add(new Vector3(x, y, 0f));
                 }
 			}
 
             // Remove the text area from grid positions
             //gridPositions.RemoveAt(randomIndex);
-            text = GameObject.FindGameObjectsWithTag("Paper");
+            text = GameObject.FindGameObjectsWithTag("Text");
             foreach (GameObject item in text)
             {
                 Vector3 position = new Vector3();
                 position = item.transform.position;
 
                 // Figure out how grid points are an int and not a Vector3
-                //gridPositions.RemoveAt(position);
+                gridPositions.Remove(position);
             }
         }
 
@@ -52,7 +52,9 @@ namespace WickedStudios
             // Removing some space around the object so they
             // aren't too close together
             int extraSpacePerItem = GetRandomSpacePerItem(item);
-            RemoveNearbyGrids(randomIndex, extraSpacePerItem);
+            Vector3 position = new Vector3();
+            position = gridPositions[randomIndex];
+            RemoveNearbyGrids(position, extraSpacePerItem);
 
 
             return randomPosition;
@@ -64,12 +66,19 @@ namespace WickedStudios
         }
 
 
-        public void RemoveNearbyGrids(int position, int extraSpacePerItem)
+        public void RemoveNearbyGrids(Vector3 position, int extraSpacePerItem)
         {
+            // Fix this later so we actually use extraSpacePerItem in a while loop
             try
             {
-                gridPositions.RemoveAt(position + extraSpacePerItem);
-                gridPositions.RemoveAt(position - extraSpacePerItem);
+                Vector3 newPositions = new Vector3();
+                float one = position[0];
+                float two = position[1];
+
+                newPositions = new Vector3(one -1, two-1, 0f);
+                gridPositions.Remove(newPositions);
+                newPositions = new Vector3(one + 1, two + 1, 0f);
+                gridPositions.Remove(newPositions);
             }
 
             catch (Exception)
