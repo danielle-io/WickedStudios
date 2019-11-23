@@ -18,8 +18,8 @@ namespace WickedStudios
         public void InitialiseList (int rows, int columns)
 		{
 			gridPositions.Clear ();
-            
-            for (int x = 3; x < columns-1; x++)
+
+            for (int x = 4; x < columns-1; x++)
 			{
 				for(int y = 1; y < rows-1; y++)
 				{

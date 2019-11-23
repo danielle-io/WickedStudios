@@ -104,8 +104,6 @@ namespace WickedStudios
                 string nextScene = levelScript.GetNextScene();
                 SceneManager.LoadScene(nextScene);
             }
-
-
             levelScript.SetLevelText();
         }
 

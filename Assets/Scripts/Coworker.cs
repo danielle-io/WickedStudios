@@ -107,6 +107,8 @@ namespace WickedStudios
 
         private GameObject FindPaper()
         {
+            Debug.Log("finding paper");
+
             targets = GameObject.FindGameObjectsWithTag("Paper");
 
             if (targets.Length <= 0)
@@ -140,6 +142,7 @@ namespace WickedStudios
 
         void Avoid()
         {
+            Debug.Log("in avoid");
             foreach (GameObject obstacle in obstacles)
             {
                 float obstacleDistance = Vector3.Distance(transform.position, obstacle.transform.position);
