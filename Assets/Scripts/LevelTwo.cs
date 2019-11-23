@@ -12,14 +12,19 @@ namespace WickedStudios
             bm.AddObjectToBoardAtPosition(fallerCatcher, new Vector3(0, -3.7f, 0));
         }
 
-        public override bool CheckLevelOver()
+        public override int CheckLevelOver()
         {
             // Player has closed 5 brackets or hit 5 wrong brackets
-            if (GameManager.instance.GetPlayerPoints() >= 10 || GameManager.instance.GetPlayerPoints() <= -5)
+            if (GameManager.instance.GetPlayerPoints() <= -5)
             {
-                return true;
+                return -1;
             }
-            return false;
+            // Player has closed 5 brackets or hit 5 wrong brackets
+            if (GameManager.instance.GetPlayerPoints() >= 10)
+            {
+                return 1;
+            }
+            return 0;
         }
 
         private void Update()
@@ -29,6 +34,11 @@ namespace WickedStudios
             //    Debug.Log("score text and points are different");
             //    FallerScoreText.instance.SetScoreText();
             //}
+        }
+
+        public override string GetNextScene()
+        {
+            return "Level3Intro";
         }
     }
 }

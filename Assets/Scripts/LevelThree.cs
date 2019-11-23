@@ -25,9 +25,9 @@ namespace WickedStudios
         {
         }
 
-        public override bool CheckLevelOver()
+        public override int CheckLevelOver()
         {
-            return false;
+            return 0;
         }
 
         void Start()
@@ -43,6 +43,11 @@ namespace WickedStudios
         public override void SetLevelText()
         {
 
+        }
+
+        public override string GetNextScene()
+        {
+            return "WonGame";
         }
     }
 }

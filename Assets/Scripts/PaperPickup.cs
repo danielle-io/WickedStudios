@@ -7,9 +7,7 @@ namespace WickedStudios
     public class PaperPickup : MonoBehaviour
     {
         public AudioClip clip;
-
-        public int paperValue = 1;
-
+        
         public static bool playerHasPaper = false;
         public static bool coworkerHasPaper = false;
 

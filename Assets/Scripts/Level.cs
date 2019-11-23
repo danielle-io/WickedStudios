@@ -11,13 +11,19 @@ namespace WickedStudios
         }
 
         // Returns true if the level is over.
-        public virtual bool CheckLevelOver()
+        public virtual int CheckLevelOver()
         {
-            return true;
+            return 0;
         }
 
         public virtual void SetLevelText()
         {
         }
+
+        public virtual string GetNextScene()
+        {
+            return "";
+        }
+
     }
 }

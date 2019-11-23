@@ -9,7 +9,6 @@ namespace WickedStudios
 	{
         private static List<Vector3> gridPositions = new List<Vector3>();
         public static BoardManager inst;
-        //public Level levelscript;
 
         void Awake()
         {
@@ -20,7 +19,7 @@ namespace WickedStudios
 		{
 			gridPositions.Clear ();
             
-            for (int x = 1; x < columns-1; x++)
+            for (int x = 3; x < columns-1; x++)
 			{
 				for(int y = 1; y < rows-1; y++)
 				{
@@ -46,7 +45,6 @@ namespace WickedStudios
 
         public void AddObjectToBoardAtPosition(GameObject item, Vector3 position)
         {
-
             Instantiate(item, position, Quaternion.identity);
         }
 
@@ -91,32 +89,22 @@ namespace WickedStudios
         }
 
         // Creates the outer walls and floor.
-        public void BoardSetup(int rows, int columns, GameObject border, GameObject floor)
+        public void BoardSetup(int rows, int columns, GameObject border, GameObject carpet)
         {
             Transform boardHolder;
 
             // Instantiate Board and set boardHolder to its transform.
             boardHolder = new GameObject("Board").transform;
 
-            // Loop along x axis, starting from -1 (to fill corner) with floor or 
-            // outerwall edge tiles.
             for (int x = -1; x < columns + 1; x++)
             {
-                //Loop along y axis, starting from -1 to place floor or outerwall tiles.
                 for (int y = -1; y < rows + 1; y++)
                 {
-                    GameObject toInstantiate = floor;
-
-
-                    if (x == -1 || x == columns || y == -1 || y == rows)
-                        toInstantiate = border;
-
+                    GameObject toInstantiate = carpet;
+                    //if (x == -1 || x == columns || y == -1 || y == rows)
+                        //toInstantiate = border;
                     GameObject instance = Instantiate
                         (toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
-
-                    // Set the parent of our newly instantiated 
-                    // object instance to boardHolder, this is just 
-                    // organizational to avoid cluttering hierarchy.
                     instance.transform.SetParent(boardHolder);
                 }
             }

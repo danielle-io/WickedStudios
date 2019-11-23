@@ -4,8 +4,8 @@ namespace WickedStudios
 {
     public class LevelOne : Level
     {
-        public int columns = 9;
-        public int rows = 9;
+        public int columns = 11;
+        public int rows = 11;
         public static int paperObjectTotal;
 
         public GameObject boss;
@@ -37,17 +37,17 @@ namespace WickedStudios
         private void AddSetPositionObjects(BoardManager bm)
         {
             // A set array of desk positions (for now at least)
-            Vector3[] deskPositions = { new Vector3(1, 5, 0),
-                new Vector3(4, 5, 0), new Vector3(7, 5, 0)};
+            Vector3[] deskPositions = { new Vector3(0, 5, 0),
+                new Vector3(4, 5, 0), new Vector3(5, 2, 0),  new Vector3(9, 2, 0)};
 
             // Hard coding desk positions (for now at least)
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 bm.AddObjectToBoardAtPosition(desks[0], deskPositions[i]);
             }
 
             // Plant placement
-            bm.AddObjectToBoardAtPosition(plant, new Vector3(0, 7.6f, 0));
+            bm.AddObjectToBoardAtPosition(plant, new Vector3(-1, 7, 0));
         }
 
         private void AddCharacters(BoardManager bm)
@@ -61,7 +61,7 @@ namespace WickedStudios
             bm.AddObjectToBoardAtPosition(player, playerPosition);
 
             // Add boss to set position
-            bm.AddObjectToBoardAtPosition(boss, new Vector3(7, 7, 0));
+            bm.AddObjectToBoardAtPosition(boss, new Vector3(10, 7, 0));
         }
 
         public void AddRandomPositionObjects(BoardManager bm)
@@ -83,20 +83,31 @@ namespace WickedStudios
             return papers.Length;
         }
 
-        public override bool CheckLevelOver()
+        public override int CheckLevelOver()
         {
-            // Player has closed 5 brackets or hit 5 wrong brackets
-            if (GameManager.instance.GetPlayerPoints() >= 10 || GameManager.instance.GetPlayerPoints() <= -5)
+            if (GameManager.instance.GetPlayerPoints() + GameManager.instance.GetAntiPlayerPoints() >= paperObjectTotal)
             {
-                return true;
+                if (GameManager.instance.GetPlayerPoints() < GameManager.instance.GetAntiPlayerPoints())
+                {
+                    return -1;
+                }
+                if (GameManager.instance.GetPlayerPoints() > GameManager.instance.GetAntiPlayerPoints())
+                {
+                    return 1;
+                }
             }
-            return false;
+            return 0;
         }
 
         public override void SetLevelText()
         {
             int playerPoints = GameManager.instance.GetPlayerPoints();
             int coworkerPoints = GameManager.instance.GetAntiPlayerPoints();
+        }
+
+        public override string GetNextScene()
+        {
+            return "Level2Intro";
         }
     }
 }

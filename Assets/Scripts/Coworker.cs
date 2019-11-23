@@ -28,8 +28,9 @@ namespace WickedStudios
         }
 
         void Update()
-        {       
+        {
             // Player could move so avoid them
+            Debug.Log("Coworker Update");
             SetObstacles();
 
             if (!levelOver)
@@ -57,7 +58,7 @@ namespace WickedStudios
         {
             Vector3 direction = target.transform.position - transform.position;
             Avoid();
-            transform.Translate(direction.normalized * 2 * Time.deltaTime);
+            transform.Translate(direction.normalized * 1 * Time.deltaTime);
         }
 
         private void MoveTowardsPaper()
@@ -84,20 +85,19 @@ namespace WickedStudios
             // the paper and im not sure why
             if (PaperPickup.instance.GetCoworkerHasPaper())
             {
-                if (Vector3.Distance(transform.position, boss.transform.position) <= 1.2f)
-                {
+                //if (Vector3.Distance(transform.position, boss.transform.position) <= 1.2f)
+                //{
 
-                    GameManager.instance.SetAntiPlayerPoints(1);
+                //    GameManager.instance.SetAntiPlayerPoints(1);
 
-                    CoworkersPaperScoreText.instance.SetCoworkersScoreText();
+                //    CoworkersPaperScoreText.instance.SetCoworkersScoreText();
 
-                    Debug.Log("setting has paper to false ");
+                //    Debug.Log("setting has paper to false ");
 
-                    PaperPickup.instance.SetCoworkerHasPaper(false);
-                    shortestDistance = Mathf.Infinity;
-                }
+                //    PaperPickup.instance.SetCoworkerHasPaper(false);
+                //    shortestDistance = Mathf.Infinity;
+                //}
             }
-
         }
 
         public void SetShortestDistance()

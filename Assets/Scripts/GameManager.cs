@@ -94,10 +94,18 @@ namespace WickedStudios
 
         void Update()
         {
-            if (levelScript.CheckLevelOver()){
+            if (levelScript.CheckLevelOver() == -1){
                 Debug.Log("LEVEL IS OVER");
                 SceneManager.LoadScene("GameOver");
             }
+            if (levelScript.CheckLevelOver() == 1)
+            {
+                Debug.Log("player won!");
+                string nextScene = levelScript.GetNextScene();
+                SceneManager.LoadScene(nextScene);
+            }
+
+
             levelScript.SetLevelText();
         }
 
@@ -126,11 +134,6 @@ namespace WickedStudios
         public int GetAntiPlayerPoints()
         {
             return antiPlayerPoints;
-        }
-
-        public bool GetLevelOver()
-        {
-            return levelScript.CheckLevelOver();
         }
     }
 }
