@@ -16,6 +16,7 @@ namespace WickedStudios
         public GameObject[] desks;
         public GameObject outerWallTiles;
         public GameObject floorTiles;
+        public GameObject bookcase;
 
         public static LevelOne instance = null;
 
@@ -48,6 +49,10 @@ namespace WickedStudios
 
             // Plant placement
             bm.AddObjectToBoardAtPosition(plant, new Vector3(-1, 7, 0));
+
+            // Bookcase placement
+            bm.AddObjectToBoardAtPosition(bookcase, new Vector3(-1, 1, 0));
+            bm.AddObjectToBoardAtPosition(bookcase, new Vector3(0.5f, 1, 0));
         }
 
         private void AddCharacters(BoardManager bm)

@@ -10,6 +10,8 @@ namespace WickedStudios
         private static List<Vector3> gridPositions = new List<Vector3>();
         public static BoardManager inst;
 
+        private GameObject[] text;
+
         void Awake()
         {
             inst = this;
@@ -19,16 +21,28 @@ namespace WickedStudios
 		{
 			gridPositions.Clear ();
 
-            for (int x = 4; x < columns-1; x++)
+            for (int x = 1; x < columns-1; x++)
 			{
 				for(int y = 1; y < rows-1; y++)
 				{
 					gridPositions.Add (new Vector3(x, y, 0f));
                 }
 			}
-		}
-		
-		public Vector3 GetRandomPosition(GameObject item)
+
+            // Remove the text area from grid positions
+            //gridPositions.RemoveAt(randomIndex);
+            text = GameObject.FindGameObjectsWithTag("Paper");
+            foreach (GameObject item in text)
+            {
+                Vector3 position = new Vector3();
+                position = item.transform.position;
+
+                // Figure out how grid points are an int and not a Vector3
+                //gridPositions.RemoveAt(position);
+            }
+        }
+
+        public Vector3 GetRandomPosition(GameObject item)
 		{
             int randomIndex = Random.Range (0, gridPositions.Count);
             Vector3 randomPosition = gridPositions[randomIndex];
@@ -39,6 +53,7 @@ namespace WickedStudios
             // aren't too close together
             int extraSpacePerItem = GetRandomSpacePerItem(item);
             RemoveNearbyGrids(randomIndex, extraSpacePerItem);
+
 
             return randomPosition;
 		}
