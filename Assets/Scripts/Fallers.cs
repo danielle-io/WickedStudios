@@ -12,6 +12,7 @@ namespace WickedStudios
         public static float fallTime;
         private int randomNum;
         public GameObject[] fallerItems;
+        
         public float delay = .1f;
 
 
@@ -26,18 +27,23 @@ namespace WickedStudios
 
             // Get random item from fallers array
             //BoardManager bm = new BoardManager();
-            randomNum = bm.ChooseRandomNumInRange(0, fallerItems.Length - 1);
+
+            randomNum = bm.ChooseRandomNumInRange(0, fallerItems.Length - 2);
+
+            int semicolonNum = bm.ChooseRandomNumInRange(1, 100);
+            Debug.Log("random num for semicolon is " + semicolonNum);
+            if (semicolonNum <= 15)
+            {
+                randomNum = fallerItems.Length - 1;
+            }
+
+
 
             fallTime -= 1 * Time.deltaTime;
             
             //Debug.Log("timer is " + fallTime);
             
             if (fallTime <= 0) {
-                //transform.Translate(Vector3.down * fallSpeed * Time.deltaTime, Space.World);
-                //transform.Rotate(Vector3.forward, spinSpeed * Time.deltaTime);
-                //transform.Translate(Vector3.down * fallSpeed * Time.deltaTime, Space.World);
-                //Faller faller = new Faller();
-                //faller.AddFaller(fallerItems[randomNum]);
 
                 Instantiate(fallerItems[randomNum], 
                     new Vector3(Random.Range(-6, 6), 10, 0), Quaternion.identity);

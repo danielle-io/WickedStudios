@@ -17,7 +17,11 @@ namespace WickedStudios
 
             Debug.Log("current target is :: " + currentTarget );
             Debug.Log("current hit is :: " + currentHit);
-
+            if (currentHit == "Semicolon")
+            {
+                Debug.Log("Getting rid of a negative point bc semicolon");
+                return true;
+            }
             if (currentHit != currentTarget)
             {
                 return false;
@@ -27,8 +31,8 @@ namespace WickedStudios
                 Debug.Log("current hit in target is equal -> " + currentHit);
                 currentTarget = GetNextTarget(currentHit);
 
-                FallerTargetText fallerText = new FallerTargetText();
-                fallerText.SetTargetText(currentTarget);
+                //FallerTargetImage fallerImage = new FallerTargetText();
+                FallerTargetImage.instance.SetTargetImage(currentTarget);
 
                 Debug.Log("current target is :: " + currentTarget);
                 return true;
@@ -58,11 +62,10 @@ namespace WickedStudios
 
         public string GetRandomLeftTarget()
         {
-
             string[] leftArr = { "LeftC", "LeftP", "LeftB" };
             string returningTarget = leftArr[BoardManager.inst.ChooseRandomNumInRange(0, leftArr.Length - 1)];
 
-            Debug.Log(returningTarget);
+            Debug.Log("Returning :: " + returningTarget);
             return returningTarget;
         }
 
