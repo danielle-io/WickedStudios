@@ -25,6 +25,7 @@ namespace WickedStudios
         {
             SetObstacles();
             targets = GameObject.FindGameObjectsWithTag("Paper");
+            animator = GetComponent<Animator>();
         }
 
         void Update()
@@ -38,6 +39,7 @@ namespace WickedStudios
                 // If coworker does not have paper, find & move towards it
                 if (!PaperPickup.instance.GetCoworkerHasPaper())
                 {
+                    animator.SetTrigger ("CoworkerForward");
                     //Debug.Log("Looking for paper!");
                     GameObject target = FindPaper();
 
@@ -49,6 +51,7 @@ namespace WickedStudios
 
                 if (PaperPickup.instance.GetCoworkerHasPaper())
                 {
+                    animator.SetTrigger ("CoworkerWithPaper");
                     MoveTowardsBoss();
                 }
             }
