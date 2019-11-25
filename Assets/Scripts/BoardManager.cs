@@ -68,8 +68,14 @@ namespace WickedStudios
             gridPositions.RemoveAt(randomIndex);
 
             Vector3 position = new Vector3();
-            
-            position = gridPositions[randomIndex];
+            try
+            {
+                position = gridPositions[randomIndex];
+            }
+            catch(Exception)
+            {
+                Debug.Log("out of range bug");
+            }
 
             // Removing some space around the object so they
             // aren't too close together
