@@ -31,46 +31,50 @@ namespace WickedStudios
 
             // Remove the text area from grid positions
             // by taking out any grid position with its Y value
+
+            // Giving up on doing this the right way for now
+            // bc i cant seem to get the X and Y from a 
+            // RectTransform :( harcoding a 7 Y value bc
+            // that's where the text is rn
             text = GameObject.FindGameObjectsWithTag("Text");
 
             foreach (GameObject item in text)
             {
-                Vector3 position = new Vector3();
-                position = item.transform.position;
+                //RectTransform rt;
+                //Vector3 position = new Vector3();
+                //rt = item.GetComponent<RectTransform>();
 
                 for (int i = 0; i < gridPositions.Count; i++)
                 {
                     Vector3 checking = gridPositions[i];
-                    if ((int)checking[1] == (int)position[1])
+                    //Debug.Log("position other y is " + (int)checking[1]);
+                    //int difference = (int)position[1] - (int)checking[1];
+
+                    float difference = 8.0f - checking[1];
+                    if (difference <= 1)
                     {
+                        //Debug.Log("removing from grid at y value " + (int)checking[1]);
                         gridPositions.Remove(checking);
                     }
                 }
-                //gridPositions.Remove(position);
-
-                //// Remove points below as well
-                //position = new Vector3(position[0], position[1] - 1, 0);
-                //gridPositions.Remove(position);
-
-                //position = new Vector3(position[0], position[1] - 2, 0);
-                //gridPositions.Remove(position);
             }
         }
 
         public Vector3 GetRandomPosition(GameObject item)
 		{
-            int randomIndex = Random.Range (0, gridPositions.Count);
+            int randomIndex = Random.Range (0, gridPositions.Count - 1);
             Vector3 randomPosition = gridPositions[randomIndex];
 
             gridPositions.RemoveAt(randomIndex);
 
+            Vector3 position = new Vector3();
+            
+            position = gridPositions[randomIndex];
+
             // Removing some space around the object so they
             // aren't too close together
-            int extraSpacePerItem = GetRandomSpacePerItem(item);
-            Vector3 position = new Vector3();
-            position = gridPositions[randomIndex];
+            float extraSpacePerItem = GetExtraSpacePerItem(item);
             RemoveNearbyGrids(position, extraSpacePerItem);
-
 
             return randomPosition;
 		}
@@ -78,49 +82,66 @@ namespace WickedStudios
         public void AddObjectToBoardAtPosition(GameObject item, Vector3 position)
         {
             Instantiate(item, position, Quaternion.identity);
+
+            float extraSpacePerItem = GetExtraSpacePerItem(item);
+            
+            RemoveNearbyGrids(position, extraSpacePerItem);
         }
 
 
-        public void RemoveNearbyGrids(Vector3 position, int extraSpacePerItem)
+        public void RemoveNearbyGrids(Vector3 position, float extraSpacePerItem)
         {
-            // Fix this later so we actually use extraSpacePerItem in a while loop
-            try
+            while (extraSpacePerItem > 0)
             {
+                Debug.Log("removing space ");
                 Vector3 newPositions = new Vector3();
+
                 float one = position[0];
                 float two = position[1];
 
-                newPositions = new Vector3(one -1, two-1, 0f);
-                gridPositions.Remove(newPositions);
-                newPositions = new Vector3(one + 1, two + 1, 0f);
-                gridPositions.Remove(newPositions);
-            }
+                newPositions = new Vector3(one - extraSpacePerItem, two - extraSpacePerItem, 0f);
 
-            catch (Exception)
-            {
-                Debug.Log("in the catch for gridPosition setting");
-            }
-        }
+                try
+                {
+                    gridPositions.Remove(newPositions);
+                }
+                catch (Exception)
+                {
+                    Debug.Log("in the catch for gridPosition setting");
+                }
+                newPositions = new Vector3(one + extraSpacePerItem, two + extraSpacePerItem, 0f);
 
+                try
+                {
+                    gridPositions.Remove(newPositions);
+                }
+                catch (Exception)
+                {
+                    Debug.Log("in the catch for gridPosition setting");
+                }
+                extraSpacePerItem -= 1;
+            }
+        }        
 
         public int ChooseRandomNumInRange(int minimum, int maximum)
 		{
             return Random.Range(minimum, maximum + 1);
         }
 
-        public int GetRandomSpacePerItem(GameObject item)
+        public float GetExtraSpacePerItem(GameObject item)
         {
-            //Debug.Log("item is " + item.transform.tag);
-            //string itemName = item.transform.tag;
-            switch (item.transform.tag)
+            Debug.Log("item is " + item.transform.name);
+            switch (item.transform.name)
             {
                 case "Paper":
                     return 2;
                 case "Coworker":
                     return 3;
                 case "Desk":
-                    return 3;
+                    return 2;
                 case "Player":
+                    return 3;
+                case "Bookcase":
                     return 3;
                 default:
                     return 2;
