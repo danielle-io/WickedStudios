@@ -31,13 +31,7 @@ namespace WickedStudios
                 animator.SetTrigger("janeForward");
             }
         }
-
-        //OnTriggerEnter2D is sent when another object enters a trigger collider attached to this object (2D physics only).
-		//private void OnTriggerEnter2D (Collider2D other)
-		//{
-		
-        //}
-
+        
     }
 }
 
