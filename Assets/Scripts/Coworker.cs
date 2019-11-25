@@ -30,7 +30,7 @@ namespace WickedStudios
         void Update()
         {
             // Player could move so avoid them
-            Debug.Log("Coworker Update");
+            //Debug.Log("Coworker Update");
             SetObstacles();
 
             if (!levelOver)
@@ -77,26 +77,9 @@ namespace WickedStudios
             //Debug.Log("coworker has paper");
             boss = GameObject.FindGameObjectWithTag("Boss");
 
-            MoveTowardsObject(boss);
-
-            // I want to comment this out and comment it in in the boss script
-            // (the player's detection is there, but for some reason when
-            // this is in the boss script the coworker stops after delivering
-            // the paper and im not sure why
             if (PaperPickup.instance.GetCoworkerHasPaper())
             {
-                //if (Vector3.Distance(transform.position, boss.transform.position) <= 1.2f)
-                //{
-
-                //    GameManager.instance.SetAntiPlayerPoints(1);
-
-                //    CoworkersPaperScoreText.instance.SetCoworkersScoreText();
-
-                //    Debug.Log("setting has paper to false ");
-
-                //    PaperPickup.instance.SetCoworkerHasPaper(false);
-                //    shortestDistance = Mathf.Infinity;
-                //}
+                MoveTowardsObject(boss);
             }
         }
 
