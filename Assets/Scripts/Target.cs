@@ -31,10 +31,7 @@ namespace WickedStudios
                 Debug.Log("current hit in target is equal -> " + currentHit);
                 currentTarget = GetNextTarget(currentHit);
 
-                //FallerTargetImage fallerImage = new FallerTargetText();
                 FallerTargetImage.instance.SetTargetImage(currentTarget);
-
-                Debug.Log("current target is :: " + currentTarget);
                 return true;
             }
         }
@@ -65,19 +62,16 @@ namespace WickedStudios
             string[] leftArr = { "LeftC", "LeftP", "LeftB" };
             string returningTarget = leftArr[BoardManager.inst.ChooseRandomNumInRange(0, leftArr.Length - 1)];
 
-            Debug.Log("Returning :: " + returningTarget);
             return returningTarget;
         }
 
         public void SetCurrentTarget(string target)
         {
-            Debug.Log("set to :: " + target);
             currentTarget = target;
         }
 
         public string GetCurrentTarget()
         {
-            //Debug.Log("returning " + currentTarget);
             return currentTarget;
         }
     }

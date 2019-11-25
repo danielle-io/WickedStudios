@@ -30,15 +30,30 @@ namespace WickedStudios
 			}
 
             // Remove the text area from grid positions
-            //gridPositions.RemoveAt(randomIndex);
+            // by taking out any grid position with its Y value
             text = GameObject.FindGameObjectsWithTag("Text");
+
             foreach (GameObject item in text)
             {
                 Vector3 position = new Vector3();
                 position = item.transform.position;
 
-                // Figure out how grid points are an int and not a Vector3
-                gridPositions.Remove(position);
+                for (int i = 0; i < gridPositions.Count; i++)
+                {
+                    Vector3 checking = gridPositions[i];
+                    if ((int)checking[1] == (int)position[1])
+                    {
+                        gridPositions.Remove(checking);
+                    }
+                }
+                //gridPositions.Remove(position);
+
+                //// Remove points below as well
+                //position = new Vector3(position[0], position[1] - 1, 0);
+                //gridPositions.Remove(position);
+
+                //position = new Vector3(position[0], position[1] - 2, 0);
+                //gridPositions.Remove(position);
             }
         }
 

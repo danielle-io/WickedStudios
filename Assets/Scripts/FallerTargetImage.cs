@@ -26,31 +26,14 @@ namespace WickedStudios
 
         public void SetTargetImage(string target)
         {
-            //currentTargetImage = 
             GameObject[] currentTargets = GameObject.FindGameObjectsWithTag("CurrentTarget");
-            Debug.Log("found this many targets " + currentTargets.Length);
 
             foreach (GameObject targetText in currentTargets)
             {
                 Destroy(targetText);
             }
 
-            
-
-            Debug.Log("in set target image and target str is " + target);
-
             int arrValue = GetCurrentFallerArrIndexFromTag(target);
-            //currentTargetImage = fallerSprites[arrValue];
-
-            //for (int i = 0; i < fallerSprites.Length; i++)
-            //{
-            //    GameObject current = fallerSprites[i];
-            //    Debug.Log( " at index :: " + i);
-            //}
-
-            //GameObject currentFaller = fallerSprites[arrValue];
-
-            //Debug.Log("Have current sprite... " + currentFaller.tag);
 
             Instantiate(fallerSprites[arrValue], new Vector3(5, 4, 0), Quaternion.identity);
 
@@ -60,20 +43,8 @@ namespace WickedStudios
         {
             for (int i = 0; i < fallerSprites.Length; i++)
             {
-                //GameObject current = fallerSprites[i];
-                Debug.Log("Name is :: " + fallerSprites[i].name + " at index :: " + i);
-
                 fallerArrayIndex.Add(fallerSprites[i].name, i);
             }
-
-                //Debug.Log("Key LeftP is :: " + fallerArrayIndex["LeftP"]);
-                Debug.Log("Key RightP is :: " + fallerArrayIndex["RightPImage"]);
-
-
-            //for (int i = 0; i < fallerArrayIndex.Count; i++)
-            //{
-            //    Debug.Log("Value is :: " + fallerArrayIndex[i]);
-            //}
         }
 
         private int GetCurrentFallerArrIndexFromTag(string fallerName)
@@ -114,9 +85,7 @@ namespace WickedStudios
             Target.instance.SetCurrentTarget(currentTarget);
 
             int arrValue = GetCurrentFallerArrIndexFromTag(currentTarget);
-
-            //currentTargetImage = fallerSprites[arrValue];
-
+            
             Instantiate(fallerSprites[arrValue],
                     new Vector3(5, 4, 0), Quaternion.identity);
         }

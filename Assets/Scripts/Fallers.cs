@@ -24,12 +24,8 @@ namespace WickedStudios
         public void Update()
         {
             BoardManager bm = gameObject.GetComponent<BoardManager>();
-
-            // Get random item from fallers array
-            //BoardManager bm = new BoardManager();
-
+            
             randomNum = bm.ChooseRandomNumInRange(0, fallerItems.Length - 2);
-
 
 
             if (GameManager.instance.GetPlayerPoints() < 0)
@@ -43,17 +39,13 @@ namespace WickedStudios
             }
 
             fallTime -= 1f * Time.deltaTime;
-            
-            //Debug.Log("timer is " + fallTime);
-            
+
             if (fallTime <= 0) {
 
                 Instantiate(fallerItems[randomNum], 
                     new Vector3(Random.Range(-6, 6), 10, 0), Quaternion.identity);
 
                 ResetFallTime();
-
-                //Debug.Log("In FALLERS current Faller is :: " + gameObject.tag);
             }
         }
 
