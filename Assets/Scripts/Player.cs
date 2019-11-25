@@ -35,7 +35,7 @@ namespace WickedStudios
                 animator.SetTrigger("janeForward");
             }
         }
-
+        
     }
 }
 
