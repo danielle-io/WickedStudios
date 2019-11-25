@@ -22,7 +22,7 @@ namespace WickedStudios
                 Debug.Log("Getting rid of a negative point bc semicolon");
                 return true;
             }
-            if (currentHit != currentTarget)
+            else if (currentHit != currentTarget)
             {
                 return false;
             }

@@ -16,9 +16,7 @@ namespace WickedStudios
         {
             instance = this;
             scoreText = GetComponent<Text>();
-            scoreText.text = "Score: ";
-            //scoreText.text = "Score: " + GameManager.instance.GetPlayerPoints();
-
+            scoreText.text = "Score: 0";
         }
 
         public void SetScoreText()

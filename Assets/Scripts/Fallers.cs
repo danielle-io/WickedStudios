@@ -30,16 +30,19 @@ namespace WickedStudios
 
             randomNum = bm.ChooseRandomNumInRange(0, fallerItems.Length - 2);
 
-            int semicolonNum = bm.ChooseRandomNumInRange(1, 100);
-            Debug.Log("random num for semicolon is " + semicolonNum);
-            if (semicolonNum <= 15)
+
+
+            if (GameManager.instance.GetPlayerPoints() < 0)
             {
-                randomNum = fallerItems.Length - 1;
+                int semicolonNum = bm.ChooseRandomNumInRange(1, 100);
+
+                if (semicolonNum <= 10)
+                {
+                    randomNum = fallerItems.Length - 1;
+                }
             }
 
-
-
-            fallTime -= 1 * Time.deltaTime;
+            fallTime -= 1f * Time.deltaTime;
             
             //Debug.Log("timer is " + fallTime);
             

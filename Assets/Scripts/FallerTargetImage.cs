@@ -13,7 +13,6 @@ namespace WickedStudios
 
         public GameObject[] fallerSprites;
         private static Hashtable fallerArrayIndex  = new Hashtable();
-        public static GameObject currentTargetImage;
 
         void Awake()
         {
@@ -28,18 +27,20 @@ namespace WickedStudios
         public void SetTargetImage(string target)
         {
             //currentTargetImage = 
+            GameObject[] currentTargets = GameObject.FindGameObjectsWithTag("CurrentTarget");
+            Debug.Log("found this many targets " + currentTargets.Length);
+
+            foreach (GameObject targetText in currentTargets)
+            {
+                Destroy(targetText);
+            }
+
+            
 
             Debug.Log("in set target image and target str is " + target);
 
             int arrValue = GetCurrentFallerArrIndexFromTag(target);
-            Destroy(currentTargetImage);
-            currentTargetImage = fallerSprites[arrValue];
-
-            //Instantiate(currentTargetImage,
-                    //new Vector3(5, 4, 0), Quaternion.identity);
-
-
-
+            //currentTargetImage = fallerSprites[arrValue];
 
             //for (int i = 0; i < fallerSprites.Length; i++)
             //{
@@ -49,11 +50,9 @@ namespace WickedStudios
 
             //GameObject currentFaller = fallerSprites[arrValue];
 
-
-
             //Debug.Log("Have current sprite... " + currentFaller.tag);
-           
-            Instantiate(currentTargetImage, new Vector3(5, 4, 0), Quaternion.identity);
+
+            Instantiate(fallerSprites[arrValue], new Vector3(5, 4, 0), Quaternion.identity);
 
         }
 
@@ -62,13 +61,13 @@ namespace WickedStudios
             for (int i = 0; i < fallerSprites.Length; i++)
             {
                 //GameObject current = fallerSprites[i];
-                Debug.Log("Tag is :: " + fallerSprites[i].tag + " at index :: " + i);
+                Debug.Log("Name is :: " + fallerSprites[i].name + " at index :: " + i);
 
-                fallerArrayIndex.Add(fallerSprites[i].tag, i);
+                fallerArrayIndex.Add(fallerSprites[i].name, i);
             }
 
-                Debug.Log("Key LeftP is :: " + fallerArrayIndex["LeftP"]);
-                Debug.Log("Key RightP is :: " + fallerArrayIndex["RightP"]);
+                //Debug.Log("Key LeftP is :: " + fallerArrayIndex["LeftP"]);
+                Debug.Log("Key RightP is :: " + fallerArrayIndex["RightPImage"]);
 
 
             //for (int i = 0; i < fallerArrayIndex.Count; i++)
@@ -83,25 +82,25 @@ namespace WickedStudios
             {
                 case "LeftP":
                     //Debug.Log("returning ( ");
-                    return (int)fallerArrayIndex["LeftP"];
+                    return (int)fallerArrayIndex["LeftPImage"];
                 case "RightP":
                     //Debug.Log("returning ) ");
-                    return (int)fallerArrayIndex["RightP"];
+                    return (int)fallerArrayIndex["RightPImage"];
                 case "LeftB":
                     //Debug.Log("returning [ ");
-                    return (int)fallerArrayIndex["LeftB"];
+                    return (int)fallerArrayIndex["LeftBImage"];
                 case "RightB":
                     //Debug.Log("returning ] ");
-                    return (int)fallerArrayIndex["RightB"];
+                    return (int)fallerArrayIndex["RightBImage"];
                 case "LeftC":
                     //Debug.Log("returning { ");
-                    return (int)fallerArrayIndex["LeftC"];
+                    return (int)fallerArrayIndex["LeftCImage"];
                 case "RightC":
                     //Debug.Log("returning } ");
-                    return (int)fallerArrayIndex["RightC"];
+                    return (int)fallerArrayIndex["RightCImage"];
                 default:
                     Debug.Log("Invalid fallerName");
-                    return (int)fallerArrayIndex["LeftP"];
+                    return (int)fallerArrayIndex["LeftPImage"];
             }
         }
 
@@ -116,9 +115,9 @@ namespace WickedStudios
 
             int arrValue = GetCurrentFallerArrIndexFromTag(currentTarget);
 
-            currentTargetImage = fallerSprites[arrValue];
+            //currentTargetImage = fallerSprites[arrValue];
 
-            Instantiate(currentTargetImage,
+            Instantiate(fallerSprites[arrValue],
                     new Vector3(5, 4, 0), Quaternion.identity);
         }
     }

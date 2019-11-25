@@ -34,6 +34,11 @@ namespace WickedStudios
                 Debug.Log("LOST a point");
                 GameManager.instance.SetPlayerPoints(-1);
             }
+            //string tag = gameObject.tag;
+            //if (tag != "Semicolon")
+            //{
+
+            //}
             Destroy(collision.gameObject);
             FallerScoreText.instance.SetScoreText();
         }
