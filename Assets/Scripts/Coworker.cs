@@ -132,7 +132,7 @@ namespace WickedStudios
             foreach (GameObject obstacle in obstacles)
             {
                 float obstacleDistance = Vector3.Distance(transform.position, obstacle.transform.position);
-                if (obstacleDistance <= 1.2)
+                if (obstacleDistance <= 3)
                 {
                     Vector3 obstacleDirection = obstacle.transform.position - transform.position;
                     transform.Translate(-obstacleDirection.normalized * 2 * Time.deltaTime);
