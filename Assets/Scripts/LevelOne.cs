@@ -6,7 +6,7 @@ namespace WickedStudios
     {
         public int columns = 11;
         public int rows = 11;
-        public static int paperObjectTotal;
+        public static int paperObjectTotal = 0;
 
         public GameObject boss;
         public GameObject player;
@@ -52,7 +52,7 @@ namespace WickedStudios
 
             // Bookcase placement
             bm.AddObjectToBoardAtPosition(bookcase, new Vector3(-1, 1, 0));
-            bm.AddObjectToBoardAtPosition(bookcase, new Vector3(0.5f, 1, 0));
+            bm.AddObjectToBoardAtPosition(bookcase, new Vector3(9, 0, 0));
         }
 
         private void AddCharacters(BoardManager bm)
@@ -71,14 +71,22 @@ namespace WickedStudios
 
         public void AddRandomPositionObjects(BoardManager bm)
         {
+            // Randomly placing desk positions
+            // for (int i = 0; i < 4; i++)
+            // {
+            //     Vector3 deskPosition = bm.GetRandomPosition();
+            //     if (bm.isValidPosition(deskPosition)) bm.AddObjectToBoardAtPosition(desks[0], deskPosition);
+            // }
 
-            // Paper: get random count, set total paper, set each paper
-            paperObjectTotal = bm.ChooseRandomNumInRange(8, 10);
-            
-            for (int i = 0; i < paperObjectTotal; i++)
+            // Paper: get random count, set total paper, set each paper 
+            for (int i = 0; i < bm.ChooseRandomNumInRange(8, 10); i++)
             {
                 Vector3 paperPosition = bm.GetRandomPosition();
-                bm.AddObjectToBoardAtPosition(paper, paperPosition);
+                if (bm.isValidPosition(paperPosition)) 
+                {
+                    bm.AddObjectToBoardAtPosition(paper, paperPosition);
+                    ++paperObjectTotal;
+                }
             }
          }
          

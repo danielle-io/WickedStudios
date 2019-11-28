@@ -9,6 +9,7 @@ namespace WickedStudios
 	{
         private static List<Vector3> gridPositions = new List<Vector3>();
         public static BoardManager inst;
+        public int textRow = 8;
 
         private GameObject[] text;
 
@@ -21,49 +22,29 @@ namespace WickedStudios
 		{
 			gridPositions.Clear();
 
-            for (int x = 1; x < columns -1; x++)
+            // Right now the leftmost x within the office is -1 for some reason. Most likely due to enlarging the camera.
+            for (int x = -1; x < columns -1; x++)
 			{
-				for(int y = 1; y < rows -1; y++)
+                // We want the y position to go only up to the row with the text.
+				for(int y = 0; y < textRow; y++)
 				{
 					gridPositions.Add(new Vector3(x, y, 0f));
                 }
 			}
-
-            // Remove the text area from grid positions
-            // by taking out any grid position with its Y value
-
-            // Giving up on doing this the right way for now
-            // bc i cant seem to get the X and Y from a 
-            // RectTransform :( harcoding a 7 Y value bc
-            // that's where the text is rn
-            text = GameObject.FindGameObjectsWithTag("Text");
-
-            foreach (GameObject item in text)
-            {
-                //RectTransform rt;
-                //Vector3 position = new Vector3();
-                //rt = item.GetComponent<RectTransform>();
-
-                for (int i = 0; i < gridPositions.Count; i++)
-                {
-                    Vector3 checking = gridPositions[i];
-                    //Debug.Log("position other y is " + (int)checking[1]);
-                    //int difference = (int)position[1] - (int)checking[1];
-
-                    float difference = 8.0f - checking[1];
-                    if (difference <= 1)
-                    {
-                        //Debug.Log("removing from grid at y value " + (int)checking[1]);
-                        gridPositions.Remove(checking);
-                    }
-                }
-            }
         }
 
         public Vector3 GetRandomPosition()
 		{
             int randomIndex = Random.Range (0, gridPositions.Count - 1);
-            Vector3 randomPosition = gridPositions[randomIndex];
+            Vector3 randomPosition = new Vector3(-10,-10,-10);
+            try
+            {
+                randomPosition = gridPositions[randomIndex];
+            }
+            catch (Exception)
+            {
+                Debug.Log("RandomPosition index out of range");
+            }
             return randomPosition;
 		}
 
@@ -72,55 +53,71 @@ namespace WickedStudios
             Instantiate(item, position, Quaternion.identity);
             gridPositions.Remove(position);
 
-            int extraSpacePerItem = GetExtraSpacePerItem(item);
+            float extraSpacePerItem = GetExtraSpacePerItem(item);
             RemoveNearbyGrids(position, extraSpacePerItem);
         }
-
-
-        public void RemoveNearbyGrids(Vector3 position, int extraSpacePerItem)
+        public void RemoveNearbyGrids(Vector3 position, float extraSpacePerItem)
         {
             float x = position[0];
             float y = position[1];
-            switch(extraSpacePerItem)
+            Vector3 removePosition;
+            while (extraSpacePerItem >= 0)
             {
-                case 3:
-                    Debug.Log("Removing space above...");
-                    Vector3 up = new Vector3(x, y-1);
-                    try
+                // Remove Up
+                removePosition = new Vector3(x, y + extraSpacePerItem);
+                try
                     {
-                        gridPositions.Remove(up);
+                        gridPositions.Remove(removePosition);
                     }
-                    catch (Exception)
-                    {
-                        Debug.Log("Remove space failed");
-                    }
-                    goto case 2;
-                case 2:
-                    Debug.Log("Removing space left...");
-                    Vector3 left = new Vector3(x-1, y);
-                    try
-                    {
-                        gridPositions.Remove(left);
-                    }
-                    catch (Exception)
+                catch (Exception)
                     {
                         Debug.Log("Remove space failed");
                     }
-                    goto case 1;
-                case 1:
-                    Debug.Log("Removing space right...");
-                    Vector3 right = new Vector3(x+1, y);
-                    try
+
+                // Remove Left
+                removePosition = new Vector3(x - extraSpacePerItem, y);
+                try
                     {
-                        gridPositions.Remove(right);
+                        gridPositions.Remove(removePosition);
                     }
-                    catch (Exception)
+                catch (Exception)
                     {
                         Debug.Log("Remove space failed");
                     }
-                    break;
-                default:
-                    break;
+
+                // Remove UpLeft
+                removePosition = new Vector3(x - extraSpacePerItem, y + extraSpacePerItem);
+                try
+                    {
+                        gridPositions.Remove(removePosition);
+                    }
+                catch (Exception)
+                    {
+                        Debug.Log("Remove space failed");
+                    }
+
+                // Remove Right    
+                removePosition = new Vector3(x + extraSpacePerItem, y);
+                try
+                    {
+                        gridPositions.Remove(removePosition);
+                    }
+                catch (Exception)
+                    {
+                        Debug.Log("Remove space failed");
+                    }
+
+                // Remove UpRight    
+                removePosition = new Vector3(x + extraSpacePerItem, y + extraSpacePerItem);
+                try
+                    {
+                        gridPositions.Remove(removePosition);
+                    }
+                catch (Exception)
+                    {
+                        Debug.Log("Remove space failed");
+                    }
+                --extraSpacePerItem;  
             }
 
             // while (extraSpacePerItem > 0)
@@ -160,21 +157,21 @@ namespace WickedStudios
             return Random.Range(minimum, maximum + 1);
         }
 
-        public int GetExtraSpacePerItem(GameObject item)
+        public float GetExtraSpacePerItem(GameObject item)
         {
             Debug.Log("item is " + item.transform.name);
             switch (item.transform.name)
             {
                 case "Paper":
-                    return 2;
+                    return 1;
                 case "Coworker":
-                    return 3;
+                    return 2;
                 case "Desk":
                     return 2;
                 case "Player":
-                    return 3;
+                    return 2;
                 case "Bookcase":
-                    return 3;
+                    return 2;
                 default:
                     return 2;
             }
@@ -207,6 +204,12 @@ namespace WickedStudios
         public void SetupScene (Level levelScript)
 		{
             levelScript.SetupLevel(this);
+        }
+
+        public bool isValidPosition(Vector3 position)
+        {
+            // This is a hack and I'm basically saying as long as the x coordinate is above -1 its valid.
+            return position[0] > -1;
         }
     }
 }
