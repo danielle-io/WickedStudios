@@ -37,7 +37,7 @@ namespace WickedStudios
             //}
 
             // Sets this to not be destroyed when reloading scene
-            DontDestroyOnLoad(gameObject);
+            // DontDestroyOnLoad(gameObject);
 
             //Get a component reference to the attached BoardManager script
             bm = GetComponent<BoardManager>();
