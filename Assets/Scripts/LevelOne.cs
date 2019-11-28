@@ -58,11 +58,11 @@ namespace WickedStudios
         private void AddCharacters(BoardManager bm)
         {
             // Add single coworker (for now at least)
-            Vector3 coworkerPosition = bm.GetRandomPosition(coworker);
+            Vector3 coworkerPosition = bm.GetRandomPosition();
             bm.AddObjectToBoardAtPosition(coworker, coworkerPosition);
 
             // Add player
-            Vector3 playerPosition = bm.GetRandomPosition(player);
+            Vector3 playerPosition = bm.GetRandomPosition();
             bm.AddObjectToBoardAtPosition(player, playerPosition);
 
             // Add boss to set position
@@ -77,7 +77,7 @@ namespace WickedStudios
             
             for (int i = 0; i < paperObjectTotal; i++)
             {
-                Vector3 paperPosition = bm.GetRandomPosition(paper);
+                Vector3 paperPosition = bm.GetRandomPosition();
                 bm.AddObjectToBoardAtPosition(paper, paperPosition);
             }
          }

@@ -60,73 +60,99 @@ namespace WickedStudios
             }
         }
 
-        public Vector3 GetRandomPosition(GameObject item)
+        public Vector3 GetRandomPosition()
 		{
             int randomIndex = Random.Range (0, gridPositions.Count - 1);
             Vector3 randomPosition = gridPositions[randomIndex];
-
-            gridPositions.RemoveAt(randomIndex);
-
-            Vector3 position = new Vector3();
-            try
-            {
-                position = gridPositions[randomIndex];
-            }
-            catch(Exception)
-            {
-                Debug.Log("out of range bug");
-            }
-
-            // Removing some space around the object so they
-            // aren't too close together
-            float extraSpacePerItem = GetExtraSpacePerItem(item);
-            RemoveNearbyGrids(position, extraSpacePerItem);
-
             return randomPosition;
 		}
 
         public void AddObjectToBoardAtPosition(GameObject item, Vector3 position)
         {
             Instantiate(item, position, Quaternion.identity);
+            gridPositions.Remove(position);
 
-            float extraSpacePerItem = GetExtraSpacePerItem(item);
-            
+            int extraSpacePerItem = GetExtraSpacePerItem(item);
             RemoveNearbyGrids(position, extraSpacePerItem);
         }
 
 
-        public void RemoveNearbyGrids(Vector3 position, float extraSpacePerItem)
+        public void RemoveNearbyGrids(Vector3 position, int extraSpacePerItem)
         {
-            while (extraSpacePerItem > 0)
+            float x = position[0];
+            float y = position[1];
+            switch(extraSpacePerItem)
             {
-                Debug.Log("removing space ");
-                Vector3 newPositions = new Vector3();
-
-                float one = position[0];
-                float two = position[1];
-
-                newPositions = new Vector3(one - extraSpacePerItem, two - extraSpacePerItem, 0f);
-
-                try
-                {
-                    gridPositions.Remove(newPositions);
-                }
-                catch (Exception)
-                {
-                    Debug.Log("in the catch for gridPosition setting");
-                }
-                newPositions = new Vector3(one + extraSpacePerItem, two + extraSpacePerItem, 0f);
-
-                try
-                {
-                    gridPositions.Remove(newPositions);
-                }
-                catch (Exception)
-                {
-                    Debug.Log("in the catch for gridPosition setting");
-                }
-                extraSpacePerItem -= 1;
+                case 3:
+                    Debug.Log("Removing space above...");
+                    Vector3 up = new Vector3(x, y-1);
+                    try
+                    {
+                        gridPositions.Remove(up);
+                    }
+                    catch (Exception)
+                    {
+                        Debug.Log("Remove space failed");
+                    }
+                    goto case 2;
+                case 2:
+                    Debug.Log("Removing space left...");
+                    Vector3 left = new Vector3(x-1, y);
+                    try
+                    {
+                        gridPositions.Remove(left);
+                    }
+                    catch (Exception)
+                    {
+                        Debug.Log("Remove space failed");
+                    }
+                    goto case 1;
+                case 1:
+                    Debug.Log("Removing space right...");
+                    Vector3 right = new Vector3(x+1, y);
+                    try
+                    {
+                        gridPositions.Remove(right);
+                    }
+                    catch (Exception)
+                    {
+                        Debug.Log("Remove space failed");
+                    }
+                    break;
+                default:
+                    break;
             }
+
+            // while (extraSpacePerItem > 0)
+            // {
+            //     Debug.Log("removing space ");
+            //     Vector3 newPositions = new Vector3();
+
+            //     float one = position[0];
+            //     float two = position[1];
+
+            //     newPositions = new Vector3(one - extraSpacePerItem, two - extraSpacePerItem, 0f);
+
+            //     try
+            //     {
+            //         gridPositions.Remove(newPositions);
+            //     }
+            //     catch (Exception)
+            //     {
+            //         Debug.Log("in the catch for gridPosition setting");
+            //     }
+            //     newPositions = new Vector3(one + extraSpacePerItem, two + extraSpacePerItem, 0f);
+
+            //     try
+            //     {
+            //         gridPositions.Remove(newPositions);
+            //     }
+            //     catch (Exception)
+            //     {
+            //         Debug.Log("in the catch for gridPosition setting");
+            //     }
+            //     extraSpacePerItem -= 1;
+            // }
         }        
 
         public int ChooseRandomNumInRange(int minimum, int maximum)
@@ -134,7 +160,7 @@ namespace WickedStudios
             return Random.Range(minimum, maximum + 1);
         }
 
-        public float GetExtraSpacePerItem(GameObject item)
+        public int GetExtraSpacePerItem(GameObject item)
         {
             Debug.Log("item is " + item.transform.name);
             switch (item.transform.name)
