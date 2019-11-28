@@ -13,6 +13,11 @@ namespace WickedStudios
             SceneManager.LoadScene("MainMenu");
         }
 
+        public void GoToGameIntro()
+        {
+            SceneManager.LoadScene("GameIntro");
+        }
+
         public void GoToLevelOneIntro()
         {
             SceneManager.LoadScene("Level1Intro");
