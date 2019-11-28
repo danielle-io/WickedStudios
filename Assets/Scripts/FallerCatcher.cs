@@ -11,6 +11,9 @@ namespace WickedStudios
         private string currentHit;
         private Target target;
 
+        public AudioClip collectPoint;
+        public AudioClip losePoint;
+
         void Update()
         {
             var move = new Vector3(Input.GetAxis("Horizontal"), 0);
@@ -27,12 +30,14 @@ namespace WickedStudios
             {
                 Debug.Log("GAINED a point");
                 GameManager.instance.SetPlayerPoints(1);
+                SoundManager.instance.PlaySingle(collectPoint);
             }
 
             else
             {
                 Debug.Log("LOST a point");
                 GameManager.instance.SetPlayerPoints(-1);
+                SoundManager.instance.PlaySingle(losePoint);
             }
 
             Destroy(collision.gameObject);
