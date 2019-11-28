@@ -5,11 +5,12 @@ using UnityEngine;
 namespace WickedStudios
 {
     public class PaperPickup : MonoBehaviour
-    {
-        public AudioClip clip;
-        
+    {   
         public static bool playerHasPaper = false;
         public static bool coworkerHasPaper = false;
+        public AudioClip handlePaper1;						
+		public AudioClip handlePaper2;
+        public AudioClip handlePaper3;
 
         public static PaperPickup instance;
 
@@ -28,6 +29,7 @@ namespace WickedStudios
                 if (!GetPlayerHasPaper())
                 {
                     Debug.Log("PAPER GRABBED BY PLAYER ");
+                    SoundManager.instance.RandomizeSfx (handlePaper1, handlePaper2, handlePaper3);
                     Destroy(gameObject);
                     if (gameObject != null)
                     {
@@ -42,6 +44,7 @@ namespace WickedStudios
                 if (!GetCoworkerHasPaper())
                 {
                     Debug.Log("PAPER GRABBED BY COWORKER ");
+                    SoundManager.instance.RandomizeSfx (handlePaper1, handlePaper2, handlePaper3);
                     if (gameObject != null)
                     {
                         Destroy(gameObject);

@@ -3,7 +3,10 @@ guid: 789066a9e5a3d43aabe1c94a8f7d9345
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - handlePaper1: {fileID: 8300000, guid: 45fac168ae9ae4186b4e3f8ec569d383, type: 3}
+  - handlePaper2: {fileID: 8300000, guid: 58f00487f1b304b3ea80bfee5be20f84, type: 3}
+  - handlePaper3: {fileID: 8300000, guid: be0dbe4ad48294746916560e9a6b45b5, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
