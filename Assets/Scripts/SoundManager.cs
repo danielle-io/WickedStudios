@@ -28,6 +28,11 @@ namespace WickedStudios
                 AudioSource currentAudio = GetComponent<AudioSource>();
                 currentAudio.Stop();
             }
+            if (activeScene.name == "Level2Intro")
+            {
+                AudioSource currentAudio = GetComponent<AudioSource>();
+                currentAudio.Stop();
+            }
         }
         void Awake ()
 		{

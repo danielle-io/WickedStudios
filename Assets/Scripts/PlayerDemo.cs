@@ -15,8 +15,19 @@ namespace WickedStudios
 
         void Update()
         {
-            var move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
-            transform.position += move * speed * Time.deltaTime;
+            Scene activeScene = SceneManager.GetActiveScene();
+
+            if (activeScene.name == "Level2Intro")
+            {
+                var move = new Vector3(Input.GetAxis("Horizontal"), 0);
+                transform.position += move * speed * Time.deltaTime;
+            }
+            else
+            {
+                var move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
+                transform.position += move * speed * Time.deltaTime;
+            }
+
         }
         
     }
