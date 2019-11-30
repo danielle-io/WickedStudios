@@ -5,11 +5,25 @@ using System.Collections;
 
 namespace WickedStudios
 {
-    public class Player : MonoBehaviour
+    public class PlayerDemo : MonoBehaviour
     {
         private Animator animator;
         public float speed = 4;
+        public static Player instance;
 
+        //void Awake()
+        //{
+        //    if (instance == null)
+        //    {
+        //        instance = this;
+        //    }
+        //    else if (instance != this)
+        //    {
+        //        Destroy(gameObject);
+        //    }
+
+        //     DontDestroyOnLoad(gameObject);
+        //}
         void Start()
         {
          
@@ -20,17 +34,6 @@ namespace WickedStudios
         {
             var move = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0);
             transform.position += move * speed * Time.deltaTime;
-
-            //Check if the tag of the trigger collided with is Exit.
-            if (PaperPickup.instance.GetPlayerHasPaper())
-            {
-                animator.SetTrigger("janeWithPaper");
-            }
-
-            else
-            {
-                animator.SetTrigger("janeForward");
-            }
         }
         
     }

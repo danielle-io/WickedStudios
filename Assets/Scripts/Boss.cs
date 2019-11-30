@@ -19,7 +19,7 @@ namespace WickedStudios
                 Debug.Log("PAPER PASSED TO BOSS BY PLAYER ");
 
                 GameManager.instance.SetPlayerPoints(1);
-                SoundManager.instance.RandomizeSfx (paperPassedToBoss);
+                //SoundManager.instance.RandomizeSfx (paperPassedToBoss);
                 PlayersPaperScoreText.instance.SetPlayerScoreText();
 
                 PaperPickup.instance.SetPlayerHasPaper(false);
