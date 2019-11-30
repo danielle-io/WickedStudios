@@ -15,15 +15,15 @@ namespace WickedStudios
         {
             instance = this;
             scoreText = GetComponent<Text>();
-            scoreText.text = "Your Score: " + GameManager.instance.GetPlayerPoints();
+            //scoreText.text = "Your Score: " + GameManager.instance.GetPlayerPoints();
         }
 
         public void SetPlayerScoreText()
         {
             points = GameManager.instance.GetPlayerPoints();
-            scoreText.text = "Your Score: " + points.ToString();
+            //scoreText.text = "Your Score: " + points.ToString();
 
-            Debug.Log(" player points " + points);
+            //Debug.Log(" player points " + points);
 
         }
 

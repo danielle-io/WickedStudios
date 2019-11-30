@@ -15,12 +15,15 @@ namespace WickedStudios
 		public float lowPitchRange = .95f;				
 		public float highPitchRange = 1.05f;
 
-
         private void Update()
         {
-            Debug.Log("in music update");
             Scene activeScene = SceneManager.GetActiveScene();
             if (activeScene.name == "Level1")
+            {
+                AudioSource currentAudio = GetComponent<AudioSource>();
+                currentAudio.Stop();
+            }
+            if (activeScene.name == "Level2")
             {
                 AudioSource currentAudio = GetComponent<AudioSource>();
                 currentAudio.Stop();
