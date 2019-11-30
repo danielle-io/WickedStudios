@@ -15,14 +15,14 @@ namespace WickedStudios
         {
             instance = this;
             scoreText = GetComponent<Text>();
-            //scoreText.text = "Their Score: " + GameManager.instance.GetAntiPlayerPoints();
+            scoreText.text = "Their Score: " + GameManager.instance.GetAntiPlayerPoints();
         }
 
         public void SetCoworkersScoreText()
         {
             points = GameManager.instance.GetAntiPlayerPoints();
             Debug.Log("anti player points " + points);
-            //scoreText.text = "Their Score: " + points.ToString();
+            scoreText.text = "Their Score: " + points.ToString();
         }
 
         public int GetScoreTextPoints()

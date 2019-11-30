@@ -9,7 +9,7 @@ namespace WickedStudios
     {
         public static FallerScoreText instance;
 
-        private int points;
+        private int points = 0;
         private static Text scoreText;
 
         void Awake()
