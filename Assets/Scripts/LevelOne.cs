@@ -24,6 +24,13 @@ namespace WickedStudios
             CheckLevelOver();
         }
 
+        private void Awake()
+        {
+            //SoundManager currentAudio = GetComponent<SoundManager>();
+            //currentAudio.Stop();
+            SoundManager.instance.StopCurrentAudio();
+        }
+
         // Overrides the base class SetupLevel.
         public override void SetupLevel(BoardManager bm)
         {

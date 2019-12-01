@@ -25,7 +25,7 @@ namespace WickedStudios
 
         public void GoToLevelOne()
         {
-            SceneManager.LoadScene("LevelOne");
+            SceneManager.LoadScene("Level1");
         }
 
     }

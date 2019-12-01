@@ -128,7 +128,6 @@ namespace WickedStudios
 
         public float GetExtraSpacePerItem(GameObject item)
         {
-            Debug.Log("item is " + item.transform.name);
             switch (item.transform.name)
             {
                 case "Paper":
