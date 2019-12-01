@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 
 
@@ -7,7 +6,7 @@ namespace WickedStudios
 {
     public class PlayersPaperScoreText : MonoBehaviour
     {
-        int points;
+        private int points;
         public static PlayersPaperScoreText instance;
         private static Text scoreText;
 

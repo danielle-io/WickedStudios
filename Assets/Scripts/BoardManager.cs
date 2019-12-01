@@ -119,37 +119,6 @@ namespace WickedStudios
                     }
                 --extraSpacePerItem;  
             }
-
-            // while (extraSpacePerItem > 0)
-            // {
-            //     Debug.Log("removing space ");
-            //     Vector3 newPositions = new Vector3();
-
-            //     float one = position[0];
-            //     float two = position[1];
-
-            //     newPositions = new Vector3(one - extraSpacePerItem, two - extraSpacePerItem, 0f);
-
-            //     try
-            //     {
-            //         gridPositions.Remove(newPositions);
-            //     }
-            //     catch (Exception)
-            //     {
-            //         Debug.Log("in the catch for gridPosition setting");
-            //     }
-            //     newPositions = new Vector3(one + extraSpacePerItem, two + extraSpacePerItem, 0f);
-
-            //     try
-            //     {
-            //         gridPositions.Remove(newPositions);
-            //     }
-            //     catch (Exception)
-            //     {
-            //         Debug.Log("in the catch for gridPosition setting");
-            //     }
-            //     extraSpacePerItem -= 1;
-            // }
         }        
 
         public int ChooseRandomNumInRange(int minimum, int maximum)

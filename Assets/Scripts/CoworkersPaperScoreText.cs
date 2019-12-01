@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
-
 
 namespace WickedStudios
 {
     public class CoworkersPaperScoreText : MonoBehaviour
     {
-        int points;
+        private int points;
         public static CoworkersPaperScoreText instance;
         private static Text scoreText;
 
