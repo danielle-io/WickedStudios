@@ -1,15 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace WickedStudios
 {
     public class Quit : MonoBehaviour
     {
-
-        public void quitter()
+        public void Quitter()
         {
-            //quits application
             Application.Quit();
         }
     }

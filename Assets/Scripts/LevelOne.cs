@@ -14,7 +14,6 @@ namespace WickedStudios
         public GameObject coworker;
         public GameObject paper;
         public GameObject[] desks;
-        public GameObject outerWallTiles;
         public GameObject floorTiles;
         public GameObject bookcase;
 
@@ -28,7 +27,7 @@ namespace WickedStudios
         // Overrides the base class SetupLevel.
         public override void SetupLevel(BoardManager bm)
         {
-            bm.BoardSetup(rows, columns, outerWallTiles, floorTiles);
+            bm.BoardSetup(rows, columns, floorTiles);
             bm. InitialiseList(rows, columns);
             AddCharacters(bm);
             AddSetPositionObjects(bm);

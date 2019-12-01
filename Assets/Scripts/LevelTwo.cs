@@ -27,15 +27,6 @@ namespace WickedStudios
             return 0;
         }
 
-        private void Update()
-        {
-            //if (FallerScoreText.instance.GetScoreTextPoints() != GameManager.instance.GetPlayerPoints())
-            //{
-            //    Debug.Log("score text and points are different");
-            //    FallerScoreText.instance.SetScoreText();
-            //}
-        }
-
         public override string GetNextScene()
         {
             return "Level3Intro";

@@ -1,17 +1,11 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;  
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 namespace WickedStudios
 {
     public class PlayerDemo : MonoBehaviour
     {
         public float speed = 4;
-
-        void Start()
-        {
-        }
 
         void Update()
         {

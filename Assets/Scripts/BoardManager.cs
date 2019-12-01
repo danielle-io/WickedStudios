@@ -11,7 +11,7 @@ namespace WickedStudios
         public static BoardManager inst;
         public int textRow = 8;
 
-        private GameObject[] text;
+        //private GameObject[] text;
 
         void Awake()
         {
@@ -146,8 +146,7 @@ namespace WickedStudios
             }
         }
 
-        // Creates the outer walls and floor.
-        public void BoardSetup(int rows, int columns, GameObject border, GameObject carpet)
+        public void BoardSetup(int rows, int columns, GameObject carpet)
         {
             Transform boardHolder;
 
@@ -159,8 +158,6 @@ namespace WickedStudios
                 for (int y = -1; y < rows + 1; y++)
                 {
                     GameObject toInstantiate = carpet;
-                    //if (x == -1 || x == columns || y == -1 || y == rows)
-                        //toInstantiate = border;
                     GameObject instance = Instantiate
                         (toInstantiate, new Vector3(x, y, 0f), Quaternion.identity) as GameObject;
                     instance.transform.SetParent(boardHolder);

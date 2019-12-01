@@ -1,7 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;  
-using UnityEngine.SceneManagement;
-using System.Collections;
 
 namespace WickedStudios
 {
@@ -12,7 +9,6 @@ namespace WickedStudios
 
         void Start()
         {
-         
             animator = GetComponent<Animator> ();
         }
 
@@ -31,7 +27,6 @@ namespace WickedStudios
                 animator.SetTrigger("janeForward");
             }
         }
-        
     }
 }
 
