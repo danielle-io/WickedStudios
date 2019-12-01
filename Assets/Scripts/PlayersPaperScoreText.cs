@@ -6,8 +6,9 @@ namespace WickedStudios
 {
     public class PlayersPaperScoreText : MonoBehaviour
     {
-        private int points;
         public static PlayersPaperScoreText instance;
+
+        private int points = 0;
         private static Text scoreText;
 
         void Awake()

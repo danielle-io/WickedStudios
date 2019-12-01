@@ -5,7 +5,7 @@ namespace WickedStudios
 {
     public class CoworkersPaperScoreText : MonoBehaviour
     {
-        private int points;
+        private int points = 0;
         public static CoworkersPaperScoreText instance;
         private static Text scoreText;
 
