@@ -30,14 +30,14 @@ namespace WickedStudios
             {
                 Debug.Log("GAINED a point");
                 GameManager.instance.SetPlayerPoints(1);
-                //SoundManager.instance.PlaySingle(collectPoint);
+                SoundManager.instance.PlaySingle(collectPoint);
             }
 
             else
             {
                 Debug.Log("LOST a point");
                 GameManager.instance.SetPlayerPoints(-1);
-                //SoundManager.instance.PlaySingle(losePoint);
+                SoundManager.instance.PlaySingle(losePoint);
             }
 
             Destroy(collision.gameObject);
