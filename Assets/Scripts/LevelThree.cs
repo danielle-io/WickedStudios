@@ -94,7 +94,7 @@ namespace WickedStudios
 
         public override void SetLevelText()
         {
-            int playerPoints = GameManager.instance.GetPlayerPoints();
+            //int playerPoints = GameManager.instance.GetPlayerPoints();
             //int coworkerPoints = GameManager.instance.GetAntiPlayerPoints();
         }
 

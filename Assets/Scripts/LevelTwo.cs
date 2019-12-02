@@ -29,7 +29,7 @@ namespace WickedStudios
 
         public override string GetNextScene()
         {
-            return "Level3Intro";
+            return "WinGame";
         }
     }
 }
