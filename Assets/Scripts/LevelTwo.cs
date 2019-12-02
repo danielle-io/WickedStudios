@@ -25,7 +25,7 @@ namespace WickedStudios
                 return -1;
             }
             // Player has closed 5 brackets or hit 5 wrong brackets
-            if (GameManager.instance.GetPlayerPoints() >= 10)
+            if (GameManager.instance.GetPlayerPoints() >= 5)
             {
                 return 1;
             }
