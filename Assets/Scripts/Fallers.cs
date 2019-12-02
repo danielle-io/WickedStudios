@@ -1,20 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace WickedStudios
 {
-    // This controls the group of fallers while
-    // faller (singular) class controls ONE faller
     public class Fallers : MonoBehaviour
     {
+        private int randomNum;
+
+        public GameObject[] fallerItems;
         public float fallSpeed = .000001f;
         public static float fallTime;
-        private int randomNum;
-        public GameObject[] fallerItems;
-        
         public float delay = .1f;
-
 
         private void Start()
         {
@@ -24,7 +19,6 @@ namespace WickedStudios
         public void Update()
         {
             BoardManager bm = gameObject.GetComponent<BoardManager>();
-            
             randomNum = bm.ChooseRandomNumInRange(0, fallerItems.Length - 2);
 
 
@@ -41,9 +35,8 @@ namespace WickedStudios
             fallTime -= 1f * Time.deltaTime;
 
             if (fallTime <= 0) {
-
                 Instantiate(fallerItems[randomNum], 
-                    new Vector3(Random.Range(-6, 6), 10, 0), Quaternion.identity);
+                    new Vector3(Random.Range(-5.5f, 6), 10, 0), Quaternion.identity);
 
                 ResetFallTime();
             }
@@ -52,7 +45,6 @@ namespace WickedStudios
         private void ResetFallTime()
         {
             fallTime = 1;
-
         }
     }
 }

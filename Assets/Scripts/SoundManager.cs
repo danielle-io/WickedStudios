@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace WickedStudios
 {
@@ -8,14 +7,13 @@ namespace WickedStudios
         public AudioSource efxSource;
         public AudioSource musicSource;
 
-        public static SoundManager instance = null;
+        public static SoundManager instance ;
         public float lowPitchRange = .95f;
         public float highPitchRange = .4f;
 
         private void Start()
         {
             instance = this;
-            Debug.Log("audio start");
         }
         private void Update()
         {
@@ -26,22 +24,6 @@ namespace WickedStudios
         {
             Debug.Log("On Awake Sound Manager");
             DontDestroyOnLoad(transform.gameObject);
-
-            //Scene activeScene = SceneManager.GetActiveScene();
-
-            //if (activeScene.name == "Level1Intro" || activeScene.name == "Level1")
-            //{
-            //    AudioSource currentAudio = GetComponent<AudioSource>();
-            //    currentAudio.Stop();
-            //}
-            //else
-            //{
-            //}
-
-            //if (instance == null)
-            //    instance = this;
-            //else if (instance != this)
-            //Destroy(gameObject);
         }
 
 
@@ -76,8 +58,6 @@ namespace WickedStudios
 
             //Play the clip.
             efxSource.Play();
-
-
         }
 
         public void StopCurrentAudio()

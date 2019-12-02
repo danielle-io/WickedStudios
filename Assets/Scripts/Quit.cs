@@ -8,6 +8,11 @@ namespace WickedStudios
         {
             Application.Quit();
         }
+        void Awake()
+        {
+            Debug.Log("In game over, audio should be stopping");
+            SoundManager.instance.StopCurrentAudio();
+        }
     }
 }
 

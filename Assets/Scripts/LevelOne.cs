@@ -24,10 +24,8 @@ namespace WickedStudios
             CheckLevelOver();
         }
 
-        private void Awake()
+        void Awake()
         {
-            //SoundManager currentAudio = GetComponent<SoundManager>();
-            //currentAudio.Stop();
             SoundManager.instance.StopCurrentAudio();
         }
 

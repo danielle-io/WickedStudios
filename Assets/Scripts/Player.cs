@@ -5,7 +5,7 @@ namespace WickedStudios
     public class Player : MonoBehaviour
     {
         private Animator animator;
-        public float speed = 4;
+        public float speed = 3;
 
         void Start()
         {

@@ -7,6 +7,11 @@ namespace WickedStudios
         public GameObject fallerCatcher;
         public static LevelTwo instance = null;
 
+        void Awake()
+        {
+            //SoundManager.instance.StopCurrentAudio();
+        }
+
         public override void SetupLevel(BoardManager bm)
         {
             bm.AddObjectToBoardAtPosition(fallerCatcher, new Vector3(0, -3.7f, 0));
