@@ -9,7 +9,12 @@ namespace WickedStudios
 
         void Awake()
         {
-            //SoundManager.instance.StopCurrentAudio();
+            SoundManager.instance.StopCurrentAudio();
+        }
+
+        private void Start()
+        {
+            SoundManager.instance.PlayLevelAudio(2);
         }
 
         public override void SetupLevel(BoardManager bm)

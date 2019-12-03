@@ -29,6 +29,11 @@ namespace WickedStudios
             SoundManager.instance.StopCurrentAudio();
         }
 
+        private void Start()
+        {
+            SoundManager.instance.PlayLevelAudio(1);
+        }
+
         // Overrides the base class SetupLevel.
         public override void SetupLevel(BoardManager bm)
         {
@@ -102,7 +107,7 @@ namespace WickedStudios
 
         public override int CheckLevelOver()
         {
-            if (GameManager.instance.GetPlayerPoints() + GameManager.instance.GetAntiPlayerPoints() >= paperObjectTotal)
+            if (GameManager.instance.GetPlayerPoints() + (GameManager.instance.GetAntiPlayerPoints() / 2) >= paperObjectTotal)
             {
                 if (GameManager.instance.GetPlayerPoints() < GameManager.instance.GetAntiPlayerPoints())
                 {

@@ -1,17 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace WickedStudios
 {
-    public class LevelDescriptionScene : MonoBehaviour
+    public class Level2Intro : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
+        void Awake()
         {
-
+            SoundManager.instance.StopCurrentAudio();
         }
 
+        private void Start()
+        {
+            SoundManager.instance.PlayLevelAudio(0);
+        }
         // Update is called once per frame
         void Update()
         {

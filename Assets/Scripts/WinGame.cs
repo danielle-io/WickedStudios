@@ -8,6 +8,10 @@ namespace WickedStudios
         {
             SoundManager.instance.StopCurrentAudio();
         }
+        private void Start()
+        {
+            SoundManager.instance.PlayLevelAudio(3);
+        }
     }
 }
 

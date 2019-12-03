@@ -28,7 +28,7 @@ namespace WickedStudios
             //Debug.Log("coworker distance :: " + coworkerDistance);
             if (coworkerDistance <= 1.2f && PaperPickup.instance.GetCoworkerHasPaper())
             {
-                GameManager.instance.SetAntiPlayerPoints(1);
+                GameManager.instance.SetAntiPlayerPoints(2);
                 CoworkersPaperScoreText.instance.SetCoworkersScoreText();
 
                 Debug.Log("setting has paper to false ");

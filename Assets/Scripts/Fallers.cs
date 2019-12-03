@@ -36,7 +36,7 @@ namespace WickedStudios
 
             if (fallTime <= 0) {
                 Instantiate(fallerItems[randomNum], 
-                    new Vector3(Random.Range(-5.5f, 6), 10, 0), Quaternion.identity);
+                    new Vector3(Random.Range(-5.5f, 5.5f), 10, 0), Quaternion.identity);
 
                 ResetFallTime();
             }
