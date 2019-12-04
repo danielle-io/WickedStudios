@@ -12,8 +12,8 @@ namespace WickedStudios
         public GameObject[] fallerSprites;
         public GameObject targetSquare;
         private static Hashtable fallerArrayIndex  = new Hashtable();
-        private Vector3 targetPosition = new Vector3(4.83f, 3.4f, 0);
-        private Vector3 targetSquarePosition = new Vector3(4.88f, 3.59f, 0);
+        private Vector3 targetPosition = new Vector3(5.28f, 3.84f, 0);
+        private Vector3 targetSquarePosition = new Vector3(5.27f, 4.01f, 0);
 
 
         void Awake()
