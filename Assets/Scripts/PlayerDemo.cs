@@ -5,7 +5,7 @@ namespace WickedStudios
 {
     public class PlayerDemo : MonoBehaviour
     {
-        public float speed = 4;
+        public float speed = 80;
 
         void Update()
         {
