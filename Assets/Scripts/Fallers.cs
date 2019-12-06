@@ -7,7 +7,7 @@ namespace WickedStudios
         private int randomNum;
 
         public GameObject[] fallerItems;
-        public float fallSpeed = .000001f;
+        public float fallSpeed = .0000001f;
         public static float fallTime;
         public float delay = .1f;
 
