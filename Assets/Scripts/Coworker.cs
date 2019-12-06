@@ -34,45 +34,70 @@ namespace WickedStudios
             //Debug.Log("Coworker Update");
             SetObstacles();
 
+
             if (!levelOver)
             {
                 // If coworker does not have paper, find & move towards it
                 if (!PaperPickup.instance.GetCoworkerHasPaper())
                 {
-                    animator.SetTrigger ("CoworkerForward");
-                    //Debug.Log("Looking for paper!");
-                    GameObject target = FindPaper();
+                    animator.SetTrigger("CoworkerForward");
 
-                    if (target != null)
+                    FindPaper();
+
+                    if (closestTarget != null)
                     {
+                        Debug.Log("Looking for new paper!");
+                        MoveTowardsPaper();
+                    }
+                    else
+                    {
+                        FindPaper();
                         MoveTowardsPaper();
                     }
                 }
 
                 if (PaperPickup.instance.GetCoworkerHasPaper())
                 {
-                    animator.SetTrigger ("CoworkerWithPaper");
+                    animator.SetTrigger("CoworkerWithPaper");
+
                     MoveTowardsBoss();
                 }
             }
         }
 
-        private void MoveTowardsObject(GameObject target)
+        private void MoveTowardsObject(GameObject currentTarget)
         {
-            Vector3 direction = target.transform.position - transform.position;
-            Avoid();
-            transform.Translate(direction.normalized * 1 * Time.deltaTime);
+            if (currentTarget != null)
+            {
+                Vector3 direction = currentTarget.transform.position - transform.position;
+                Avoid();
+                transform.Translate(direction.normalized * 1 * Time.deltaTime);
+            }
         }
 
         private void MoveTowardsPaper()
         {
             //Debug.Log("Moving towards paper");
             MoveTowardsObject(closestTarget);
-
-            if (Vector3.Distance(transform.position, closestTarget.transform.position) <= 0.3f)
+            if (closestTarget != null)
             {
-                PaperPickup.instance.SetCoworkerHasPaper(true);
+                try
+                {
+                    if (Vector3.Distance(transform.position, closestTarget.transform.position) <= 0.3f)
+                    {
+                        PaperPickup.instance.SetCoworkerHasPaper(true);
+                    }
+                }
+               catch(UnityException)
+                {
+                    Debug.Log("whoops");
+                }
             }
+            else
+            {
+                SetShortestDistance();
+            }
+
         }
 
         private void MoveTowardsBoss()
@@ -91,7 +116,7 @@ namespace WickedStudios
             shortestDistance = Mathf.Infinity;
         }
 
-        private GameObject FindPaper()
+        private void FindPaper()
         {
             Debug.Log("finding paper");
 
@@ -110,9 +135,10 @@ namespace WickedStudios
                 {
                     shortestDistance = targetDistance;
                     closestTarget = target;
+                    Debug.Log("target is at :: " + closestTarget.gameObject.transform);
                 }
+                Debug.Log("LENGTH IS : " + targets.Length);
             }
-            return closestTarget;
         }
 
         void SetObstacles()
