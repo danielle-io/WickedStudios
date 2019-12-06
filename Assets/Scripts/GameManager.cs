@@ -52,6 +52,8 @@ namespace WickedStudios
             {
                 case "Level1":
                     level = 1;
+                    playerPoints = 0;
+                    antiPlayerPoints = 0;
                     break;
                 case "Level2":
                     level = 2;
