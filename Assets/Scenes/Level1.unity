@@ -713,7 +713,7 @@ PrefabInstance:
     - target: {fileID: 1471814394110334103, guid: 434d27734bc954683bcb87b01d151717,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4770961570579007841, guid: 434d27734bc954683bcb87b01d151717,
         type: 3}
@@ -1171,6 +1171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   columns: 10
   rows: 10
+  paperObjectTotal: 0
   boss: {fileID: 4538000837996501825, guid: 8efd8c8a9b582455487dc00a6899faf3, type: 3}
   player: {fileID: 146652, guid: 28b53fc28d3a140c392f0e2d919f9de1, type: 3}
   plant: {fileID: 2887774065137352285, guid: 2c833653bdeef4ababf36b92cf784317, type: 3}
