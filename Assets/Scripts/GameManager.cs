@@ -97,6 +97,9 @@ namespace WickedStudios
         {
             if (levelScript.CheckLevelOver() == -1){
                 Debug.Log("LEVEL IS OVER");
+                // Reset the Player and AntiPlayer points.
+                SetPlayerPoints(-playerPoints);
+                SetAntiPlayerPoints(-antiPlayerPoints);
                 SceneManager.LoadScene("GameOver");
             }
             if (levelScript.CheckLevelOver() == 1)

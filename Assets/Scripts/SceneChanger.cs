@@ -36,6 +36,21 @@ namespace WickedStudios
         {
             SceneManager.LoadScene("Level2");
         }
+        public void GoToStartOver()
+        {
+            int level = GameManager.instance.GetLevel();
+            switch (level)
+            {
+                case 1:
+                    GoToLevelOne();
+                    return;
+                case 2:
+                    GoToLevelTwo();
+                    return;
+                default:
+                    return;
+            }
+        }
 
     }
 }

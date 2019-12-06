@@ -11,7 +11,7 @@ namespace WickedStudios
 
         public GameObject[] fallerSprites;
         public GameObject targetSquare;
-        private static Hashtable fallerArrayIndex  = new Hashtable();
+        private Hashtable fallerArrayIndex  = new Hashtable();
         private Vector3 targetPosition = new Vector3(5.28f, 3.84f, 0);
         private Vector3 targetSquarePosition = new Vector3(5.27f, 4.01f, 0);
 
@@ -74,6 +74,7 @@ namespace WickedStudios
         private void Start()
         {
             LoadFallerHashtableOfTagsAndArrayInd();
+
             currentTarget = Target.instance.GetRandomLeftTarget();
 
             Debug.Log("random target is " + currentTarget);

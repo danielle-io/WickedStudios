@@ -6,7 +6,7 @@ namespace WickedStudios
     {
         public int columns = 11;
         public int rows = 11;
-        public static int paperObjectTotal = 0;
+        public int paperObjectTotal = 0;
 
         public GameObject boss;
         public GameObject player;
