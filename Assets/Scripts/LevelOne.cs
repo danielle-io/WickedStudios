@@ -27,6 +27,7 @@ namespace WickedStudios
         void Awake()
         {
             SoundManager.instance.StopCurrentAudio();
+            GameManager.instance.ResetPlayerAndAntiPlayerPoints();
         }
 
         private void Start()

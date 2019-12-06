@@ -52,8 +52,6 @@ namespace WickedStudios
             {
                 case "Level1":
                     level = 1;
-                    playerPoints = 0;
-                    antiPlayerPoints = 0;
                     break;
                 case "Level2":
                     level = 2;
@@ -98,6 +96,8 @@ namespace WickedStudios
             if (levelScript.CheckLevelOver() == -1){
                 Debug.Log("LEVEL IS OVER");
                 // Reset the Player and AntiPlayer points.
+                // Is this hitting ?????
+                Debug.Log("resetting points");
                 SetPlayerPoints(-playerPoints);
                 SetAntiPlayerPoints(-antiPlayerPoints);
                 SceneManager.LoadScene("GameOver");
@@ -114,6 +114,13 @@ namespace WickedStudios
         public int GetLevel()
         {
             return level;
+        }
+
+        public void ResetPlayerAndAntiPlayerPoints()
+        {
+            Debug.Log("Resetting points");
+            playerPoints = 0;
+            antiPlayerPoints = 0;
         }
 
         public void SetPlayerPoints(int points)
