@@ -6,7 +6,12 @@ namespace WickedStudios
     {
         public AudioClip mainMenuSound;
 
-        public void Start()
+        private void Awake()
+        {
+            SoundManager.instance.StopCurrentAudio();
+        }
+       
+         void Start()
         {
         }
         public void PlaySound()
