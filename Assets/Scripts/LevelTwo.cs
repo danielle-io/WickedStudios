@@ -2,7 +2,7 @@
 
 namespace WickedStudios
 {
-    public class LevelTwo : Level
+    public class LevelTwo : Level 
     {
         public GameObject fallerCatcher;
         public static LevelTwo instance = null;
@@ -25,12 +25,10 @@ namespace WickedStudios
 
         public override int CheckLevelOver()
         {
-            // Player has closed 5 brackets or hit 5 wrong brackets
             if (GameManager.instance.GetPlayerPoints() <= -5)
             {
                 return -1;
             }
-            // Player has closed 5 brackets or hit 5 wrong brackets
             if (GameManager.instance.GetPlayerPoints() >= 5)
             {
                 return 1;
